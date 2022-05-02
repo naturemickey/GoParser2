@@ -4,9 +4,7 @@ import "io/ioutil"
 
 type scanner struct {
 	code   []rune
-	index  int
-	line   int
-	column int
+	cursor cursor
 }
 
 func NewScannerFromFile(filePath string) *scanner {
@@ -23,10 +21,15 @@ func NewScannerFromCode(code string) *scanner {
 }
 
 func (this *scanner) LA() rune {
-	return this.code[this.index]
+	char := this.code[this.cursor.index]
+	this.cursor.index++
+	return char
 }
 
 func (this *scanner) Next() bool {
-	this.index++
-	return this.index < len(this.code)
+	return this.cursor.index < len(this.code)
+}
+
+func (this *scanner) getTokenLiteral(from, to cursor) string {
+	return string(this.code[from.index:to.index])
 }

@@ -5,74 +5,10 @@ type nfa struct {
 	finish *state
 }
 
+var NFA = GoLexerNFA()
+
 func (this *nfa) SetType(type_ TokenType) {
 	this.finish.SetType(type_)
-}
-
-const e rune = 0
-
-type state struct {
-	isFinish bool
-	type_    TokenType
-	paths    []path
-}
-
-func (this *state) SetType(type_ TokenType) {
-	if type_ != GoLexerNone {
-		this.isFinish = true
-	}
-	this.type_ = type_
-}
-
-type path interface {
-}
-
-type charPath struct {
-	char rune
-	to   *state
-}
-
-type regPath struct {
-	regular func(rune) bool
-	to      *state
-}
-
-func pathEq(this, that path) bool {
-	if p1, ok := this.(*charPath); ok {
-		if p2, ok := that.(*charPath); ok {
-			return p1.char == p2.char && p1.to == p2.to
-		}
-	}
-	return false
-}
-
-func NewState() *state {
-	return &state{}
-}
-
-func NewFinishState() *state {
-	return &state{isFinish: true}
-}
-
-func NewStateWithType(type_ TokenType) *state {
-	if type_ == GoLexerNone {
-		return NewFinishState()
-	}
-	return &state{isFinish: true, type_: type_}
-}
-
-func (this *state) addCharPath(char rune, to *state) {
-	path := &charPath{char, to}
-	for _, p := range this.paths {
-		if pathEq(p, path) {
-			return
-		}
-	}
-	this.paths = append(this.paths, path)
-}
-
-func (this *state) addRegularPath(regular func(rune) bool, to *state) {
-	this.paths = append(this.paths, &regPath{regular, to})
 }
 
 func and(nfas ...*nfa) *nfa {
@@ -91,7 +27,7 @@ func and(nfas ...*nfa) *nfa {
 
 func or(nfas ...*nfa) *nfa {
 	start := NewState()
-	finish := NewFinishState()
+	finish := NewState()
 
 	for _, nfa := range nfas {
 		start.addCharPath(e, nfa.start)
@@ -249,12 +185,22 @@ func GoLexerNFA() *nfa {
 		New_RAW_STRING_LIT_nfa(),
 		New_INTERPRETED_STRING_LIT_nfa(),
 		// Hidden tokens
-		// WS         : [ \t]+  ; 不打算实现了
-		// TERMINATOR : [\r\n]+ ; 不打算实现了
+		New_WS_nfa(),
 		New_COMMENT_nfa(),
+		New_TERMINATOR_nfa(),
 		New_LINE_COMMENT_nfa(),
 	}
 	return or(nfas...)
+}
+
+func New_WS_nfa() *nfa {
+	// [ \t]+
+	return kc1(NewNfaWithChars(" \t", GoLexerWS))
+}
+
+func New_TERMINATOR_nfa() *nfa {
+	// [\r\n]+
+	return kc1(NewNfaWithChars("\\r\\n", GoLexerTERMINATOR))
 }
 
 func New_COMMENT_nfa() *nfa {

@@ -7,6 +7,10 @@ type token struct {
 	column  int
 }
 
+func NewToken(type_ TokenType, literal string, line int, column int) *token {
+	return &token{type_: type_, literal: literal, line: line, column: column}
+}
+
 type TokenType int
 
 const (
