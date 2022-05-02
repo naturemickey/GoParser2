@@ -19,6 +19,7 @@ func (this *state) accept(char rune) *stateSet {
 
 	for _, p := range this.paths {
 		if s, ok := p.accept(char); ok {
+			// states.merge(s.eqSet())
 			states.addState(s)
 		}
 	}
@@ -29,14 +30,18 @@ func (this *state) accept(char rune) *stateSet {
 func (this *state) eqSet() *stateSet {
 	states := &stateSet{}
 	states.addState(this)
+	_eqSet(states, this)
+	return states
+}
+
+func _eqSet(states *stateSet, this *state) {
 	for _, p := range this.paths {
 		if s, ok := p.accept(e); ok {
 			if states.addState(s) {
-				states.merge(s.eqSet())
+				_eqSet(states, s)
 			}
 		}
 	}
-	return states
 }
 
 func (this *state) SetType(type_ TokenType) {

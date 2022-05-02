@@ -27,6 +27,15 @@ func (this *stateSet) accept(char rune) *stateSet {
 		states.merge(s.accept(char))
 	}
 
+	return states.eqSet()
+}
+func (this *stateSet) eqSet() *stateSet {
+	states := &stateSet{}
+
+	for _, s := range this.set {
+		states.merge(s.eqSet())
+	}
+
 	return states
 }
 

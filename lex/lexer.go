@@ -5,8 +5,9 @@ import "fmt"
 type lexer struct {
 	currentState    *lexerState
 	lastFinishState *lexerState
-	fromState       *lexerState
+	from            cursor
 	scanner         *scanner
+	nfa             *nfa
 }
 
 type lexerState struct {
@@ -19,35 +20,42 @@ func (this *lexerState) clone() *lexerState {
 }
 
 func newLexerState() *lexerState {
-	return &lexerState{cursor: cursor{}, states: &stateSet{}}
+	return &lexerState{cursor: newCursor(), states: &stateSet{}}
 }
 
 func NewLexerWithFile(filepath string) *lexer {
+	return NewLexerWithFileInner(filepath, NFA)
+}
+
+func NewLexerWithFileInner(filepath string, nfa *nfa) *lexer {
 	currentState := newLexerState()
 	lastFinishState := (*lexerState)(nil)
-	fromState := newLexerState()
+	fromState := newCursor()
 	scanner := NewScannerFromFile(filepath)
-	return &lexer{currentState, lastFinishState, fromState, scanner}
+	return &lexer{currentState, lastFinishState, fromState, scanner, nfa}
 }
 
 func NewLexerWithCode(code string) *lexer {
+	return NewLexerWithCodeInner(code, NFA)
+}
+
+func NewLexerWithCodeInner(code string, nfa *nfa) *lexer {
 	currentState := newLexerState()
 	lastFinishState := (*lexerState)(nil)
-	fromState := newLexerState()
+	fromState := newCursor()
 	scanner := NewScannerFromCode(code)
-	return &lexer{currentState, lastFinishState, fromState, scanner}
+	return &lexer{currentState, lastFinishState, fromState, scanner, nfa}
 }
 
 func (this *lexer) NextToken() *token {
 	if this.lastFinishState != nil {
 		// 从上一次的结束开始
-		this.fromState.cursor = this.lastFinishState.cursor
+		this.from = this.lastFinishState.cursor
 		this.currentState.cursor = this.lastFinishState.cursor
 		this.scanner.cursor = this.lastFinishState.cursor
 	}
 	// 状态初始化
-	this.fromState.states = NFA.start.eqSet()
-	this.currentState.states = this.fromState.states
+	this.currentState.states = this.nfa.start.eqSet()
 	// 清空结束状态
 	this.lastFinishState = nil
 
@@ -76,7 +84,7 @@ func (this *lexer) NextToken() *token {
 	}
 
 	if this.lastFinishState != nil {
-		literal := this.scanner.getTokenLiteral(this.fromState.cursor, this.lastFinishState.cursor)
+		literal := this.scanner.getTokenLiteral(this.from, this.lastFinishState.cursor)
 		type_, _ := this.lastFinishState.states.isFinish()
 		return NewToken(type_, literal, this.lastFinishState.cursor.line, this.lastFinishState.cursor.column)
 	} else {

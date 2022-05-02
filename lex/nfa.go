@@ -11,7 +11,7 @@ func (this *nfa) SetType(type_ TokenType) {
 	this.finish.SetType(type_)
 }
 
-func and(nfas ...*nfa) *nfa {
+func And(nfas ...*nfa) *nfa {
 	var start *nfa
 	var n *nfa
 	for i, nfa := range nfas {
@@ -25,7 +25,7 @@ func and(nfas ...*nfa) *nfa {
 	return &nfa{start: start.start, finish: n.finish}
 }
 
-func or(nfas ...*nfa) *nfa {
+func Or(nfas ...*nfa) *nfa {
 	start := NewState()
 	finish := NewState()
 
@@ -38,20 +38,20 @@ func or(nfas ...*nfa) *nfa {
 }
 
 // 0个或更多
-func kc(nfa *nfa) *nfa {
+func Kc(nfa *nfa) *nfa {
 	nfa.start.addCharPath(e, nfa.finish)
 	nfa.finish.addCharPath(e, nfa.start)
 	return nfa
 }
 
 // 1个或更多
-func kc1(nfa *nfa) *nfa {
+func Kc1(nfa *nfa) *nfa {
 	nfa.finish.addCharPath(e, nfa.start)
 	return nfa
 }
 
 // 0个或1个
-func le1(nfa *nfa) *nfa {
+func Le1(nfa *nfa) *nfa {
 	nfa.start.addCharPath(e, nfa.finish)
 	return nfa
 }
@@ -67,14 +67,12 @@ func NewNfaWithChar(char rune, type_ TokenType) *nfa {
 func NewNfaWithString(str string, type_ TokenType) *nfa {
 	var nfas []*nfa
 	var chars = []rune(str)
-	for i, char := range chars {
-		if i < len(chars) {
-			nfas = append(nfas, NewNfaWithChar(char, GoLexerNone))
-		} else {
-			nfas = append(nfas, NewNfaWithChar(char, type_))
-		}
+	for _, char := range chars {
+		nfas = append(nfas, NewNfaWithChar(char, GoLexerNone))
 	}
-	return and(nfas...)
+	nfa := And(nfas...)
+	nfa.SetType(type_)
+	return nfa
 }
 
 // str每个字符or
@@ -83,7 +81,7 @@ func NewNfaWithChars(str string, type_ TokenType) *nfa {
 	for _, char := range []rune(str) {
 		nfas = append(nfas, NewNfaWithChar(char, type_))
 	}
-	return or(nfas...)
+	return Or(nfas...)
 }
 
 func NewNfaWithRegular(regular func(rune) bool, type_ TokenType) *nfa {
@@ -190,24 +188,24 @@ func GoLexerNFA() *nfa {
 		New_TERMINATOR_nfa(),
 		New_LINE_COMMENT_nfa(),
 	}
-	return or(nfas...)
+	return Or(nfas...)
 }
 
 func New_WS_nfa() *nfa {
 	// [ \t]+
-	return kc1(NewNfaWithChars(" \t", GoLexerWS))
+	return Kc1(NewNfaWithChars(" \t", GoLexerWS))
 }
 
 func New_TERMINATOR_nfa() *nfa {
 	// [\r\n]+
-	return kc1(NewNfaWithChars("\\r\\n", GoLexerTERMINATOR))
+	return Kc1(NewNfaWithChars("\r\n", GoLexerTERMINATOR))
 }
 
 func New_COMMENT_nfa() *nfa {
 	// '/*' .*? '*/'
-	nfa := and(
+	nfa := And(
 		NewNfaWithChars("/*", GoLexerNone),
-		le1(kc(
+		Le1(Kc(
 			NewNfaWithRegular(func(c rune) bool { return true }, GoLexerNone),
 		)),
 		NewNfaWithChars("*/", GoLexerNone),
@@ -218,9 +216,9 @@ func New_COMMENT_nfa() *nfa {
 
 func New_LINE_COMMENT_nfa() *nfa {
 	// '//' ~[\r\n]*
-	nfa := and(
+	nfa := And(
 		NewNfaWithChars("//", GoLexerNone),
-		kc(NewNfaWithRegular(func(c rune) bool {
+		Kc(NewNfaWithRegular(func(c rune) bool {
 			return c != '\r' && c != '\n'
 		}, GoLexerNone)),
 	)
@@ -230,9 +228,9 @@ func New_LINE_COMMENT_nfa() *nfa {
 
 func New_RAW_STRING_LIT_nfa() *nfa {
 	// '`' ~'`'* '`'
-	nfa := and(
+	nfa := And(
 		NewNfaWithChar('`', GoLexerNone),
-		kc(NewNfaWithRegular(func(c rune) bool {
+		Kc(NewNfaWithRegular(func(c rune) bool {
 			return c != '`'
 		}, GoLexerNone)),
 		NewNfaWithChar('`', GoLexerNone),
@@ -243,9 +241,9 @@ func New_RAW_STRING_LIT_nfa() *nfa {
 
 func New_INTERPRETED_STRING_LIT_nfa() *nfa {
 	// '"' (~["\\] | ESCAPED_VALUE)* '"'
-	nfa := and(
+	nfa := And(
 		NewNfaWithChar('"', GoLexerNone),
-		kc(or(
+		Kc(Or(
 			NewNfaWithRegular(func(c rune) bool {
 				return c != '"' && c != '\\'
 			}, GoLexerNone),
@@ -259,9 +257,9 @@ func New_INTERPRETED_STRING_LIT_nfa() *nfa {
 
 func NewIdentifierNfa() *nfa {
 	// LETTER (LETTER | UNICODE_DIGIT)*
-	nfa := and(
+	nfa := And(
 		new_LETTER_nfa(),
-		kc(or(
+		Kc(Or(
 			new_LETTER_nfa(),
 			new_UNICODE_DIGIT_nfa(),
 		)),
@@ -281,7 +279,7 @@ func New_DECIMAL_LIT_nfa() *nfa {
 
 	// '_'? :
 	nfa2 := NewNfaWithChar('_', GoLexerNone)
-	nfa2 = le1(nfa2)
+	nfa2 = Le1(nfa2)
 
 	// [0-9] :
 	nfa3 := NewNfaWithRegular(func(char rune) bool {
@@ -289,10 +287,10 @@ func New_DECIMAL_LIT_nfa() *nfa {
 	}, GoLexerNone)
 
 	// ('_'? [0-9])*
-	nfa4 := and(nfa2, nfa3)
-	nfa4 = kc(nfa4)
+	nfa4 := And(nfa2, nfa3)
+	nfa4 = Kc(nfa4)
 
-	nfa := or(nfa0, and(nfa1, nfa4))
+	nfa := Or(nfa0, And(nfa1, nfa4))
 	nfa.SetType(GoLexerDECIMAL_LIT)
 	return nfa
 }
@@ -300,12 +298,12 @@ func New_BINARY_LIT_nfa() *nfa {
 	// '0' [bB] ('_'? [01])+
 
 	// '_'? :
-	nfa_ := le1(NewNfaWithChar('_', GoLexerNone))
+	nfa_ := Le1(NewNfaWithChar('_', GoLexerNone))
 
 	// ('_'? [01])+
-	nfa := kc1(and(nfa_, NewNfaWithChars("01", GoLexerNone)))
+	nfa := Kc1(And(nfa_, NewNfaWithChars("01", GoLexerNone)))
 
-	nfa = and(
+	nfa = And(
 		NewNfaWithChar('0', GoLexerNone),
 		NewNfaWithChars("bB", GoLexerNone),
 		nfa,
@@ -315,11 +313,11 @@ func New_BINARY_LIT_nfa() *nfa {
 }
 func New_OCTAL_LIT_nfa() *nfa {
 	// '0' [oO]? ('_'? [0-7])+
-	nfa := or(
+	nfa := Or(
 		NewNfaWithChar('0', GoLexerNone),
-		le1(NewNfaWithChars("oO", GoLexerNone)),
-		kc1(and(
-			le1(NewNfaWithChar('_', GoLexerNone)),
+		Le1(NewNfaWithChars("oO", GoLexerNone)),
+		Kc1(And(
+			Le1(NewNfaWithChar('_', GoLexerNone)),
 			NewNfaWithRegular(func(c rune) bool {
 				return '0' <= c && c <= '7'
 			}, GoLexerNone),
@@ -330,11 +328,11 @@ func New_OCTAL_LIT_nfa() *nfa {
 }
 func New_HEX_LIT_nfa() *nfa {
 	// '0' [xX]  ('_'? HEX_DIGIT)+
-	nfa := and(
+	nfa := And(
 		NewNfaWithChar('0', GoLexerNone),
 		NewNfaWithChars("xX", GoLexerNone),
-		kc1(and(
-			le1(NewNfaWithChar('_', GoLexerNone)),
+		Kc1(And(
+			Le1(NewNfaWithChar('_', GoLexerNone)),
 			new_HEX_DIGIT_nfa(),
 		)),
 	)
@@ -349,7 +347,7 @@ func new_HEX_DIGIT_nfa() *nfa {
 }
 func New_FLOAT_LIT_nfa() *nfa {
 	// DECIMAL_FLOAT_LIT | HEX_FLOAT_LIT
-	nfa := or(
+	nfa := Or(
 		New_DECIMAL_FLOAT_LIT_nfa(),
 		New_HEX_FLOAT_LIT_nfa(),
 	)
@@ -359,22 +357,22 @@ func New_FLOAT_LIT_nfa() *nfa {
 func New_DECIMAL_FLOAT_LIT_nfa() *nfa {
 	// DECIMALS ('.' DECIMALS? EXPONENT? | EXPONENT)
 	// | '.' DECIMALS EXPONENT?
-	nfa := or(
-		and(
+	nfa := Or(
+		And(
 			new_DECIMALS_nfa(),
-			or(
-				and(
+			Or(
+				And(
 					NewNfaWithChar('.', GoLexerNone),
-					le1(new_DECIMALS_nfa()),
-					le1(new_EXPONENT_nfa()),
+					Le1(new_DECIMALS_nfa()),
+					Le1(new_EXPONENT_nfa()),
 				),
 				new_EXPONENT_nfa(),
 			),
 		),
-		and(
+		And(
 			NewNfaWithChar('.', GoLexerNone),
 			new_DECIMALS_nfa(),
-			le1(new_EXPONENT_nfa()),
+			Le1(new_EXPONENT_nfa()),
 		),
 	)
 	nfa.SetType(GoLexerDECIMAL_FLOAT_LIT)
@@ -384,43 +382,43 @@ func New_HEX_FLOAT_LIT_nfa() *nfa {
 	// HEX_FLOAT_LIT : '0' [xX] HEX_MANTISSA HEX_EXPONENT
 	// HEX_MANTISSA  : ('_'? HEX_DIGIT)+ ('.' ('_'? HEX_DIGIT)*)?
 	//               | '.' HEX_DIGIT ('_'? HEX_DIGIT)*;
-	HEX_MANTISSA := or(
+	HEX_MANTISSA := Or(
 		// ('_'? HEX_DIGIT)+ ('.' ('_'? HEX_DIGIT)*)?
-		and(
+		And(
 			// ('_'? HEX_DIGIT)+
-			kc1(and(
-				le1(NewNfaWithChar('_', GoLexerNone)),
+			Kc1(And(
+				Le1(NewNfaWithChar('_', GoLexerNone)),
 				new_HEX_DIGIT_nfa(),
 			)),
 			// ('.' ( '_'? HEX_DIGIT)*)?
-			le1(and(
+			Le1(And(
 				NewNfaWithChar('.', GoLexerNone),
-				kc(and(
-					le1(NewNfaWithChar('_', GoLexerNone)),
+				Kc(And(
+					Le1(NewNfaWithChar('_', GoLexerNone)),
 					new_HEX_DIGIT_nfa(),
 				)),
 			)),
 		),
 		// '.' HEX_DIGIT ('_'? HEX_DIGIT)*
-		and(
+		And(
 			NewNfaWithChar('.', GoLexerNone),
 			new_HEX_DIGIT_nfa(),
-			kc(and(
-				le1(NewNfaWithChar('_', GoLexerNone)),
+			Kc(And(
+				Le1(NewNfaWithChar('_', GoLexerNone)),
 				new_HEX_DIGIT_nfa(),
 			)),
 		),
 	)
 
 	// HEX_EXPONENT  : [pP] [+-]? DECIMALS;
-	HEX_EXPONENT := and(
+	HEX_EXPONENT := And(
 		NewNfaWithChars("pP", GoLexerNone),
-		le1(NewNfaWithChars("+-", GoLexerNone)),
+		Le1(NewNfaWithChars("+-", GoLexerNone)),
 		new_DECIMALS_nfa(),
 	)
 
 	// '0' [xX] HEX_MANTISSA HEX_EXPONENT
-	nfa := and(
+	nfa := And(
 		NewNfaWithChar('0', GoLexerNone),
 		NewNfaWithChars("xX", GoLexerNone),
 		HEX_MANTISSA,
@@ -431,8 +429,8 @@ func New_HEX_FLOAT_LIT_nfa() *nfa {
 }
 func New_IMAGINARY_LIT_nfa() *nfa {
 	// (DECIMAL_LIT | BINARY_LIT | OCTAL_LIT | HEX_LIT | FLOAT_LIT) 'i'
-	nfa := and(
-		or(
+	nfa := And(
+		Or(
 			New_DECIMAL_LIT_nfa(),
 			New_BINARY_LIT_nfa(),
 			New_OCTAL_LIT_nfa(),
@@ -446,9 +444,9 @@ func New_IMAGINARY_LIT_nfa() *nfa {
 }
 func New_RUNE_LIT_nfa() *nfa {
 	// '\'' (UNICODE_VALUE | BYTE_VALUE) '\''
-	nfa := and(
+	nfa := And(
 		NewNfaWithChar('\'', GoLexerNone),
-		or(
+		Or(
 			new_UNICODE_VALUE_nfa(),
 			New_BYTE_VALUE_nfa(),
 		),
@@ -459,7 +457,7 @@ func New_RUNE_LIT_nfa() *nfa {
 }
 func New_BYTE_VALUE_nfa() *nfa {
 	// OCTAL_BYTE_VALUE | HEX_BYTE_VALUE
-	nfa := or(
+	nfa := Or(
 		New_OCTAL_BYTE_VALUE_nfa(),
 		New_HEX_BYTE_VALUE_nfa(),
 	)
@@ -468,7 +466,7 @@ func New_BYTE_VALUE_nfa() *nfa {
 }
 func New_OCTAL_BYTE_VALUE_nfa() *nfa {
 	// '\\' OCTAL_DIGIT OCTAL_DIGIT OCTAL_DIGIT
-	nfa := and(
+	nfa := And(
 		NewNfaWithChar('\\', GoLexerNone),
 		new_OCTAL_DIGIT_nfa(),
 		new_OCTAL_DIGIT_nfa(),
@@ -479,7 +477,7 @@ func New_OCTAL_BYTE_VALUE_nfa() *nfa {
 }
 func New_HEX_BYTE_VALUE_nfa() *nfa {
 	// '\\' 'x'  HEX_DIGIT HEX_DIGIT
-	nfa := and(
+	nfa := And(
 		NewNfaWithChar('\\', GoLexerNone),
 		NewNfaWithChar('x', GoLexerNone),
 		new_HEX_DIGIT_nfa(),
@@ -490,7 +488,7 @@ func New_HEX_BYTE_VALUE_nfa() *nfa {
 }
 func New_LITTLE_U_VALUE_nfa() *nfa {
 	// '\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
-	nfa := and(
+	nfa := And(
 		NewNfaWithChar('\\', GoLexerNone),
 		NewNfaWithChar('u', GoLexerNone),
 		new_HEX_DIGIT_nfa(),
@@ -503,7 +501,7 @@ func New_LITTLE_U_VALUE_nfa() *nfa {
 }
 func New_BIG_U_VALUE_nfa() *nfa {
 	// '\\' 'U' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
-	nfa := and(
+	nfa := And(
 		NewNfaWithChar('\\', GoLexerNone),
 		NewNfaWithChar('U', GoLexerNone),
 		new_HEX_DIGIT_nfa(),
@@ -521,12 +519,12 @@ func New_BIG_U_VALUE_nfa() *nfa {
 
 func new_DECIMALS_nfa() *nfa {
 	// [0-9] ('_'? [0-9])*
-	return and(
+	return And(
 		NewNfaWithRegular(func(c rune) bool {
 			return '0' <= c && c <= '9'
 		}, GoLexerNone),
-		kc(and(
-			le1(NewNfaWithChar('_', GoLexerNone)),
+		Kc(And(
+			Le1(NewNfaWithChar('_', GoLexerNone)),
 			NewNfaWithRegular(func(c rune) bool {
 				return '0' <= c && c <= '9'
 			}, GoLexerNone),
@@ -536,9 +534,9 @@ func new_DECIMALS_nfa() *nfa {
 
 func new_EXPONENT_nfa() *nfa {
 	// [eE] [+-]? DECIMALS
-	return and(
+	return And(
 		NewNfaWithChars("eE", GoLexerNone),
-		le1(NewNfaWithChars("+-", GoLexerNone)),
+		Le1(NewNfaWithChars("+-", GoLexerNone)),
 		new_DECIMALS_nfa(),
 	)
 }
@@ -551,7 +549,7 @@ func new_OCTAL_DIGIT_nfa() *nfa {
 
 func new_UNICODE_VALUE_nfa() *nfa {
 	// ~[\r\n'] | LITTLE_U_VALUE | BIG_U_VALUE | ESCAPED_VALUE
-	return or(
+	return Or(
 		NewNfaWithRegular(func(c rune) bool {
 			return c != '\r' && c != '\n' && c != '\''
 		}, GoLexerNone),
@@ -567,11 +565,11 @@ func new_ESCAPED_VALUE_nfa() *nfa {
 	// | [abfnrtv\\'"]
 	// | OCTAL_DIGIT OCTAL_DIGIT OCTAL_DIGIT
 	// | 'x' HEX_DIGIT HEX_DIGIT)
-	return and(
+	return And(
 		NewNfaWithChar('\\', GoLexerNone),
-		or(
+		Or(
 			// 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
-			and(
+			And(
 				NewNfaWithChar('u', GoLexerNone),
 				new_HEX_DIGIT_nfa(),
 				new_HEX_DIGIT_nfa(),
@@ -579,7 +577,7 @@ func new_ESCAPED_VALUE_nfa() *nfa {
 				new_HEX_DIGIT_nfa(),
 			),
 			// 'U' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
-			and(
+			And(
 				NewNfaWithChar('U', GoLexerNone),
 				new_HEX_DIGIT_nfa(),
 				new_HEX_DIGIT_nfa(),
@@ -593,13 +591,13 @@ func new_ESCAPED_VALUE_nfa() *nfa {
 			// [abfnrtv\\'"]
 			NewNfaWithString("abfnrtv\\\\'\"", GoLexerNone),
 			// OCTAL_DIGIT OCTAL_DIGIT OCTAL_DIGIT
-			and(
+			And(
 				new_OCTAL_DIGIT_nfa(),
 				new_OCTAL_DIGIT_nfa(),
 				new_OCTAL_DIGIT_nfa(),
 			),
 			// 'x' HEX_DIGIT HEX_DIGIT
-			and(
+			And(
 				NewNfaWithChar('x', GoLexerNone),
 				new_HEX_DIGIT_nfa(),
 				new_HEX_DIGIT_nfa(),
@@ -655,7 +653,7 @@ func new_UNICODE_DIGIT_nfa() *nfa {
 
 func new_LETTER_nfa() *nfa {
 	// UNICODE_LETTER | '_'
-	return or(new_UNICODE_LETTER_nfa(), NewNfaWithChar('_', GoLexerNone))
+	return Or(new_UNICODE_LETTER_nfa(), NewNfaWithChar('_', GoLexerNone))
 }
 
 func new_UNICODE_LETTER_nfa() *nfa {

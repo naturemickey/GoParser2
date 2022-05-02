@@ -1,5 +1,7 @@
 package lex
 
+import "fmt"
+
 type token struct {
 	type_   TokenType
 	literal string
@@ -9,6 +11,10 @@ type token struct {
 
 func NewToken(type_ TokenType, literal string, line int, column int) *token {
 	return &token{type_: type_, literal: literal, line: line, column: column}
+}
+
+func (this *token) String() string {
+	return fmt.Sprintf("Token[type: %d, literal: \"%s\", line: %d, column: %d]", this.type_, this.literal, this.line, this.column)
 }
 
 type TokenType int

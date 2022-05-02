@@ -17,12 +17,18 @@ func NewScannerFromFile(filePath string) *scanner {
 }
 
 func NewScannerFromCode(code string) *scanner {
-	return &scanner{code: []rune(code)}
+	return &scanner{code: []rune(code), cursor: newCursor()}
 }
 
 func (this *scanner) LA() rune {
 	char := this.code[this.cursor.index]
 	this.cursor.index++
+	if char == '\n' {
+		this.cursor.line++
+		this.cursor.column = 0
+	} else {
+		this.cursor.column++
+	}
 	return char
 }
 
