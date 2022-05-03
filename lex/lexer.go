@@ -1,12 +1,12 @@
 package lex
 
 type Lexer struct {
-	tokens []*token
+	tokens []*Token
 	index  int
 }
 
 func NewLexer(lexeri *lexerInner) *Lexer {
-	var tokens []*token
+	var tokens []*Token
 	if token := lexeri._nextToken(); token != nil {
 		tokens = append(tokens, token)
 	}
@@ -30,11 +30,34 @@ func (this *Lexer) Recover(that *Lexer) {
 	this.index = that.index
 }
 
-func (this *Lexer) LA() *token {
-	return this.tokens[this.index]
+func (this *Lexer) LA() *Token {
+	return this._la(0)
 }
 
-func (this *Lexer) Pop() *token {
+func (this *Lexer) LA0() *Token {
+	return this._la(0)
+}
+
+func (this *Lexer) LA1() *Token {
+	return this._la(1)
+}
+
+func (this *Lexer) LA2() *Token {
+	return this._la(2)
+}
+
+func (this *Lexer) LA3() *Token {
+	return this._la(3)
+}
+
+func (this *Lexer) _la(i int) *Token {
+	if this.index+i < len(this.tokens) {
+		return this.tokens[this.index+i]
+	}
+	return nil
+}
+
+func (this *Lexer) Pop() *Token {
 	res := this.LA()
 	this.index++
 	return res

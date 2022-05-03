@@ -21,15 +21,16 @@ func NewSourceFile(packageClause *PackageClause, importDecls []*ImportDecl, fmds
 
 func VisitSourceFile(lexer *lex.Lexer) *SourceFile {
 	var packageClause = VisitPackageClause(lexer)
-	var importDecls []*ImportDecl
-	var fmds []IFunctionMethodDeclaration
 
 	if packageClause == nil {
 		fmt.Println("文件第一个部分必须是package语句")
 		return nil
 	}
 
-	for la := lexer.LA(); la.Type_() == lex.GoLexerIMPORT; {
+	var importDecls []*ImportDecl
+	var fmds []IFunctionMethodDeclaration
+
+	for la := lexer.LA(); la != nil && la.Type_() == lex.GoLexerIMPORT; {
 		importDecl := VisitImportDecl(*lexer)
 		if importDecl != nil {
 			importDecls = append(importDecls, importDecl)
@@ -38,22 +39,32 @@ func VisitSourceFile(lexer *lex.Lexer) *SourceFile {
 		}
 	}
 
-	for la := lexer.LA(); la.Type_() == lex.GoLexerFUNC || la.Type_() == lex.GoLexerVAR ||
-		la.Type_() == lex.GoLexerCONST || la.Type_() == lex.GoLexerTYPE; {
+	for la := lexer.LA(); la != nil && (la.Type_() == lex.GoLexerFUNC || la.Type_() == lex.GoLexerVAR ||
+		la.Type_() == lex.GoLexerCONST || la.Type_() == lex.GoLexerTYPE); {
 
 		if la.Type_() == lex.GoLexerFUNC {
-			functionDecl := VisitFunctionDecl(lexer)
-			if functionDecl != nil {
-				fmds = append(fmds, functionDecl)
-			} else {
+			la1 := lexer.LA1()
+			if la1 != nil && la1.Type_() == lex.GoLexerL_PAREN { // method
 				methodDecl := VisitMethodDecl(lexer)
 				if methodDecl != nil {
 					fmds = append(fmds, methodDecl)
 				} else {
-					fmt.Printf("看到了func关键字，但识别不到function或method的定义。 %s\n", la.ErrorMsg())
+					fmt.Printf("看到了func关键字，但识别不到method的定义。 %s\n", la.ErrorMsg())
 					return nil
 				}
+			} else if la1 != nil && la1.Type_() == lex.GoLexerIDENTIFIER { // function
+				functionDecl := VisitFunctionDecl(lexer)
+				if functionDecl != nil {
+					fmds = append(fmds, functionDecl)
+				} else {
+					fmt.Printf("看到了func关键字，但识别不到function的定义。 %s\n", la.ErrorMsg())
+					return nil
+				}
+			} else { // unknown, error
+				fmt.Printf("func关键字后面必须跟着函数名或者receiver。 %s\n", la.ErrorMsg())
+				return nil
 			}
+
 		} else if la.Type_() == lex.GoLexerVAR || la.Type_() == lex.GoLexerCONST || la.Type_() == lex.GoLexerTYPE {
 			declaration := VisitDeclaration(lexer)
 			if declaration != nil {

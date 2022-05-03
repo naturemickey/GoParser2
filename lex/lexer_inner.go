@@ -8,10 +8,10 @@ type lexerInner struct {
 	from            cursor
 	scanner         *scanner
 	nfa             *nfa
-	nextToken       *token
+	nextToken       *Token
 }
 
-func (this *lexerInner) LA() *token {
+func (this *lexerInner) LA() *Token {
 	res := this.nextToken
 	if res == nil {
 		this.nextToken = this._nextToken()
@@ -20,7 +20,7 @@ func (this *lexerInner) LA() *token {
 	return res
 }
 
-func (this *lexerInner) Pop() *token {
+func (this *lexerInner) Pop() *Token {
 	res := this.nextToken
 	this.nextToken = this._nextToken()
 
@@ -77,7 +77,7 @@ func NewLexerInnerWithCodeInner(code string, nfa *nfa) *lexerInner {
 		nfa:             nfa}
 }
 
-func (this *lexerInner) _nextToken() *token {
+func (this *lexerInner) _nextToken() *Token {
 	if this.lastFinishState != nil {
 		// 从上一次的结束开始
 		this.from = this.lastFinishState.cursor
