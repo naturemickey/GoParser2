@@ -9,13 +9,10 @@ func main() {
 		//lex.New_TERMINATOR_nfa()
 		lex.NewNfaWithString(".", lex.GoLexerDOT),
 	)
-	lexer := lex.NewLexerWithCodeInner(".", nfa)
+	lexer := lex.NewLexerInnerWithCodeInner(".", nfa)
 
-	for true {
-		token := lexer.NextToken()
-		if token == nil {
-			break
-		}
+	for token := lexer.Pop(); token != nil; {
 		println(token.String())
+		token = lexer.Pop()
 	}
 }

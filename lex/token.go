@@ -9,12 +9,32 @@ type token struct {
 	column  int
 }
 
+func (this *token) Type_() TokenType {
+	return this.type_
+}
+
+func (this *token) Literal() string {
+	return this.literal
+}
+
+func (this *token) Line() int {
+	return this.line
+}
+
+func (this *token) Column() int {
+	return this.column
+}
+
 func NewToken(type_ TokenType, literal string, line int, column int) *token {
 	return &token{type_: type_, literal: literal, line: line, column: column}
 }
 
 func (this *token) String() string {
 	return fmt.Sprintf("Token[type: %d, literal: \"%s\", line: %d, column: %d]", this.type_, this.literal, this.line, this.column)
+}
+
+func (this *token) ErrorMsg() string {
+	return fmt.Sprintf("at \"%s\", line: %d, column: %d]", this.literal, this.line, this.column)
 }
 
 type TokenType int

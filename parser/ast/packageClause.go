@@ -1,4 +1,10 @@
 package ast
 
-type packageClause struct {
+import "GoParser2/lex"
+
+type PackageClause struct {
+}
+
+func VisitPackageClause(lexer *lex.Lexer) *PackageClause {
+	panic("todo")
 }

@@ -3,14 +3,10 @@ package main
 import "GoParser2/lex"
 
 func main() {
-
 	lexer := lex.NewLexerWithCode(".")
 
-	for true {
-		token := lexer.NextToken()
-		if token == nil {
-			break
-		}
+	for token := lexer.Pop(); token != nil; {
 		println(token.String())
+		token = lexer.Pop()
 	}
 }
