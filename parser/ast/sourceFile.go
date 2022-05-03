@@ -27,16 +27,19 @@ func VisitSourceFile(lexer *lex.Lexer) *SourceFile {
 		return nil
 	}
 
+	VisitEos(lexer)
+
 	var importDecls []*ImportDecl
 	var fmds []IFunctionMethodDeclaration
 
 	for la := lexer.LA(); la != nil && la.Type_() == lex.GoLexerIMPORT; {
-		importDecl := VisitImportDecl(*lexer)
+		importDecl := VisitImportDecl(lexer)
 		if importDecl != nil {
 			importDecls = append(importDecls, importDecl)
 		} else {
 			break
 		}
+		VisitEos(lexer)
 	}
 
 	for la := lexer.LA(); la != nil && (la.Type_() == lex.GoLexerFUNC || la.Type_() == lex.GoLexerVAR ||
@@ -74,6 +77,14 @@ func VisitSourceFile(lexer *lex.Lexer) *SourceFile {
 				return nil
 			}
 		}
+		VisitEos(lexer)
 	}
+
+	la := lexer.LA()
+
+	if la != nil {
+		fmt.Printf("无法识别的语法元素，%s\n", la.ErrorMsg())
+	}
+
 	return NewSourceFile(packageClause, importDecls, fmds)
 }

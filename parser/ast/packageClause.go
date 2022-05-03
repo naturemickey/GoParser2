@@ -14,7 +14,6 @@ type PackageClause struct {
 func VisitPackageClause(lexer *lex.Lexer) *PackageClause {
 	package_ := lexer.LA()
 	if package_.Type_() != lex.GoLexerPACKAGE {
-		// 在个面有printf
 		return nil
 	}
 	lexer.Pop() // 把package扔掉

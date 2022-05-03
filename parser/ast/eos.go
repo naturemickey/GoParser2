@@ -5,6 +5,6 @@ import "GoParser2/lex"
 type Eos struct {
 }
 
-func VisitEos(lexer lex.Lexer) *Eos {
+func VisitEos(lexer *lex.Lexer) *Eos {
 	panic("todo")
 }

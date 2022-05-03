@@ -1,5 +1,7 @@
 package ast
 
+import "GoParser2/lex"
+
 type VarDecl struct {
 }
 
@@ -14,3 +16,7 @@ func (v VarDecl) __Declaration__() {
 }
 
 var _ Declaration = (*VarDecl)(nil)
+
+func VisitVarDecl(lexer *lex.Lexer) *VarDecl {
+	panic("todo")
+}
