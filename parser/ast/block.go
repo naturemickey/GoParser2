@@ -12,6 +12,13 @@ type Block struct {
 	rCurly        *lex.Token
 }
 
+func (b Block) __Statement__() {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ Statement = (*Block)(nil)
+
 func VisitBlock(lexer *lex.Lexer) *Block {
 	clone := lexer.Clone()
 	lCurly := lexer.LA()

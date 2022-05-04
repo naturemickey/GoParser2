@@ -13,6 +13,11 @@ type VarDecl struct {
 	rParen   *lex.Token
 }
 
+func (v VarDecl) __Statement__() {
+	//TODO implement me
+	panic("implement me")
+}
+
 func (v VarDecl) __IFunctionMethodDeclaration__() {
 	//TODO implement me
 	panic("implement me")

@@ -11,6 +11,11 @@ type TypeDecl struct {
 	typeSpecs []*TypeSpec
 }
 
+func (t TypeDecl) __Statement__() {
+	//TODO implement me
+	panic("implement me")
+}
+
 func (t TypeDecl) __IFunctionMethodDeclaration__() {
 	//TODO implement me
 	panic("implement me")

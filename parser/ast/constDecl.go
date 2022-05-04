@@ -11,6 +11,11 @@ type ConstDecl struct {
 	constSpecs []*ConstSpec
 }
 
+func (c ConstDecl) __Statement__() {
+	//TODO implement me
+	panic("implement me")
+}
+
 func (c ConstDecl) __IFunctionMethodDeclaration__() {
 	//TODO implement me
 	panic("implement me")
