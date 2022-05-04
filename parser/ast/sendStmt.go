@@ -22,5 +22,23 @@ func (s SendStmt) __SimpleStmt__() {
 var _ SimpleStmt = (*SendStmt)(nil)
 
 func VisitSendStmt(lexer *lex.Lexer) *SendStmt {
-	panic("todo")
+	clone := lexer.Clone()
+
+	channel := VisitExpression(lexer)
+	if channel == nil {
+		lexer.Recover(clone)
+		return nil
+	}
+	receive := lexer.LA()
+	if receive.Type_() != lex.GoLexerRECEIVE {
+		return nil
+	}
+	lexer.Pop()
+	expression := VisitExpression(lexer)
+	if expression == nil {
+		lexer.Recover(clone)
+		return nil
+	}
+
+	return &SendStmt{channel: channel, receive: receive, expression: expression}
 }

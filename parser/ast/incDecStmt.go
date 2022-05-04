@@ -3,6 +3,10 @@ package ast
 import "GoParser2/lex"
 
 type IncDecStmt struct {
+	// incDecStmt: expression (PLUS_PLUS | MINUS_MINUS);
+	expression *Expression
+	plusplus   *lex.Token
+	minusminus *lex.Token
 }
 
 func (i IncDecStmt) __Statement__() {
@@ -18,5 +22,20 @@ func (i IncDecStmt) __SimpleStmt__() {
 var _ SimpleStmt = (*IncDecStmt)(nil)
 
 func VisitIncDecStmt(lexer *lex.Lexer) *IncDecStmt {
-	panic("todo")
+	clone := lexer.Clone()
+
+	expression := VisitExpression(lexer)
+	if expression == nil {
+		lexer.Recover(clone)
+		return nil
+	}
+
+	la := lexer.LA()
+	if la.Type_() == lex.GoLexerPLUS_PLUS {
+		return &IncDecStmt{expression: expression, plusplus: la}
+	} else if la.Type_() == lex.GoLexerMINUS_MINUS {
+		return &IncDecStmt{expression: expression, minusminus: la}
+	} else {
+		return nil
+	}
 }
