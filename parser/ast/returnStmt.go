@@ -3,6 +3,9 @@ package ast
 import "GoParser2/lex"
 
 type ReturnStmt struct {
+	// returnStmt: RETURN expressionList?;
+	return_        *lex.Token
+	expressionList *ExpressionList
 }
 
 func (r ReturnStmt) __Statement__() {
@@ -13,5 +16,13 @@ func (r ReturnStmt) __Statement__() {
 var _ Statement = (*ReturnStmt)(nil)
 
 func VisitReturnStmt(lexer *lex.Lexer) *ReturnStmt {
-	panic("todo")
+	return_ := lexer.LA()
+	if return_.Type_() != lex.GoLexerRETURN {
+		return nil
+	}
+	lexer.Pop() // return_
+
+	expressionList := VisitExpressionList(lexer)
+
+	return &ReturnStmt{return_: return_, expressionList: expressionList}
 }

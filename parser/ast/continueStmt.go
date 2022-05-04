@@ -3,6 +3,9 @@ package ast
 import "GoParser2/lex"
 
 type ContinueStmt struct {
+	// continueStmt: CONTINUE IDENTIFIER?;
+	continue_  *lex.Token
+	identifier *lex.Token
 }
 
 func (c ContinueStmt) __Statement__() {
@@ -13,5 +16,18 @@ func (c ContinueStmt) __Statement__() {
 var _ Statement = (*ContinueStmt)(nil)
 
 func VisitContinueStmt(lexer *lex.Lexer) *ContinueStmt {
-	panic("todo")
+	continue_ := lexer.LA()
+	if continue_.Type_() != lex.GoLexerCONTINUE {
+		return nil
+	}
+	lexer.Pop() // continue_
+
+	identifier := lexer.LA()
+	if identifier.Type_() != lex.GoLexerIDENTIFIER {
+		identifier = nil
+	} else {
+		lexer.Pop()
+	}
+
+	return &ContinueStmt{continue_: continue_, identifier: identifier}
 }
