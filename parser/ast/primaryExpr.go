@@ -1,4 +1,10 @@
 package ast
 
-type primaryExpr struct {
+import "GoParser2/lex"
+
+type PrimaryExpr struct {
+}
+
+func VisitPrimaryExpr(lexer *lex.Lexer) *PrimaryExpr {
+	panic("todo")
 }

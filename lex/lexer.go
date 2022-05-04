@@ -57,8 +57,10 @@ func (this *Lexer) _la(i int) *Token {
 	return nil
 }
 
-func (this *Lexer) Pop() *Token {
-	res := this.LA()
-	this.index++
-	return res
+func (this *Lexer) Pop() bool {
+	if this.index < len(this.tokens) {
+		this.index++
+		return true
+	}
+	return false
 }

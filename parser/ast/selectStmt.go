@@ -3,6 +3,7 @@ package ast
 import "GoParser2/lex"
 
 type SelectStmt struct {
+	// selectStmt: SELECT L_CURLY commClause* R_CURLY;
 }
 
 func (s SelectStmt) __Statement__() {
