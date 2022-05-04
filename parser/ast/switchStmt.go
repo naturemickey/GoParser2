@@ -2,16 +2,17 @@ package ast
 
 import "GoParser2/lex"
 
-type SwitchStmt struct {
+type SwitchStmt interface {
+	Statement
+	__SwitchStmt__()
+
+	// switchStmt: exprSwitchStmt | typeSwitchStmt;
 }
 
-func (s SwitchStmt) __Statement__() {
-	//TODO implement me
-	panic("implement me")
-}
-
-var _ Statement = (*SwitchStmt)(nil)
-
-func VisitSwitchStmt(lexer *lex.Lexer) *SwitchStmt {
-	panic("todo")
+func VisitSwitchStmt(lexer *lex.Lexer) SwitchStmt {
+	exprSwitchStmt := VisitExprSwitchStmt(lexer)
+	if exprSwitchStmt != nil {
+		return exprSwitchStmt
+	}
+	return VisitSwitchStmt(lexer)
 }
