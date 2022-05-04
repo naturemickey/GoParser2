@@ -1,10 +1,37 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"fmt"
+)
 
 type TypeSpec struct {
+	// typeSpec: IDENTIFIER ASSIGN? type_;
+	identifier *lex.Token
+	assign     *lex.Token
+	type_      *Type_
 }
 
 func VisitTypeSpec(lexer *lex.Lexer) *TypeSpec {
-	panic("todo")
+	clone := lexer.Clone()
+
+	identifier := lexer.LA()
+	if identifier == nil {
+		return nil
+	}
+	lexer.Pop()
+
+	assign := lexer.LA()
+	if assign.Type_() != lex.GoLexerASSIGN {
+		assign = nil
+	}
+	type_ := VisitType_(lexer)
+
+	if type_ == nil {
+		fmt.Println("后面没看到类型的描述。%s\n", identifier.ErrorMsg())
+		lexer.Recover(clone)
+		return nil
+	}
+
+	return &TypeSpec{identifier: identifier, assign: assign, type_: type_}
 }
