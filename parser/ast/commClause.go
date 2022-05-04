@@ -1,4 +1,10 @@
 package ast
 
-type commClause struct {
+import "GoParser2/lex"
+
+type CommClause struct {
+}
+
+func VisitCommClause(lexer *lex.Lexer) *CommClause {
+	panic("todo")
 }

@@ -4,6 +4,10 @@ import "GoParser2/lex"
 
 type SelectStmt struct {
 	// selectStmt: SELECT L_CURLY commClause* R_CURLY;
+	select_     *lex.Token
+	lCurly      *lex.Token
+	commClauses []*CommClause
+	rCurly      *lex.Token
 }
 
 func (s SelectStmt) __Statement__() {
