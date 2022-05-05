@@ -3,6 +3,8 @@ package ast
 import "GoParser2/lex"
 
 type ChannelType struct {
+	// channelType: (ch=CHAN | ch_re=CHAN RECEIVE | re_ch=RECEIVE CHAN) elementType;
+	// elementType: type_;
 }
 
 func (c ChannelType) __TypeLit__() {
