@@ -1,8 +1,14 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"fmt"
+)
 
 type PointerType struct {
+	// pointerType: STAR type_;
+	star  *lex.Token
+	type_ *Type_
 }
 
 func (p PointerType) __TypeLit__() {
@@ -13,5 +19,20 @@ func (p PointerType) __TypeLit__() {
 var _ TypeLit = (*PointerType)(nil)
 
 func VisitPointerType(lexer *lex.Lexer) *PointerType {
-	panic("todo")
+	clone := lexer.Clone()
+
+	star := lexer.LA()
+	if star.Type_() != lex.GoLexerSTAR {
+		return nil
+	}
+	lexer.Pop() // star
+
+	type_ := VisitType_(lexer)
+	if type_ == nil {
+		fmt.Printf("'*'后面需要一个类型描述。%s\n", star.ErrorMsg())
+		lexer.Recover(clone)
+		return nil
+	}
+
+	return &PointerType{star: star, type_: type_}
 }

@@ -8,6 +8,13 @@ type TypeName struct {
 	identifier     *lex.Token
 }
 
+func (t TypeName) __IMethodspecOrTypename__() {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ IMethodspecOrTypename = (*TypeName)(nil)
+
 func VisitTypeName(lexer *lex.Lexer) *TypeName {
 	qualifiedIdent := VisitQualifiedIdent(lexer)
 	if qualifiedIdent == nil {
