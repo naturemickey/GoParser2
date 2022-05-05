@@ -3,6 +3,12 @@ package ast
 import "GoParser2/lex"
 
 type ForStmt struct {
+	// forStmt: FOR (expression | forClause | rangeClause)? block;
+	for_        *lex.Token
+	expression  *Expression
+	forClause   *ForClause
+	rangeClause *RangeClause
+	block       *Block
 }
 
 func (f ForStmt) __Statement__() {
@@ -13,5 +19,25 @@ func (f ForStmt) __Statement__() {
 var _ Statement = (*ForStmt)(nil)
 
 func VisitForStmt(lexer *lex.Lexer) *ForStmt {
-	panic("todo")
+	for_ := lexer.LA()
+	if for_.Type_() != lex.GoLexerFOR {
+		return nil
+	}
+	lexer.Pop() // for_
+
+	var expression *Expression
+	var forClause *ForClause
+	var rangeClause *RangeClause
+
+	rangeClause = VisitRangeClause(lexer)
+	if rangeClause == nil {
+		forClause = VisitForClause(lexer)
+		if forClause == nil {
+			expression = VisitExpression(lexer)
+		}
+	}
+
+	block := VisitBlock(lexer)
+
+	return &ForStmt{for_: for_, expression: expression, forClause: forClause, rangeClause: rangeClause, block: block}
 }
