@@ -1,4 +1,10 @@
 package ast
 
-type parameterDecl struct {
+import "GoParser2/lex"
+
+type ParameterDecl struct {
+}
+
+func VisitParameterDecl(lexer *lex.Lexer) *ParameterDecl {
+	panic("todo")
 }

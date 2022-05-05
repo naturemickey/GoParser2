@@ -11,5 +11,12 @@ type Signature struct {
 }
 
 func VisitSignature(lexer *lex.Lexer) *Signature {
-	panic("todo")
+	parameters := VisitParameters(lexer)
+	if parameters == nil {
+		return nil
+	}
+
+	result := VisitResult(lexer)
+
+	return &Signature{parameters: parameters, result: result}
 }
