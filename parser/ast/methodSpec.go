@@ -3,6 +3,12 @@ package ast
 import "GoParser2/lex"
 
 type MethodSpec struct {
+	// methodSpec:
+	//	IDENTIFIER parameters result
+	//	| IDENTIFIER parameters;
+	identifier *lex.Token
+	parameters *Parameters
+	result     *Result
 }
 
 func (m MethodSpec) __IMethodspecOrTypename__() {
