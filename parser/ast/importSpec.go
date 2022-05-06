@@ -4,8 +4,10 @@ import "GoParser2/lex"
 
 type ImportSpec struct {
 	// importSpec: alias = (DOT | IDENTIFIER)? importPath;
+	// importPath: string_;
+	// string_   : RAW_STRING_LIT | INTERPRETED_STRING_LIT;
 	alias      *lex.Token
-	importPath *String_
+	importPath *lex.Token
 }
 
 func VisitImportSpec(lexer *lex.Lexer) *ImportSpec {
@@ -19,10 +21,12 @@ func VisitImportSpec(lexer *lex.Lexer) *ImportSpec {
 		lexer.Pop()
 	}
 
-	importPath := VisitString(lexer)
-	if importPath == nil {
+	importPath := lexer.LA()
+	if importPath.Type_() != lex.GoLexerRAW_STRING_LIT &&
+		importPath.Type_() != lex.GoLexerINTERPRETED_STRING_LIT {
 		lexer.Recover(clone)
 		return nil
 	}
+
 	return &ImportSpec{alias: alias, importPath: importPath}
 }
