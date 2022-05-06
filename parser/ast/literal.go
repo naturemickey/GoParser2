@@ -1,4 +1,10 @@
 package ast
 
-type literal struct {
+import "GoParser2/lex"
+
+type Literal struct {
+}
+
+func VisitLiteral(lexer *lex.Lexer) *Literal {
+	panic("todo")
 }
