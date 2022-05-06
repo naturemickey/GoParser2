@@ -1,4 +1,10 @@
 package ast
 
-type slice struct {
+import "GoParser2/lex"
+
+type Slice struct {
+}
+
+func VisitSlice(lexer *lex.Lexer) *Slice {
+	panic("todo")
 }

@@ -1,4 +1,10 @@
 package ast
 
-type conversion struct {
+import "GoParser2/lex"
+
+type Conversion struct {
+}
+
+func VisitConversion(lexer *lex.Lexer) *Conversion {
+	panic("todo")
 }

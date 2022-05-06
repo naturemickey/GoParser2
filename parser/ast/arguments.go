@@ -1,4 +1,10 @@
 package ast
 
-type arguments struct {
+import "GoParser2/lex"
+
+type Arguments struct {
+}
+
+func VisitArguments(lexer *lex.Lexer) *Arguments {
+	panic("todo")
 }
