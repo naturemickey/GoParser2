@@ -7,7 +7,10 @@ type Lexer struct {
 
 func NewLexer(lexeri *lexerInner) *Lexer {
 	var tokens []*Token
-	if token := lexeri._nextToken(); token != nil {
+	for token := lexeri._nextToken(); token != nil; token = lexeri._nextToken() {
+		if token.Type_() == GoLexerCOMMENT || token.Type_() == GoLexerLINE_COMMENT {
+			continue
+		}
 		tokens = append(tokens, token)
 	}
 	return &Lexer{tokens: tokens, index: 0}
