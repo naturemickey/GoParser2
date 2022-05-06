@@ -52,6 +52,16 @@ type Expression struct {
 	logical_or  *lex.Token
 }
 
+func (e Expression) __Key__() {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (e Expression) __Element__() {
+	//TODO implement me
+	panic("implement me")
+}
+
 func (e Expression) __Statement__() {
 	//TODO implement me
 	panic("implement me")
@@ -68,6 +78,8 @@ func (e Expression) __ExpressionStmt__() {
 }
 
 var _ ExpressionStmt = (*Expression)(nil)
+var _ Element = (*Expression)(nil)
+var _ Key = (*Expression)(nil)
 
 func VisitExpression(lexer *lex.Lexer) *Expression {
 	clone := lexer.Clone()

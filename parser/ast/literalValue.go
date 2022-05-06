@@ -10,6 +10,19 @@ type LiteralValue struct {
 	rCurly      *lex.Token
 }
 
+func (l LiteralValue) __Key__() {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (l LiteralValue) __Element__() {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ Element = (*LiteralValue)(nil)
+var _ Key = (*LiteralValue)(nil)
+
 func VisitLiteralValue(lexer *lex.Lexer) *LiteralValue {
 	clone := lexer.Clone()
 
