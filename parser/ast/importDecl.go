@@ -8,35 +8,27 @@ import (
 type ImportDecl struct {
 	// importDecl: IMPORT (importSpec | L_PAREN (importSpec eos)* R_PAREN);
 	import_     *lex.Token
+	lParen      *lex.Token
 	importSpecs []*ImportSpec
+	rParen      *lex.Token
 }
 
 func VisitImportDecl(lexer *lex.Lexer) *ImportDecl {
+	clone := lexer.Clone()
+
 	import_ := lexer.LA()
 	if import_.Type_() != lex.GoLexerIMPORT {
+		lexer.Recover(clone)
 		return nil
 	}
-	lexer.Pop() // 丢弃import关键字
-
-	la := lexer.LA()
-	hasParen := false
-	if la.Type_() == lex.GoLexerL_PAREN {
-		hasParen = true
-		lexer.Pop() // 丢弃左括号
-	}
+	lexer.Pop() // import_
 
 	var importSpecs []*ImportSpec
 
-	if !hasParen {
-		// 如果没有括号，则后面一定有一个importSpec
-		importSpec := VisitImportSpec(lexer)
-		if importSpec == nil {
-			fmt.Printf("import后面没看到路径描述，%s\n", la.ErrorMsg())
-			return nil
-		} else {
-			importSpecs = append(importSpecs, importSpec)
-		}
-	} else {
+	lParen := lexer.LA()
+	if lParen.Type_() == lex.GoLexerL_PAREN {
+		lexer.Pop() // 丢弃左括号
+
 		for true {
 			importSpec := VisitImportSpec(lexer)
 			if importSpec != nil {
@@ -47,12 +39,25 @@ func VisitImportDecl(lexer *lex.Lexer) *ImportDecl {
 			}
 		}
 
-		la := lexer.LA()
-		if la.Type_() != lex.GoLexerR_PAREN {
-			fmt.Printf("有左括号，但没找到右括号。%s\n", la.ErrorMsg())
+		rParen := lexer.LA()
+		if rParen.Type_() != lex.GoLexerR_PAREN {
+			fmt.Printf("此处应该是一个')'才对。%s\n", rParen.ErrorMsg())
+			lexer.Recover(clone)
 			return nil
 		}
+		lexer.Pop() // rParen
+
+		return &ImportDecl{import_: import_, lParen: lParen, importSpecs: importSpecs, rParen: rParen}
+	} else {
+		importSpec := VisitImportSpec(lexer)
+		if importSpec == nil {
+			fmt.Printf("import后面没看到路径描述，%s\n", import_.ErrorMsg())
+			lexer.Recover(clone)
+			return nil
+		} else {
+			importSpecs = append(importSpecs, importSpec)
+		}
+		return &ImportDecl{import_: import_, importSpecs: importSpecs}
 	}
 
-	return &ImportDecl{import_: import_, importSpecs: importSpecs}
 }

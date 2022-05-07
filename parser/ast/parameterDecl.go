@@ -17,6 +17,8 @@ func VisitParameterDecl(lexer *lex.Lexer) *ParameterDecl {
 	ellipsis := lexer.LA()
 	if ellipsis.Type_() == lex.GoLexerELLIPSIS {
 		lexer.Pop() // ellipsis
+	} else {
+		ellipsis = nil
 	}
 	type_ := VisitType_(lexer)
 	if type_ == nil {

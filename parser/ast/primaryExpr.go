@@ -76,6 +76,7 @@ func _tryVisitSuffix(lexer *lex.Lexer) *PrimaryExprSuffix {
 	dot := lexer.LA()
 	if dot.Type_() == lex.GoLexerDOT {
 		lexer.Pop() // dot
+
 		identifier := lexer.LA()
 		if identifier.Type_() == lex.GoLexerIDENTIFIER {
 			lexer.Pop() // identifier

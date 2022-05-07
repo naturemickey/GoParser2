@@ -8,7 +8,8 @@ type Lexer struct {
 func NewLexer(lexeri *lexerInner) *Lexer {
 	var tokens []*Token
 	for token := lexeri._nextToken(); token != nil; token = lexeri._nextToken() {
-		if token.Type_() == GoLexerCOMMENT || token.Type_() == GoLexerLINE_COMMENT {
+		if token.Type_() == GoLexerCOMMENT || token.Type_() == GoLexerLINE_COMMENT ||
+			token.Type_() == GoLexerWS || token.Type_() == GoLexerTERMINATOR {
 			continue
 		}
 		tokens = append(tokens, token)

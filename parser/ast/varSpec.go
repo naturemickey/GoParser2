@@ -30,7 +30,7 @@ func VisitVarSpec(lexer *lex.Lexer) *VarSpec {
 	if type_ != nil {
 		assign := lexer.LA()
 		if assign.Type_() == lex.GoLexerASSIGN {
-			lexer.Pop()
+			lexer.Pop() // assign
 			expressionList := VisitExpressionList(lexer)
 			if expressionList == nil {
 				lexer.Recover(clone)
@@ -47,7 +47,7 @@ func VisitVarSpec(lexer *lex.Lexer) *VarSpec {
 			lexer.Recover(clone)
 			return nil
 		}
-		lexer.Pop()
+		lexer.Pop() // assign
 		expressionList := VisitExpressionList(lexer)
 		if expressionList == nil {
 			lexer.Recover(clone)

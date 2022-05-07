@@ -15,20 +15,20 @@ type ExprSwitchCase struct {
 func VisitExprSwitchCase(lexer *lex.Lexer) *ExprSwitchCase {
 	clone := lexer.Clone()
 
-	la := lexer.LA()
+	case_ := lexer.LA()
 
-	if la.Type_() == lex.GoLexerCASE {
-		lexer.Pop() // la
+	if case_.Type_() == lex.GoLexerCASE {
+		lexer.Pop() // case_
 		expressionList := VisitExpressionList(lexer)
 		if expressionList == nil {
-			fmt.Printf("case后面要有表达式。%s\n", la.ErrorMsg())
+			fmt.Printf("case后面要有表达式。%s\n", case_.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}
-		return &ExprSwitchCase{case_: la, expressionList: expressionList}
-	} else if la.Type_() == lex.GoLexerDEFAULT {
-		lexer.Pop() // la
-		return &ExprSwitchCase{default_: la}
+		return &ExprSwitchCase{case_: case_, expressionList: expressionList}
+	} else if case_.Type_() == lex.GoLexerDEFAULT {
+		lexer.Pop() // default
+		return &ExprSwitchCase{default_: case_}
 	} else {
 		return nil
 	}

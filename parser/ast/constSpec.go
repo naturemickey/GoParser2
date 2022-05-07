@@ -32,6 +32,7 @@ func VisitConstSpec(lexer *lex.Lexer) *ConstSpec {
 		assign = nil
 		return &ConstSpec{identifierList: identifierList}
 	}
+	lexer.Pop() // assign
 
 	expressionList := VisitExpressionList(lexer)
 	if expressionList == nil {

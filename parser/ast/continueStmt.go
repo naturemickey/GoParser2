@@ -26,7 +26,7 @@ func VisitContinueStmt(lexer *lex.Lexer) *ContinueStmt {
 	if identifier.Type_() != lex.GoLexerIDENTIFIER {
 		identifier = nil
 	} else {
-		lexer.Pop()
+		lexer.Pop() // identifier
 	}
 
 	return &ContinueStmt{continue_: continue_, identifier: identifier}

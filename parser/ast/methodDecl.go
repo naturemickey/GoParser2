@@ -7,7 +7,7 @@ import (
 
 type MethodDecl struct {
 	// methodDecl: FUNC receiver IDENTIFIER ( signature block?);
-	funcToken  *lex.Token
+	func_      *lex.Token
 	receiver   *Receiver
 	identifier *lex.Token
 	signature  *Signature
@@ -24,15 +24,15 @@ var _ IFunctionMethodDeclaration = (*MethodDecl)(nil)
 func VisitMethodDecl(lexer *lex.Lexer) *MethodDecl {
 	clone := lexer.Clone()
 
-	funcToken := lexer.LA()
-	if funcToken.Type_() != lex.GoLexerFUNC {
+	func_ := lexer.LA()
+	if func_.Type_() != lex.GoLexerFUNC {
 		return nil
 	}
 	lexer.Pop()
 
 	receiver := VisitReceiver(lexer)
 	if receiver == nil {
-		fmt.Printf("func后面没看到receiver定义。%s\n", funcToken.ErrorMsg())
+		fmt.Printf("func后面没看到receiver定义。%s\n", func_.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}
@@ -42,7 +42,7 @@ func VisitMethodDecl(lexer *lex.Lexer) *MethodDecl {
 		lexer.Recover(clone)
 		return nil
 	}
-	lexer.Pop()
+	lexer.Pop() // identifier
 
 	signature := VisitSignature(lexer)
 	if signature == nil {
@@ -54,5 +54,5 @@ func VisitMethodDecl(lexer *lex.Lexer) *MethodDecl {
 	block := VisitBlock(lexer)
 	// todo 看一下定义上为什么block可以为nil的？
 
-	return &MethodDecl{funcToken: funcToken, receiver: receiver, identifier: identifier, signature: signature, block: block}
+	return &MethodDecl{func_: func_, receiver: receiver, identifier: identifier, signature: signature, block: block}
 }

@@ -81,7 +81,6 @@ func VisitSourceFile(lexer *lex.Lexer) *SourceFile {
 	}
 
 	la := lexer.LA()
-
 	if la != nil {
 		fmt.Printf("无法识别的语法元素，%s\n", la.ErrorMsg())
 	}

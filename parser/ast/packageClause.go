@@ -23,6 +23,7 @@ func VisitPackageClause(lexer *lex.Lexer) *PackageClause {
 		fmt.Printf("package后面需要跟着一个id做为包名， %s", packageName.ErrorMsg())
 		return nil
 	}
+	lexer.Pop()
 
 	return &PackageClause{package_: package_, packageName: packageName}
 }

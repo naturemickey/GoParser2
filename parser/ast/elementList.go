@@ -24,6 +24,8 @@ func VisitElementList(lexer *lex.Lexer) *ElementList {
 		if comma.Type_() != lex.GoLexerCOMMA {
 			break
 		}
+		lexer.Pop() // comma
+
 		keyedElement := VisitKeyedElement(lexer)
 		if keyedElement == nil {
 			lexer.Recover(clone)

@@ -69,6 +69,8 @@ func VisitIfStmt(lexer *lex.Lexer) *IfStmt {
 
 	else_ := lexer.LA()
 	if else_ != nil {
+		lexer.Pop() // else_
+
 		ifStmt := VisitIfStmt(lexer)
 		if ifStmt != nil {
 			return &IfStmt{if_: if_, expression: expression, simpleStmt: simpleStmt, block: block, else_: else_, ifStmt: ifStmt}

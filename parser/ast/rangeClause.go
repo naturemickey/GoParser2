@@ -33,6 +33,8 @@ func VisitRangeClause(lexer *lex.Lexer) *RangeClause {
 				identifierList = nil
 				declare_assign = nil
 				lexer.Recover(clone)
+			} else {
+				lexer.Pop() // declare_assign
 			}
 		}
 	} else {
@@ -41,6 +43,8 @@ func VisitRangeClause(lexer *lex.Lexer) *RangeClause {
 			assign = nil
 			expressionList = nil
 			lexer.Recover(clone)
+		} else {
+			lexer.Pop() // assign
 		}
 	}
 
@@ -48,6 +52,7 @@ func VisitRangeClause(lexer *lex.Lexer) *RangeClause {
 	if range_.Type_() != lex.GoLexerRANGE {
 		return nil
 	}
+	lexer.Pop()
 
 	expression := VisitExpression(lexer)
 

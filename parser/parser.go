@@ -5,7 +5,7 @@ import (
 	"GoParser2/parser/ast"
 )
 
-func parse(filepath string) *ast.SourceFile {
+func Parse(filepath string) *ast.SourceFile {
 	lexer := lex.NewLexerWithFile(filepath)
 	return ast.VisitSourceFile(lexer)
 }

@@ -39,6 +39,8 @@ func VisitLiteralValue(lexer *lex.Lexer) *LiteralValue {
 		comma = lexer.LA()
 		if comma.Type_() != lex.GoLexerCOMMA {
 			comma = nil
+		} else {
+			lexer.Pop() // comma
 		}
 	}
 

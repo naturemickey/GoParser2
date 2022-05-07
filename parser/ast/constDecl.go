@@ -8,7 +8,9 @@ import (
 type ConstDecl struct {
 	// constDecl: CONST (constSpec | L_PAREN (constSpec eos)* R_PAREN);
 	const_     *lex.Token
+	lParen     *lex.Token
 	constSpecs []*ConstSpec
+	rParen     *lex.Token
 }
 
 func (c ConstDecl) __Statement__() {
@@ -35,22 +37,24 @@ func VisitConstDecl(lexer *lex.Lexer) *ConstDecl {
 	}
 	lexer.Pop()
 
-	la := lexer.LA()
-	hasParen := false
-	if la.Type_() == lex.GoLexerL_PAREN {
-		hasParen = true
+	lParen := lexer.LA()
+	if lParen.Type_() == lex.GoLexerL_PAREN {
 		lexer.Pop()
+	} else {
+		lParen = nil
 	}
 
 	var constSpecs []*ConstSpec
 
-	if !hasParen {
+	if lParen == nil {
 		constSpec := VisitConstSpec(lexer)
 		if constSpec == nil {
 			fmt.Printf("const后面跟的东西不对。%s\n")
 			return nil
 		}
 		constSpecs = append(constSpecs, constSpec)
+
+		return &ConstDecl{const_: const_, constSpecs: constSpecs}
 	} else {
 		for true {
 			constSpec := VisitConstSpec(lexer)
@@ -62,12 +66,13 @@ func VisitConstDecl(lexer *lex.Lexer) *ConstDecl {
 			}
 		}
 
-		la := lexer.LA()
-		if la.Type_() != lex.GoLexerR_PAREN {
-			fmt.Printf("有左括号，但没找到右括号。%s\n", la.ErrorMsg())
+		rParen := lexer.LA()
+		if rParen.Type_() != lex.GoLexerR_PAREN {
+			fmt.Printf("有左括号，但没找到右括号。%s\n", rParen.ErrorMsg())
 			return nil
 		}
-	}
+		lexer.Pop()
 
-	return &ConstDecl{const_: const_, constSpecs: constSpecs}
+		return &ConstDecl{const_: const_, lParen: lParen, constSpecs: constSpecs, rParen: rParen}
+	}
 }

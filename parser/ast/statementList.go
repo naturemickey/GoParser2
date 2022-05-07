@@ -18,6 +18,8 @@ func VisitStatementList(lexer *lex.Lexer) *StatementList {
 		statement := VisitStatement(lexer)
 		if statement != nil {
 			statements = append(statements, statement)
+		} else {
+			break
 		}
 	}
 	VisitEos(lexer)

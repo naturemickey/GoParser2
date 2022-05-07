@@ -43,6 +43,7 @@ func VisitParameters(lexer *lex.Lexer) *Parameters {
 		lexer.Recover(clone)
 		return nil
 	}
+	lexer.Pop() // rParen
 
 	return &Parameters{lParen: lParen, parameterDecls: parameterDecls, rParen: rParen}
 }

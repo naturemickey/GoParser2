@@ -27,6 +27,8 @@ func VisitTypeList(lexer *lex.Lexer) *TypeList {
 		if comma.Type_() != lex.GoLexerCOMMA {
 			break
 		}
+		lexer.Pop() // comma
+
 		type_, ok := _visitTypeOrNil(lexer)
 		if !ok {
 			fmt.Printf("逗号后面需要跟着另外一个类型（或nil）。%s\n", comma.ErrorMsg())
@@ -44,6 +46,7 @@ func _visitTypeOrNil(lexer *lex.Lexer) (*Type_, bool) {
 		lexer.Pop()
 		return nil, true
 	}
+
 	type_ := VisitType_(lexer)
 	if type_ != nil {
 		return type_, true

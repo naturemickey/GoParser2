@@ -25,7 +25,7 @@ func VisitStructType(lexer *lex.Lexer) *StructType {
 		lexer.Recover(clone)
 		return nil
 	}
-	lexer.Pop()
+	lexer.Pop() // struct_
 
 	lCurly := lexer.LA()
 	if lCurly.Type_() != lex.GoLexerL_CURLY {

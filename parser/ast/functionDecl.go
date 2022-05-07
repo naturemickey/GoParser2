@@ -7,7 +7,7 @@ import (
 
 type FunctionDecl struct {
 	// functionDecl: FUNC IDENTIFIER (signature block?);
-	funcToken  *lex.Token
+	func_      *lex.Token
 	identifier *lex.Token
 	signature  *Signature
 	block      *Block
@@ -23,18 +23,18 @@ var _ IFunctionMethodDeclaration = (*FunctionDecl)(nil)
 func VisitFunctionDecl(lexer *lex.Lexer) *FunctionDecl {
 	clone := lexer.Clone()
 
-	funcToken := lexer.LA()
-	if funcToken.Type_() != lex.GoLexerFUNC {
+	func_ := lexer.LA()
+	if func_.Type_() != lex.GoLexerFUNC {
 		return nil
 	}
-	lexer.Pop()
+	lexer.Pop() // func_
 
 	identifier := lexer.LA()
 	if identifier.Type_() != lex.GoLexerIDENTIFIER {
 		lexer.Recover(clone)
 		return nil
 	}
-	lexer.Pop()
+	lexer.Pop() // identifier
 
 	signature := VisitSignature(lexer)
 	if signature == nil {
@@ -46,5 +46,5 @@ func VisitFunctionDecl(lexer *lex.Lexer) *FunctionDecl {
 	block := VisitBlock(lexer)
 	// todo 看一下定义上为什么block可以为nil的？
 
-	return &FunctionDecl{funcToken: funcToken, identifier: identifier, signature: signature, block: block}
+	return &FunctionDecl{func_: func_, identifier: identifier, signature: signature, block: block}
 }

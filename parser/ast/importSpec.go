@@ -18,7 +18,7 @@ func VisitImportSpec(lexer *lex.Lexer) *ImportSpec {
 	if alias.Type_() != lex.GoLexerDOT && alias.Type_() != lex.GoLexerIDENTIFIER {
 		alias = nil
 	} else {
-		lexer.Pop()
+		lexer.Pop() // alias
 	}
 
 	importPath := lexer.LA()
@@ -27,6 +27,7 @@ func VisitImportSpec(lexer *lex.Lexer) *ImportSpec {
 		lexer.Recover(clone)
 		return nil
 	}
+	lexer.Pop() // importPath
 
 	return &ImportSpec{alias: alias, importPath: importPath}
 }

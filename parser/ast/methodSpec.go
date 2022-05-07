@@ -28,6 +28,7 @@ func VisitMethodSpec(lexer *lex.Lexer) *MethodSpec {
 	if identifier.Type_() != lex.GoLexerIDENTIFIER {
 		return nil
 	}
+	lexer.Pop() // identifier
 
 	parameters := VisitParameters(lexer)
 	if parameters == nil {

@@ -71,6 +71,8 @@ func VisitArguments(lexer *lex.Lexer) *Arguments {
 		lexer.Recover(clone)
 		return nil
 	}
+	lexer.Pop() // rParen
+
 	return &Arguments{lParen: lParen, expressionList: expressionList, nonNamedType: nonNamedType, comma: comma, ellipsis: ellipsis,
 		comma2: comma2, rParen: rParen}
 }

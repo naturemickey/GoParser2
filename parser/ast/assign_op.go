@@ -31,32 +31,12 @@ func VisitAssign_op(lexer *lex.Lexer) *Assign_op {
 		lexer.Pop()
 		return &Assign_op{assign: la}
 	} else {
-		lexer.Pop()
-
 		var prefix *lex.Token
 		switch la.Type_() {
-		case lex.GoLexerPLUS:
-			fallthrough
-		case lex.GoLexerMINUS:
-			fallthrough
-		case lex.GoLexerOR:
-			fallthrough
-		case lex.GoLexerCARET:
-			fallthrough
-		case lex.GoLexerSTAR:
-			fallthrough
-		case lex.GoLexerDIV:
-			fallthrough
-		case lex.GoLexerMOD:
-			fallthrough
-		case lex.GoLexerLSHIFT:
-			fallthrough
-		case lex.GoLexerRSHIFT:
-			fallthrough
-		case lex.GoLexerAMPERSAND:
-			fallthrough
-		case lex.GoLexerBIT_CLEAR:
+		case lex.GoLexerPLUS, lex.GoLexerMINUS, lex.GoLexerOR, lex.GoLexerCARET, lex.GoLexerSTAR,
+			lex.GoLexerDIV, lex.GoLexerMOD, lex.GoLexerLSHIFT, lex.GoLexerRSHIFT, lex.GoLexerAMPERSAND, lex.GoLexerBIT_CLEAR:
 			prefix = la
+			lexer.Pop() // prefix
 		default:
 			lexer.Recover(clone)
 			return nil
@@ -68,6 +48,7 @@ func VisitAssign_op(lexer *lex.Lexer) *Assign_op {
 			lexer.Recover(clone)
 			return nil
 		}
+		lexer.Pop()
 
 		return &Assign_op{prefix: prefix, assign: la}
 	}

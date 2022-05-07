@@ -37,7 +37,7 @@ func VisitVarDecl(lexer *lex.Lexer) *VarDecl {
 	if var_.Type_() != lex.GoLexerVAR {
 		return nil
 	}
-	lexer.Pop()
+	lexer.Pop() // var_
 
 	lParen := lexer.LA()
 	if lParen.Type_() != lex.GoLexerL_PAREN {
@@ -71,6 +71,7 @@ func VisitVarDecl(lexer *lex.Lexer) *VarDecl {
 			lexer.Recover(clone)
 			return nil
 		}
+		lexer.Pop()
 		return &VarDecl{var_: var_, lParen: lParen, varSpecs: varSpecs, rParen: rParen}
 	}
 }

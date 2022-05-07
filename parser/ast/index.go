@@ -30,7 +30,7 @@ func VisitIndex(lexer *lex.Lexer) *Index {
 		lexer.Recover(clone)
 		return nil
 	}
-	lexer.Pop()
+	lexer.Pop() // rBracket
 
 	return &Index{lBracket: lBracket, expression: expression, rBracket: rBracket}
 }

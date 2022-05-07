@@ -35,6 +35,7 @@ func VisitInterfaceType(lexer *lex.Lexer) *InterfaceType {
 		lexer.Recover(clone)
 		return nil
 	}
+	lexer.Pop() // lCurly
 
 	var methodOrType_s []IMethodspecOrTypename
 	for {
@@ -57,6 +58,7 @@ func VisitInterfaceType(lexer *lex.Lexer) *InterfaceType {
 		lexer.Recover(clone)
 		return nil
 	}
+	lexer.Pop() // rCurly
 
 	return &InterfaceType{interface_: interface_, lCurly: lCurly, methodOrType_s: methodOrType_s, rCurly: rCurly}
 }

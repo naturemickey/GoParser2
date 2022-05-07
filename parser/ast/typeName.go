@@ -22,6 +22,7 @@ func VisitTypeName(lexer *lex.Lexer) *TypeName {
 		if identifier.Type_() != lex.GoLexerIDENTIFIER {
 			return nil
 		}
+		lexer.Pop() // identifier
 		return &TypeName{identifier: identifier}
 	}
 	return &TypeName{qualifiedIdent: qualifiedIdent}

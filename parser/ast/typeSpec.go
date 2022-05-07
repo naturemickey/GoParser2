@@ -25,6 +25,8 @@ func VisitTypeSpec(lexer *lex.Lexer) *TypeSpec {
 	if assign.Type_() != lex.GoLexerASSIGN {
 		assign = nil
 	}
+	lexer.Pop() // assign
+
 	type_ := VisitType_(lexer)
 
 	if type_ == nil {

@@ -23,7 +23,7 @@ func VisitDeferStmt(lexer *lex.Lexer) *DeferStmt {
 	if defer_.Type_() != lex.GoLexerDEFER {
 		return nil
 	}
-	lexer.Pop()
+	lexer.Pop() // defer_
 
 	expression := VisitExpression(lexer)
 	if expression == nil {

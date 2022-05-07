@@ -32,8 +32,10 @@ func VisitIncDecStmt(lexer *lex.Lexer) *IncDecStmt {
 
 	la := lexer.LA()
 	if la.Type_() == lex.GoLexerPLUS_PLUS {
+		lexer.Pop()
 		return &IncDecStmt{expression: expression, plusplus: la}
 	} else if la.Type_() == lex.GoLexerMINUS_MINUS {
+		lexer.Pop()
 		return &IncDecStmt{expression: expression, minusminus: la}
 	} else {
 		return nil

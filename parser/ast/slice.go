@@ -62,6 +62,7 @@ func VisitSlice(lexer *lex.Lexer) *Slice {
 		lexer.Recover(clone)
 		return nil
 	}
+	lexer.Pop() // rBracket
 
 	return &Slice{lBracket: lBracket, rBracket: rBracket, colon1: colon1, colon2: colon2,
 		expression1: expression1, expression2: expression2, expression3: expression3}
