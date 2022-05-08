@@ -16,6 +16,7 @@ type IfStmt struct {
 
 	if_ *lex.Token
 
+	semi       *lex.Token // eos
 	expression *Expression
 	simpleStmt SimpleStmt
 
@@ -47,21 +48,39 @@ func VisitIfStmt(lexer *lex.Lexer) *IfStmt {
 	}
 	lexer.Pop() // if_
 
-	VisitEos(lexer)
-
-	expression := VisitExpression(lexer)
+	var expression *Expression
 	var simpleStmt SimpleStmt
-	if expression == nil {
-		simpleStmt = VisitSimpleStmt(lexer)
-		if simpleStmt == nil {
-			lexer.Recover(clone)
-			return nil
-		}
-		VisitEos(lexer)
+	var semi = lexer.LA()
+	if semi.Type_() == lex.GoLexerSEMI { // eos expression
+		lexer.Pop() // semi
 		expression = VisitExpression(lexer)
 		if expression == nil {
 			lexer.Recover(clone)
 			return nil
+		}
+	} else {
+		semi = nil
+		// 先识别 simpleStmt eos expression
+		simpleStmt = VisitSimpleStmt(lexer)
+		if simpleStmt != nil {
+			semi = lexer.LA()
+			if semi.Type_() != lex.GoLexerSEMI {
+				lexer.Recover(clone)
+				return nil
+			}
+			lexer.Pop() // semi
+			expression = VisitExpression(lexer)
+			if expression == nil {
+				lexer.Recover(clone)
+				return nil
+			}
+		} else {
+			// 再识别 expression
+			expression = VisitExpression(lexer)
+			if expression == nil {
+				lexer.Recover(clone)
+				return nil
+			}
 		}
 	}
 
@@ -72,7 +91,7 @@ func VisitIfStmt(lexer *lex.Lexer) *IfStmt {
 	}
 
 	else_ := lexer.LA()
-	if else_ != nil {
+	if else_.Type_() == lex.GoLexerELSE {
 		lexer.Pop() // else_
 
 		ifStmt := VisitIfStmt(lexer)

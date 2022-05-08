@@ -8,9 +8,9 @@ import (
 func main() {
 	utils.WalkDir("test/test_example/", func(path string) {
 		println(path)
+		parser.Parse(path)
+		//sourceFile := parser.Parse(path)
 
-		sourceFile := parser.Parse(path)
-
-		println(sourceFile)
+		// println(sourceFile)
 	})
 }
