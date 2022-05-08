@@ -1,6 +1,8 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+)
 
 type Statement interface {
 	// statement:

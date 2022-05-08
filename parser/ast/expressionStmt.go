@@ -10,5 +10,9 @@ type ExpressionStmt interface {
 }
 
 func VisitExpressionStmt(lexer *lex.Lexer) ExpressionStmt {
-	return VisitExpression(lexer)
+	expression := VisitExpression(lexer)
+	if expression == nil {
+		return nil
+	}
+	return expression
 }

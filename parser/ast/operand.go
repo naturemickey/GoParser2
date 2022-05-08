@@ -3,7 +3,6 @@ package ast
 import (
 	"GoParser2/lex"
 	"fmt"
-	"reflect"
 )
 
 type Operand struct {
@@ -43,7 +42,7 @@ func VisitOperand(lexer *lex.Lexer) *Operand {
 	}
 
 	literal := VisitLiteral(lexer)
-	if literal != nil && !reflect.ValueOf(literal).IsNil() {
+	if literal != nil {
 		return &Operand{literal: literal}
 	}
 

@@ -15,7 +15,18 @@ type Type_ struct {
 	rParen *lex.Token
 }
 
+func (t Type_) __Result__() {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ Result = (*Type_)(nil)
+
 func VisitType_(lexer *lex.Lexer) *Type_ {
+	if lexer.LA() == nil { // 文件结束
+		return nil
+	}
+
 	clone := lexer.Clone()
 
 	lParen := lexer.LA()

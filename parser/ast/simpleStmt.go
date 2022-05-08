@@ -27,13 +27,13 @@ func VisitSimpleStmt(lexer *lex.Lexer) SimpleStmt {
 	if assignment != nil {
 		return assignment
 	}
-	expressionStmt := VisitExpressionStmt(lexer)
-	if expressionStmt != nil {
-		return expressionStmt
-	}
 	shortVarDecl := VisitShortVarDecl(lexer)
 	if shortVarDecl != nil {
 		return shortVarDecl
+	}
+	expressionStmt := VisitExpressionStmt(lexer)
+	if expressionStmt != nil {
+		return expressionStmt
 	}
 	return nil
 }

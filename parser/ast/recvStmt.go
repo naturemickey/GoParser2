@@ -19,13 +19,14 @@ func VisitRecvStmt(lexer *lex.Lexer) *RecvStmt {
 	var assign *lex.Token
 	var declare_assign *lex.Token
 
+	clone1 := lexer.Clone()
 	if identifierList == nil {
 		expressionList = VisitExpressionList(lexer)
 		if expressionList != nil {
 			assign = lexer.LA()
 			if assign.Type_() != lex.GoLexerASSIGN {
 				assign = nil
-				lexer.Recover(clone)
+				lexer.Recover(clone1)
 			} else {
 				lexer.Pop() // assign
 			}
@@ -34,7 +35,7 @@ func VisitRecvStmt(lexer *lex.Lexer) *RecvStmt {
 		declare_assign = lexer.LA()
 		if declare_assign.Type_() != lex.GoLexerDECLARE_ASSIGN {
 			declare_assign = nil
-			lexer.Recover(clone)
+			lexer.Recover(clone1)
 		} else {
 			lexer.Pop() // declare_assign
 		}
@@ -42,6 +43,7 @@ func VisitRecvStmt(lexer *lex.Lexer) *RecvStmt {
 
 	recvExpr := VisitExpression(lexer)
 	if recvExpr == nil {
+		lexer.Recover(clone)
 		return nil
 	}
 

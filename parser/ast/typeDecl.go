@@ -50,7 +50,7 @@ func VisitTypeDecl(lexer *lex.Lexer) *TypeDecl {
 	if lParen == nil {
 		typeSpec := VisitTypeSpec(lexer)
 		if typeSpec == nil {
-			fmt.Printf("type后面要跟着类型定义。%s\n", lParen.ErrorMsg())
+			fmt.Printf("type后面要跟着类型定义。%s\n", type_.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		} else {

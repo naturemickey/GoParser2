@@ -16,6 +16,10 @@ func (c ContinueStmt) __Statement__() {
 var _ Statement = (*ContinueStmt)(nil)
 
 func VisitContinueStmt(lexer *lex.Lexer) *ContinueStmt {
+	if lexer.LA() == nil { // 文件结束
+		return nil
+	}
+
 	continue_ := lexer.LA()
 	if continue_.Type_() != lex.GoLexerCONTINUE {
 		return nil

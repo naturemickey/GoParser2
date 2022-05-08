@@ -38,6 +38,7 @@ func VisitIncDecStmt(lexer *lex.Lexer) *IncDecStmt {
 		lexer.Pop()
 		return &IncDecStmt{expression: expression, minusminus: la}
 	} else {
+		lexer.Recover(clone)
 		return nil
 	}
 }

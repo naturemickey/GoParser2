@@ -35,6 +35,10 @@ func (e ExprSwitchStmt) __SwitchStmt__() {
 var _ SwitchStmt = (*ExprSwitchStmt)(nil)
 
 func VisitExprSwitchStmt(lexer *lex.Lexer) *ExprSwitchStmt {
+	if lexer.LA() == nil { // 文件结束
+		return nil
+	}
+
 	clone := lexer.Clone()
 
 	switch_ := lexer.LA()

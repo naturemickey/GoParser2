@@ -31,6 +31,7 @@ func VisitSendStmt(lexer *lex.Lexer) *SendStmt {
 	}
 	receive := lexer.LA()
 	if receive.Type_() != lex.GoLexerRECEIVE {
+		lexer.Recover(clone)
 		return nil
 	}
 	lexer.Pop()

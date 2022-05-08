@@ -15,6 +15,10 @@ type NonNamedType struct {
 }
 
 func VisitNonNamedType(lexer *lex.Lexer) *NonNamedType {
+	if lexer.LA() == nil { // 文件结束
+		return nil
+	}
+
 	clone := lexer.Clone()
 
 	lParen := lexer.LA()

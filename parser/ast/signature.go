@@ -7,7 +7,7 @@ type Signature struct {
 	//	parameters result
 	//	| parameters;
 	parameters *Parameters
-	result     *Result
+	result     Result
 }
 
 func VisitSignature(lexer *lex.Lexer) *Signature {

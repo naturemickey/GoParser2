@@ -11,7 +11,7 @@ type MethodSpec struct {
 	//	| IDENTIFIER parameters;
 	identifier *lex.Token
 	parameters *Parameters
-	result     *Result
+	result     Result
 }
 
 func (m MethodSpec) __IMethodspecOrTypename__() {

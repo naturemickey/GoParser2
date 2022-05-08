@@ -20,6 +20,10 @@ func (b Block) __Statement__() {
 var _ Statement = (*Block)(nil)
 
 func VisitBlock(lexer *lex.Lexer) *Block {
+	if lexer.LA() == nil { // 文件结束
+		return nil
+	}
+
 	clone := lexer.Clone()
 	lCurly := lexer.LA()
 	if lCurly.Type_() != lex.GoLexerL_CURLY {
@@ -31,7 +35,7 @@ func VisitBlock(lexer *lex.Lexer) *Block {
 	// todo 判断statementList的语句个数大于等于1
 
 	rCurly := lexer.LA()
-	if rCurly.Type_() != lex.GoLexerL_CURLY {
+	if rCurly.Type_() != lex.GoLexerR_CURLY {
 		fmt.Printf("此处没有看到右花括号。%s\n", rCurly.ErrorMsg())
 		lexer.Recover(clone)
 		return nil

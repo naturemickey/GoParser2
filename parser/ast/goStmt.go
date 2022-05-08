@@ -19,6 +19,10 @@ func (g GoStmt) __Statement__() {
 var _ Statement = (*GoStmt)(nil)
 
 func VisitGoStmt(lexer *lex.Lexer) *GoStmt {
+	if lexer.LA() == nil { // 文件结束
+		return nil
+	}
+
 	clone := lexer.Clone()
 
 	go_ := lexer.LA()

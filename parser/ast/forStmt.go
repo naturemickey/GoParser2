@@ -19,6 +19,10 @@ func (f ForStmt) __Statement__() {
 var _ Statement = (*ForStmt)(nil)
 
 func VisitForStmt(lexer *lex.Lexer) *ForStmt {
+	if lexer.LA() == nil { // 文件结束
+		return nil
+	}
+
 	for_ := lexer.LA()
 	if for_.Type_() != lex.GoLexerFOR {
 		return nil

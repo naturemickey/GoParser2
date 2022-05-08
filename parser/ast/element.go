@@ -12,5 +12,11 @@ func VisitElement(lexer *lex.Lexer) Element {
 	if expression != nil {
 		return expression
 	}
-	return VisitLiteralValue(lexer)
+
+	literalValue := VisitLiteralValue(lexer)
+	if literalValue != nil {
+		return literalValue
+	}
+
+	return nil
 }

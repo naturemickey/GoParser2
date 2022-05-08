@@ -11,24 +11,22 @@ type lexerInner struct {
 	nextToken       *Token
 }
 
-func (this *lexerInner) LA() *Token {
-	res := this.nextToken
-	if res == nil {
-		this.nextToken = this._nextToken()
-		return this.nextToken
-	}
-	return res
-}
-
-func (this *lexerInner) Pop() *Token {
-	res := this.nextToken
-	this.nextToken = this._nextToken()
-
-	if res == nil && this.nextToken != nil {
-		return this.Pop()
-	}
-	return res
-}
+//func (this *lexerInner) LA() *Token {
+//	res := this.nextToken
+//	if res == nil {
+//		this.nextToken = this._nextToken()
+//		return this.nextToken
+//	}
+//	return res
+//}
+//
+//func (this *lexerInner) Pop() bool {
+//	if this.nextToken == nil {
+//		return false
+//	}
+//	this.nextToken = nil
+//	return true
+//}
 
 type lexerState struct {
 	cursor cursor
@@ -77,7 +75,7 @@ func NewLexerInnerWithCodeInner(code string, nfa *nfa) *lexerInner {
 		nfa:             nfa}
 }
 
-func (this *lexerInner) _nextToken() *Token {
+func (this *lexerInner) NextToken() *Token {
 	if this.lastFinishState != nil {
 		// 从上一次的结束开始
 		this.from = this.lastFinishState.cursor

@@ -34,6 +34,10 @@ func (t TypeSwitchStmt) __SwitchStmt__() {
 var _ SwitchStmt = (*TypeSwitchStmt)(nil)
 
 func VisitTypeSwitchStmt(lexer *lex.Lexer) *TypeSwitchStmt {
+	if lexer.LA() == nil { // 文件结束
+		return nil
+	}
+
 	clone := lexer.Clone()
 
 	switch_ := lexer.LA()

@@ -14,5 +14,9 @@ func VisitSwitchStmt(lexer *lex.Lexer) SwitchStmt {
 	if exprSwitchStmt != nil {
 		return exprSwitchStmt
 	}
-	return VisitSwitchStmt(lexer)
+	typeSwitchStmt := VisitTypeSwitchStmt(lexer)
+	if typeSwitchStmt != nil {
+		return typeSwitchStmt
+	}
+	return nil
 }

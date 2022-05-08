@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"reflect"
 )
 
 type StatementList struct {
@@ -15,9 +16,11 @@ func VisitStatementList(lexer *lex.Lexer) *StatementList {
 	var statements []Statement
 
 	for true {
+		VisitEos(lexer)
 		statement := VisitStatement(lexer)
-		if statement != nil {
+		if statement != nil && !reflect.ValueOf(statement).IsNil() {
 			statements = append(statements, statement)
+			VisitEos(lexer)
 		} else {
 			break
 		}

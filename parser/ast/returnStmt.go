@@ -16,6 +16,10 @@ func (r ReturnStmt) __Statement__() {
 var _ Statement = (*ReturnStmt)(nil)
 
 func VisitReturnStmt(lexer *lex.Lexer) *ReturnStmt {
+	if lexer.LA() == nil { // 文件结束
+		return nil
+	}
+
 	return_ := lexer.LA()
 	if return_.Type_() != lex.GoLexerRETURN {
 		return nil

@@ -11,6 +11,10 @@ type IdentifierList struct {
 }
 
 func VisitIdentifierList(lexer *lex.Lexer) *IdentifierList {
+	if lexer.LA() == nil { // 文件结束
+		return nil
+	}
+
 	identifier := lexer.LA()
 	if identifier.Type_() != lex.GoLexerIDENTIFIER {
 		return nil

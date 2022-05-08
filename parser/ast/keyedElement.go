@@ -17,10 +17,12 @@ func VisitKeyedElement(lexer *lex.Lexer) *KeyedElement {
 	if key != nil {
 		colon = lexer.LA()
 		if colon.Type_() != lex.GoLexerCOLON {
+			key = nil
+			colon = nil
 			lexer.Recover(clone)
-			return nil
+		} else {
+			lexer.Pop() // key
 		}
-		lexer.Pop() // key
 	}
 
 	element := VisitElement(lexer)

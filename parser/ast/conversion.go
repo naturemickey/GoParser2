@@ -2,7 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"fmt"
 )
 
 type Conversion struct {
@@ -24,7 +23,7 @@ func VisitConversion(lexer *lex.Lexer) *Conversion {
 
 	lParen := lexer.LA()
 	if lParen.Type_() != lex.GoLexerL_PAREN {
-		fmt.Printf("此处应该是一个'('%s\n", lParen.ErrorMsg())
+		// fmt.Printf("此处应该是一个'('。%s\n", lParen.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}
@@ -32,7 +31,7 @@ func VisitConversion(lexer *lex.Lexer) *Conversion {
 
 	expression := VisitExpression(lexer)
 	if expression == nil {
-		fmt.Printf("这个'('后面应该有一个表达式。%s\n", lParen.ErrorMsg())
+		// fmt.Printf("这个'('后面应该有一个表达式。%s\n", lParen.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}
@@ -44,7 +43,7 @@ func VisitConversion(lexer *lex.Lexer) *Conversion {
 
 	rParen := lexer.LA()
 	if rParen.Type_() != lex.GoLexerR_PAREN {
-		fmt.Printf("此处应该是一个')'%s\n", rParen.ErrorMsg())
+		// fmt.Printf("此处应该是一个')'%s\n", rParen.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}

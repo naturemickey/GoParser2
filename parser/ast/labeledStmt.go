@@ -17,14 +17,22 @@ func (l LabeledStmt) __Statement__() {
 var _ Statement = (*LabeledStmt)(nil)
 
 func VisitLabeledStmt(lexer *lex.Lexer) *LabeledStmt {
+	if lexer.LA() == nil { // 文件结束
+		return nil
+	}
+
+	clone := lexer.Clone()
+
 	identifier := lexer.LA()
 	if identifier.Type_() != lex.GoLexerIDENTIFIER {
+		lexer.Recover(clone)
 		return nil
 	}
 	lexer.Pop() // identifier
 
 	colon := lexer.LA()
 	if colon.Type_() != lex.GoLexerCOLON {
+		lexer.Recover(clone)
 		return nil
 	}
 	lexer.Pop() // colon

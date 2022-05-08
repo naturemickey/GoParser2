@@ -2,20 +2,22 @@ package ast
 
 import "GoParser2/lex"
 
-type Result struct {
+type Result interface {
 	// result: parameters | type_;
-	parameters *Parameters
-	type_      *Type_
+
+	__Result__()
 }
 
-func VisitResult(lexer *lex.Lexer) *Result {
+func VisitResult(lexer *lex.Lexer) Result {
 	parameters := VisitParameters(lexer)
-	if parameters == nil {
-		type_ := VisitType_(lexer)
-		if type_ == nil {
-			return nil
-		}
-		return &Result{type_: type_}
+	if parameters != nil {
+		return parameters
 	}
-	return &Result{parameters: parameters}
+
+	type_ := VisitType_(lexer)
+	if type_ != nil {
+		return type_
+	}
+
+	return nil
 }

@@ -47,7 +47,7 @@ func VisitTypeLit(lexer *lex.Lexer) TypeLit {
 	case lex.GoLexerSTRUCT: // structType
 		structType := VisitStructType(lexer)
 		if structType == nil {
-			fmt.Printf("指针类型的描述不完整。%s\n", la.ErrorMsg())
+			fmt.Printf("struct类型的描述不完整。%s\n", la.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}
@@ -87,7 +87,6 @@ func VisitTypeLit(lexer *lex.Lexer) TypeLit {
 	default: // channelType
 		channelType := VisitChannelType(lexer)
 		if channelType == nil {
-			fmt.Printf("此处似乎应该有一个chan类型的描述。%s\n", la.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}

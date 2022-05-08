@@ -15,6 +15,9 @@ func (f FallthroughStmt) __Statement__() {
 var _ Statement = (*FallthroughStmt)(nil)
 
 func VisitFallthroughStmt(lexer *lex.Lexer) *FallthroughStmt {
+	if lexer.LA() == nil { // 文件结束
+		return nil
+	}
 	fallthrough_ := lexer.LA()
 	if fallthrough_.Type_() != lex.GoLexerFALLTHROUGH {
 		return nil

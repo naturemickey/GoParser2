@@ -13,15 +13,31 @@ type Declaration interface {
 }
 
 func VisitDeclaration(lexer *lex.Lexer) Declaration {
+	if lexer.LA() == nil { // 文件结束
+		return nil
+	}
+
 	la := lexer.LA()
 
 	switch la.Type_() {
 	case lex.GoLexerCONST:
-		return VisitConstDecl(lexer)
+		constDecl := VisitConstDecl(lexer)
+		if constDecl != nil {
+			return constDecl
+		}
+		return nil
 	case lex.GoLexerTYPE:
-		return VisitTypeDecl(lexer)
+		typeDecl := VisitTypeDecl(lexer)
+		if typeDecl != nil {
+			return typeDecl
+		}
+		return nil
 	case lex.GoLexerVAR:
-		return VisitVarDecl(lexer)
+		varDecl := VisitVarDecl(lexer)
+		if varDecl != nil {
+			return varDecl
+		}
+		return nil
 	default:
 		return nil
 	}

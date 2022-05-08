@@ -8,7 +8,7 @@ type Eos struct {
 
 func VisitEos(lexer *lex.Lexer) *Eos {
 	semi := lexer.LA()
-	if semi.Type_() == lex.GoLexerSEMI {
+	if semi != nil && semi.Type_() == lex.GoLexerSEMI {
 		lexer.Pop() // semi
 		return &Eos{semi: semi}
 	}

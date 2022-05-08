@@ -19,6 +19,10 @@ func (d DeferStmt) __Statement__() {
 var _ Statement = (*DeferStmt)(nil)
 
 func VisitDeferStmt(lexer *lex.Lexer) *DeferStmt {
+	if lexer.LA() == nil { // 文件结束
+		return nil
+	}
+
 	defer_ := lexer.LA()
 	if defer_.Type_() != lex.GoLexerDEFER {
 		return nil

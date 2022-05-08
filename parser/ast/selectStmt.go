@@ -21,6 +21,10 @@ func (s SelectStmt) __Statement__() {
 var _ Statement = (*SelectStmt)(nil)
 
 func VisitSelectStmt(lexer *lex.Lexer) *SelectStmt {
+	if lexer.LA() == nil { // 文件结束
+		return nil
+	}
+
 	clone := lexer.Clone()
 
 	select_ := lexer.LA()

@@ -13,11 +13,18 @@ type Parameters struct {
 	rParen         *lex.Token
 }
 
+func (p Parameters) __Result__() {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ Result = (*Parameters)(nil)
+
 func VisitParameters(lexer *lex.Lexer) *Parameters {
 	clone := lexer.Clone()
 
 	lParen := lexer.LA()
-	if lParen.Type_() != lex.GoLexerL_PAREN {
+	if lParen == nil || lParen.Type_() != lex.GoLexerL_PAREN {
 		return nil
 	}
 	lexer.Pop() // lParen

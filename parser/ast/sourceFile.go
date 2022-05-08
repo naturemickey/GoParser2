@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"fmt"
+	"reflect"
 )
 
 type SourceFile struct {
@@ -41,43 +42,47 @@ func VisitSourceFile(lexer *lex.Lexer) *SourceFile {
 		}
 		VisitEos(lexer)
 	}
+	for {
+		la := lexer.LA()
+		if la != nil && (la.Type_() == lex.GoLexerFUNC || la.Type_() == lex.GoLexerVAR ||
+			la.Type_() == lex.GoLexerCONST || la.Type_() == lex.GoLexerTYPE) {
 
-	for la := lexer.LA(); la != nil && (la.Type_() == lex.GoLexerFUNC || la.Type_() == lex.GoLexerVAR ||
-		la.Type_() == lex.GoLexerCONST || la.Type_() == lex.GoLexerTYPE); {
-
-		if la.Type_() == lex.GoLexerFUNC {
-			la1 := lexer.LA1()
-			if la1 != nil && la1.Type_() == lex.GoLexerL_PAREN { // method
-				methodDecl := VisitMethodDecl(lexer)
-				if methodDecl != nil {
-					fmds = append(fmds, methodDecl)
-				} else {
-					fmt.Printf("看到了func关键字，但识别不到method的定义。 %s\n", la.ErrorMsg())
+			if la.Type_() == lex.GoLexerFUNC {
+				la1 := lexer.LA1()
+				if la1 != nil && la1.Type_() == lex.GoLexerL_PAREN { // method
+					methodDecl := VisitMethodDecl(lexer)
+					if methodDecl != nil {
+						fmds = append(fmds, methodDecl)
+					} else {
+						fmt.Printf("看到了func关键字，但识别不到method的定义。 %s\n", la.ErrorMsg())
+						return nil
+					}
+				} else if la1 != nil && la1.Type_() == lex.GoLexerIDENTIFIER { // function
+					functionDecl := VisitFunctionDecl(lexer)
+					if functionDecl != nil {
+						fmds = append(fmds, functionDecl)
+					} else {
+						fmt.Printf("看到了func关键字，但识别不到function的定义。 %s\n", la.ErrorMsg())
+						return nil
+					}
+				} else { // unknown, error
+					fmt.Printf("func关键字后面必须跟着函数名或者receiver。 %s\n", la.ErrorMsg())
 					return nil
 				}
-			} else if la1 != nil && la1.Type_() == lex.GoLexerIDENTIFIER { // function
-				functionDecl := VisitFunctionDecl(lexer)
-				if functionDecl != nil {
-					fmds = append(fmds, functionDecl)
+
+			} else if la.Type_() == lex.GoLexerVAR || la.Type_() == lex.GoLexerCONST || la.Type_() == lex.GoLexerTYPE {
+				declaration := VisitDeclaration(lexer)
+				if declaration != nil && !reflect.ValueOf(declaration).IsNil() {
+					fmds = append(fmds, declaration)
 				} else {
-					fmt.Printf("看到了func关键字，但识别不到function的定义。 %s\n", la.ErrorMsg())
+					fmt.Printf("看到了%s关键字，但识别不到后面的定义。 %s\n", la.Literal(), la.ErrorMsg())
 					return nil
 				}
-			} else { // unknown, error
-				fmt.Printf("func关键字后面必须跟着函数名或者receiver。 %s\n", la.ErrorMsg())
-				return nil
 			}
-
-		} else if la.Type_() == lex.GoLexerVAR || la.Type_() == lex.GoLexerCONST || la.Type_() == lex.GoLexerTYPE {
-			declaration := VisitDeclaration(lexer)
-			if declaration != nil {
-				fmds = append(fmds, declaration)
-			} else {
-				fmt.Printf("看到了%s关键字，但识别不到后面的定义。 %s\n", la.Literal(), la.ErrorMsg())
-				return nil
-			}
+			VisitEos(lexer)
+		} else {
+			break
 		}
-		VisitEos(lexer)
 	}
 
 	la := lexer.LA()

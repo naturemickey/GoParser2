@@ -6,6 +6,8 @@ import (
 )
 
 type Expression struct {
+	// 注意：这个定义里面有左递归
+
 	// expression:
 	//	primaryExpr
 	//	| unary_op = (
@@ -38,18 +40,47 @@ type Expression struct {
 	//	| expression LOGICAL_AND expression
 	//	| expression LOGICAL_OR expression;
 
+	// 调一下格式：
+	// expression:
+	//	(primaryExpr | unary_op = (PLUS | MINUS | EXCLAMATION | CARET | STAR | AMPERSAND | RECEIVE) expression)
+	//	| expression ( mul_op   = (STAR | DIV | MOD | LSHIFT | RSHIFT | AMPERSAND | BIT_CLEAR)                expression
+	//	             | add_op   = (PLUS | MINUS | OR | CARET)                                                 expression
+	//	             | rel_op   = (EQUALS | NOT_EQUALS | LESS | LESS_OR_EQUALS | GREATER | GREATER_OR_EQUALS) expression
+	//	             | LOGICAL_AND                                                                            expression
+	//	             | LOGICAL_OR                                                                             expression
+	//	             ) ;
+	//
+	// 等价于：
+	// exp1 : (primaryExpr | unary_op = (PLUS | MINUS | EXCLAMATION | CARET | STAR | AMPERSAND | RECEIVE) expression)
+	// exp2 :        ( mul_op   = (STAR | DIV | MOD | LSHIFT | RSHIFT | AMPERSAND | BIT_CLEAR)                expression
+	//	             | add_op   = (PLUS | MINUS | OR | CARET)                                                 expression
+	//	             | rel_op   = (EQUALS | NOT_EQUALS | LESS | LESS_OR_EQUALS | GREATER | GREATER_OR_EQUALS) expression
+	//	             | LOGICAL_AND                                                                            expression
+	//	             | LOGICAL_OR                                                                             expression
+	//	             ) ;
+	// expression : exp1 | expression exp2 ;
+	// 左递归改造（公式）：
+	// expression : exp1 exp_p
+	// exp_p      : exp2 exp_p | ε
+	// 简化：
+	// expression : exp1 exp2*
+	//
+
 	primaryExpr *PrimaryExpr
 
 	unary_op   *lex.Token
 	expression *Expression
 
-	mul_op      *lex.Token
-	expression2 *Expression
+	exp2s []*exp2
+}
 
+type exp2 struct {
+	mul_op      *lex.Token
 	add_op      *lex.Token
 	rel_op      *lex.Token
 	logical_and *lex.Token
 	logical_or  *lex.Token
+	expression2 *Expression
 }
 
 func (e Expression) __Key__() {
@@ -82,6 +113,40 @@ var _ Element = (*Expression)(nil)
 var _ Key = (*Expression)(nil)
 
 func VisitExpression(lexer *lex.Lexer) *Expression {
+	if lexer.LA() == nil { // 文件结束
+		return nil
+	}
+
+	clone := lexer.Clone()
+
+	exp1 := _visitExp1(lexer)
+	if exp1 == nil {
+		lexer.Recover(clone)
+		return nil
+	}
+
+	var exp2s []*exp2
+	for {
+		e2 := _visitExp2(lexer)
+		if e2 == nil {
+			break
+		}
+		exp2s = append(exp2s, e2)
+	}
+
+	return &Expression{primaryExpr: exp1.primaryExpr, unary_op: exp1.unary_op, expression: exp1.expression, exp2s: exp2s}
+}
+
+func _visitExp1(lexer *lex.Lexer) *struct {
+	primaryExpr *PrimaryExpr
+	unary_op    *lex.Token
+	expression  *Expression
+} {
+	exp1 := &struct {
+		primaryExpr *PrimaryExpr
+		unary_op    *lex.Token
+		expression  *Expression
+	}{}
 	clone := lexer.Clone()
 	//	unary_op = (
 	//		PLUS
@@ -109,20 +174,23 @@ func VisitExpression(lexer *lex.Lexer) *Expression {
 			lexer.Recover(clone)
 			return nil
 		}
-		return &Expression{unary_op: unary_op, expression: expression}
+		exp1.unary_op = unary_op
+		exp1.expression = expression
+		return exp1
 	}
 	//	primaryExpr
 	primaryExpr := VisitPrimaryExpr(lexer)
 	if primaryExpr != nil {
-		return &Expression{primaryExpr: primaryExpr}
+		exp1.primaryExpr = primaryExpr
+		return exp1
 	}
+	return nil
+}
 
-	// 以下所有分支都要先识别到expression
-	expression := VisitExpression(lexer)
-	if expression == nil {
-		lexer.Recover(clone)
-		return nil
-	}
+func _visitExp2(lexer *lex.Lexer) *exp2 {
+	exp2 := &exp2{}
+
+	clone := lexer.Clone()
 
 	//	expression mul_op = (
 	//		STAR
@@ -149,7 +217,9 @@ func VisitExpression(lexer *lex.Lexer) *Expression {
 			lexer.Recover(clone)
 			return nil
 		}
-		return &Expression{expression: expression, mul_op: mul_op, expression2: expression2}
+		exp2.mul_op = mul_op
+		exp2.expression2 = expression2
+		return exp2
 	}
 
 	//	expression add_op = (PLUS | MINUS | OR | CARET) expression
@@ -166,7 +236,9 @@ func VisitExpression(lexer *lex.Lexer) *Expression {
 			lexer.Recover(clone)
 			return nil
 		}
-		return &Expression{expression: expression, add_op: add_op, expression2: expression2}
+		exp2.add_op = add_op
+		exp2.expression2 = expression2
+		return exp2
 	}
 
 	//	expression rel_op = (
@@ -192,7 +264,9 @@ func VisitExpression(lexer *lex.Lexer) *Expression {
 			lexer.Recover(clone)
 			return nil
 		}
-		return &Expression{expression: expression, rel_op: rel_op, expression2: expression2}
+		exp2.rel_op = rel_op
+		exp2.expression2 = expression2
+		return exp2
 	}
 
 	//	expression LOGICAL_AND expression
@@ -205,7 +279,9 @@ func VisitExpression(lexer *lex.Lexer) *Expression {
 			lexer.Recover(clone)
 			return nil
 		}
-		return &Expression{expression: expression, logical_and: logical_and, expression2: expression2}
+		exp2.logical_and = logical_and
+		exp2.expression2 = expression2
+		return exp2
 	}
 
 	//	expression LOGICAL_OR expression
@@ -218,10 +294,11 @@ func VisitExpression(lexer *lex.Lexer) *Expression {
 			lexer.Recover(clone)
 			return nil
 		}
-		return &Expression{expression: expression, logical_or: logical_or, expression2: expression2}
+		exp2.logical_or = logical_or
+		exp2.expression2 = expression2
+		return exp2
 	}
 
-	fmt.Printf("这里应该是某个运算符吧？%s\n", logical_or.ErrorMsg())
 	lexer.Recover(clone)
 	return nil
 }

@@ -16,6 +16,10 @@ func (b *BreakStmt) __Statement__() {
 var _ Statement = (*BreakStmt)(nil)
 
 func VisitBreakStmt(lexer *lex.Lexer) *BreakStmt {
+	if lexer.LA() == nil { // 文件结束
+		return nil
+	}
+
 	break_ := lexer.LA()
 	if break_.Type_() != lex.GoLexerBREAK {
 		return nil

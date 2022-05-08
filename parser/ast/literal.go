@@ -19,5 +19,9 @@ func VisitLiteral(lexer *lex.Lexer) Literal {
 		return functionLit
 	}
 
-	return VisitCompositeLit(lexer)
+	compositeLit := VisitCompositeLit(lexer)
+	if compositeLit != nil {
+		return compositeLit
+	}
+	return nil
 }

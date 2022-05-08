@@ -30,6 +30,7 @@ func VisitShortVarDecl(lexer *lex.Lexer) *ShortVarDecl {
 
 	declare_assign := lexer.LA()
 	if declare_assign.Type_() != lex.GoLexerDECLARE_ASSIGN {
+		lexer.Recover(clone)
 		return nil
 	}
 	lexer.Pop() // declare_assign

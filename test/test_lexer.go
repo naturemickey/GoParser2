@@ -1,12 +1,17 @@
 package main
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+)
 
 func main() {
-	lexer := lex.NewLexerWithFile("./test/test_example/arrayEllipsisDecls_go")
-
-	for token := lexer.Pop(); token != nil; {
+	filepath := "test/test_example/unicodeIdentifier_go"
+	lexer := lex.NewLexerInnerWithFileInner(filepath, lex.NFA)
+	for {
+		token := lexer.NextToken()
+		if token == nil {
+			break
+		}
 		println(token.String())
-		token = lexer.Pop()
 	}
 }

@@ -35,6 +35,10 @@ func (i IfStmt) __Statement__() {
 var _ Statement = (*IfStmt)(nil)
 
 func VisitIfStmt(lexer *lex.Lexer) *IfStmt {
+	if lexer.LA() == nil { // 文件结束
+		return nil
+	}
+
 	clone := lexer.Clone()
 
 	if_ := lexer.LA()
