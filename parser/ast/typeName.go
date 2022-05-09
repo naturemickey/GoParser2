@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 )
 
 type TypeName struct {
@@ -11,9 +12,12 @@ type TypeName struct {
 	identifier     *lex.Token
 }
 
+func (a *TypeName) CodeBuilder() *util.CodeBuilder {
+	return util.NewCB().AppendTreeNode(a.qualifiedIdent).AppendToken(a.identifier)
+}
+
 func (a *TypeName) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*TypeName)(nil)

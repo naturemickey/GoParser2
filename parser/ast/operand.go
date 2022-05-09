@@ -19,7 +19,8 @@ type Operand struct {
 }
 
 func (a *Operand) CodeBuilder() *util.CodeBuilder {
-	util.NewCB().AppendTreeNode(a.literal).AppendTreeNode(a.operandName).AppendToken(a.lParen).AppendTreeNode(a.expression).AppendTreeNode(a.rParen)
+	return util.NewCB().AppendTreeNode(a.literal).AppendToken(a.operandName).
+		AppendToken(a.lParen).AppendTreeNode(a.expression).AppendToken(a.rParen)
 }
 
 func (a *Operand) String() string {

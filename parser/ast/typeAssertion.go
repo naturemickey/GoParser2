@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 )
 
 type TypeAssertion struct {
@@ -13,9 +14,12 @@ type TypeAssertion struct {
 	rParen *lex.Token
 }
 
+func (a *TypeAssertion) CodeBuilder() *util.CodeBuilder {
+	return util.NewCB().AppendToken(a.dot).AppendToken(a.lParen).AppendTreeNode(a.type_).AppendToken(a.rParen)
+}
+
 func (a *TypeAssertion) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*TypeAssertion)(nil)

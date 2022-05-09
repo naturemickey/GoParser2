@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 )
 
 type ShortVarDecl struct {
@@ -12,9 +13,12 @@ type ShortVarDecl struct {
 	expressionList *ExpressionList
 }
 
+func (a *ShortVarDecl) CodeBuilder() *util.CodeBuilder {
+	return util.NewCB().AppendTreeNode(a.identifierList).AppendToken(a.declare_assign).AppendTreeNode(a.expressionList)
+}
+
 func (a *ShortVarDecl) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*ShortVarDecl)(nil)

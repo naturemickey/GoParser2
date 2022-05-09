@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -14,6 +15,7 @@ type TypeSwitchStmt struct {
 	//					 L_CURLY typeCaseClause* R_CURLY;
 	switch_ *lex.Token
 
+	eos             *Eos
 	typeSwitchGuard *TypeSwitchGuard
 	simpleStmt      SimpleStmt
 
@@ -22,9 +24,26 @@ type TypeSwitchStmt struct {
 	rCurly          *lex.Token
 }
 
+func (a *TypeSwitchStmt) CodeBuilder() *util.CodeBuilder {
+	cb := util.NewCB()
+	cb.AppendToken(a.switch_)
+	if a.eos != nil {
+		cb.AppendString(";").AppendTreeNode(a.typeSwitchGuard)
+	} else if a.simpleStmt != nil {
+		cb.AppendTreeNode(a.simpleStmt).AppendString(";").AppendTreeNode(a.typeSwitchGuard)
+	} else {
+		cb.AppendTreeNode(a.typeSwitchGuard)
+	}
+	cb.AppendToken(a.lCurly).Newline()
+	for _, clause := range a.typeCaseClauses {
+		cb.AppendTreeNode(clause).Newline()
+	}
+	cb.AppendToken(a.rCurly)
+	return cb
+}
+
 func (a *TypeSwitchStmt) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*TypeSwitchStmt)(nil)
@@ -52,7 +71,7 @@ func VisitTypeSwitchStmt(lexer *lex.Lexer) *TypeSwitchStmt {
 	}
 	lexer.Pop() // switch_
 
-	VisitEos(lexer)
+	eos := VisitEos(lexer)
 
 	typeSwitchGuard := VisitTypeSwitchGuard(lexer)
 	var simpleStmt SimpleStmt
@@ -90,5 +109,5 @@ func VisitTypeSwitchStmt(lexer *lex.Lexer) *TypeSwitchStmt {
 		return nil
 	}
 	lexer.Pop() // rCurly
-	return &TypeSwitchStmt{switch_: switch_, typeSwitchGuard: typeSwitchGuard, simpleStmt: simpleStmt, lCurly: lCurly, typeCaseClauses: typeCaseClauses, rCurly: rCurly}
+	return &TypeSwitchStmt{switch_: switch_, eos: eos, typeSwitchGuard: typeSwitchGuard, simpleStmt: simpleStmt, lCurly: lCurly, typeCaseClauses: typeCaseClauses, rCurly: rCurly}
 }

@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -13,9 +14,12 @@ type TypeSwitchCase struct {
 	default_ *lex.Token
 }
 
+func (a *TypeSwitchCase) CodeBuilder() *util.CodeBuilder {
+	return util.NewCB().AppendToken(a.case_).AppendTreeNode(a.typeList).AppendToken(a.default_)
+}
+
 func (a *TypeSwitchCase) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*TypeSwitchCase)(nil)

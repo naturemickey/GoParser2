@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 )
 
 type Slice struct {
@@ -22,9 +23,13 @@ type Slice struct {
 	colon2 *lex.Token
 }
 
+func (a *Slice) CodeBuilder() *util.CodeBuilder {
+	return util.NewCB().AppendToken(a.lBracket).AppendTreeNode(a.expression1).AppendToken(a.colon1).
+		AppendTreeNode(a.expression2).AppendToken(a.colon2).AppendTreeNode(a.expression3).AppendToken(a.rBracket)
+}
+
 func (a *Slice) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*Slice)(nil)

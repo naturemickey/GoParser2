@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -14,9 +15,23 @@ type TypeDecl struct {
 	rParen    *lex.Token
 }
 
+func (a *TypeDecl) CodeBuilder() *util.CodeBuilder {
+	cb := util.NewCB()
+	cb.AppendToken(a.type_)
+	if a.lParen != nil {
+		cb.AppendToken(a.lParen).Newline()
+		for _, spec := range a.typeSpecs {
+			cb.AppendTreeNode(spec).Newline()
+		}
+		cb.AppendToken(a.rParen)
+	} else {
+		cb.AppendTreeNode(a.typeSpecs[0])
+	}
+	return cb
+}
+
 func (a *TypeDecl) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*TypeDecl)(nil)

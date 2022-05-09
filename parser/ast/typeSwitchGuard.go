@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 )
 
 type TypeSwitchGuard struct {
@@ -16,9 +17,13 @@ type TypeSwitchGuard struct {
 	rParen         *lex.Token
 }
 
+func (a *TypeSwitchGuard) CodeBuilder() *util.CodeBuilder {
+	return util.NewCB().AppendToken(a.identifier).AppendToken(a.declare_assign).AppendTreeNode(a.primaryExpr).
+		AppendToken(a.dot).AppendToken(a.lParen).AppendToken(a.type_).AppendToken(a.rParen)
+}
+
 func (a *TypeSwitchGuard) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*TypeSwitchGuard)(nil)
