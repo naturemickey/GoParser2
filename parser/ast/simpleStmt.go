@@ -1,8 +1,12 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type SimpleStmt interface {
+	parser.ITreeNode
 	Statement
 	__SimpleStmt__()
 

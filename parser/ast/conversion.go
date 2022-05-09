@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 )
 
 type Conversion struct {
@@ -12,6 +13,13 @@ type Conversion struct {
 	comma        *lex.Token
 	rParen       *lex.Token
 }
+
+func (a *Conversion) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*Conversion)(nil)
 
 func VisitConversion(lexer *lex.Lexer) *Conversion {
 	clone := lexer.Clone()

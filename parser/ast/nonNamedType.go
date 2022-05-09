@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
@@ -13,6 +14,13 @@ type NonNamedType struct {
 	nonNamedType *NonNamedType
 	rParen       *lex.Token
 }
+
+func (a *NonNamedType) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*NonNamedType)(nil)
 
 func VisitNonNamedType(lexer *lex.Lexer) *NonNamedType {
 	if lexer.LA() == nil { // 文件结束

@@ -1,6 +1,9 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type ForStmt struct {
 	// forStmt: FOR (expression | forClause | rangeClause)? block;
@@ -10,6 +13,13 @@ type ForStmt struct {
 	rangeClause *RangeClause
 	block       *Block
 }
+
+func (a *ForStmt) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*ForStmt)(nil)
 
 func (f ForStmt) __Statement__() {
 	panic("imposible")

@@ -1,6 +1,9 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type LiteralValue struct {
 	// literalValue: L_CURLY (elementList COMMA?)? R_CURLY;
@@ -9,6 +12,13 @@ type LiteralValue struct {
 	comma       *lex.Token
 	rCurly      *lex.Token
 }
+
+func (a *LiteralValue) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*LiteralValue)(nil)
 
 func (l LiteralValue) __Key__() {
 	panic("imposible")

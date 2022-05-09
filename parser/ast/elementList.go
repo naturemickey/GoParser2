@@ -1,11 +1,21 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type ElementList struct {
 	// elementList: keyedElement (COMMA keyedElement)*;
 	keyedElements []*KeyedElement
 }
+
+func (a *ElementList) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*ElementList)(nil)
 
 func VisitElementList(lexer *lex.Lexer) *ElementList {
 	clone := lexer.Clone()

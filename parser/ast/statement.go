@@ -2,9 +2,11 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 )
 
 type Statement interface {
+	parser.ITreeNode
 	// statement:
 	//	declaration
 	//	| labeledStmt

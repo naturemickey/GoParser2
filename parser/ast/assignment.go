@@ -1,6 +1,9 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type Assignment struct {
 	// assignment: expressionList assign_op expressionList;
@@ -8,6 +11,13 @@ type Assignment struct {
 	assign_op       *Assign_op
 	rExpressionList *ExpressionList
 }
+
+func (a *Assignment) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*Assignment)(nil)
 
 func (a Assignment) __Statement__() {
 	panic("imposible")

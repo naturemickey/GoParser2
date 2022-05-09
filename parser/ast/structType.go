@@ -1,6 +1,9 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type StructType struct {
 	// structType: STRUCT L_CURLY (fieldDecl eos)* R_CURLY;
@@ -9,6 +12,13 @@ type StructType struct {
 	fieldDecls []*FieldDecl
 	rCurly     *lex.Token
 }
+
+func (a *StructType) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*StructType)(nil)
 
 func (s StructType) __TypeLit__() {
 	panic("imposible")

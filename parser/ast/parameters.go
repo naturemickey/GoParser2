@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
@@ -12,6 +13,13 @@ type Parameters struct {
 	parameterDecls []*ParameterDecl
 	rParen         *lex.Token
 }
+
+func (a *Parameters) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*Parameters)(nil)
 
 func (p Parameters) __Result__() {
 	panic("imposible")

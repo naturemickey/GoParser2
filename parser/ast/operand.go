@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
@@ -15,6 +16,13 @@ type Operand struct {
 	expression  *Expression
 	rParen      *lex.Token
 }
+
+func (a *Operand) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*Operand)(nil)
 
 func VisitOperand(lexer *lex.Lexer) *Operand {
 	clone := lexer.Clone()

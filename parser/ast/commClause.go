@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
@@ -11,6 +12,13 @@ type CommClause struct {
 	colon         *lex.Token
 	statementList *StatementList
 }
+
+func (a *CommClause) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*CommClause)(nil)
 
 func VisitCommClause(lexer *lex.Lexer) *CommClause {
 	clone := lexer.Clone()

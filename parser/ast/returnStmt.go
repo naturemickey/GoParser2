@@ -1,12 +1,22 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type ReturnStmt struct {
 	// returnStmt: RETURN expressionList?;
 	return_        *lex.Token
 	expressionList *ExpressionList
 }
+
+func (a *ReturnStmt) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*ReturnStmt)(nil)
 
 func (r ReturnStmt) __Statement__() {
 	panic("imposible")

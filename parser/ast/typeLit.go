@@ -2,10 +2,12 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
 type TypeLit interface {
+	parser.ITreeNode
 	// typeLit:
 	//	arrayType
 	//	| structType

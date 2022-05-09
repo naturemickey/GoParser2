@@ -1,6 +1,9 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type TypeSwitchGuard struct {
 	// typeSwitchGuard: (IDENTIFIER DECLARE_ASSIGN)? primaryExpr DOT L_PAREN TYPE R_PAREN;
@@ -12,6 +15,13 @@ type TypeSwitchGuard struct {
 	type_          *lex.Token
 	rParen         *lex.Token
 }
+
+func (a *TypeSwitchGuard) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*TypeSwitchGuard)(nil)
 
 func VisitTypeSwitchGuard(lexer *lex.Lexer) *TypeSwitchGuard {
 	clone := lexer.Clone()

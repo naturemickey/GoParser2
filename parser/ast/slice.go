@@ -1,6 +1,9 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type Slice struct {
 	// slice:
@@ -18,6 +21,13 @@ type Slice struct {
 	colon1 *lex.Token
 	colon2 *lex.Token
 }
+
+func (a *Slice) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*Slice)(nil)
 
 func VisitSlice(lexer *lex.Lexer) *Slice {
 	clone := lexer.Clone()

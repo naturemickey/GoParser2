@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"reflect"
 )
 
@@ -9,6 +10,13 @@ type StatementList struct {
 	// statementList: (eos? statement eos)+;
 	statements []Statement
 }
+
+func (a *StatementList) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*StatementList)(nil)
 
 func VisitStatementList(lexer *lex.Lexer) *StatementList {
 	VisitEos(lexer)

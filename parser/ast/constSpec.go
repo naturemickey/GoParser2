@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
@@ -13,6 +14,13 @@ type ConstSpec struct {
 	assign         *lex.Token
 	expressionList *ExpressionList
 }
+
+func (a *ConstSpec) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*ConstSpec)(nil)
 
 func VisitConstSpec(lexer *lex.Lexer) *ConstSpec {
 	// 识别失败不是真失败，需要恢复lexer，因为外面可能会继续使用

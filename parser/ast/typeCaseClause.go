@@ -1,6 +1,9 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type TypeCaseClause struct {
 	// typeCaseClause: typeSwitchCase COLON statementList?;
@@ -8,6 +11,13 @@ type TypeCaseClause struct {
 	colon          *lex.Token
 	statementList  *StatementList
 }
+
+func (a *TypeCaseClause) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*TypeCaseClause)(nil)
 
 func VisitTypeCaseClause(lexer *lex.Lexer) *TypeCaseClause {
 	clone := lexer.Clone()

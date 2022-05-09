@@ -1,6 +1,9 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type FunctionLit struct {
 	// functionLit: FUNC signature block; // function
@@ -8,6 +11,13 @@ type FunctionLit struct {
 	signature *Signature
 	block     *Block
 }
+
+func (a *FunctionLit) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*FunctionLit)(nil)
 
 func (f FunctionLit) __Literal__() {
 	panic("imposible")

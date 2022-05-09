@@ -1,6 +1,9 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type Arguments struct {
 	// arguments:
@@ -19,6 +22,13 @@ type Arguments struct {
 
 	rParen *lex.Token
 }
+
+func (a *Arguments) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*Arguments)(nil)
 
 func VisitArguments(lexer *lex.Lexer) *Arguments {
 	clone := lexer.Clone()

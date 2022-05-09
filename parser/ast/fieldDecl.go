@@ -1,6 +1,9 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type FieldDecl struct {
 	// fieldDecl: (
@@ -14,6 +17,13 @@ type FieldDecl struct {
 	embeddedField  *EmbeddedField
 	tag            *lex.Token
 }
+
+func (a *FieldDecl) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*FieldDecl)(nil)
 
 func VisitFieldDecl(lexer *lex.Lexer) *FieldDecl {
 	clone := lexer.Clone()

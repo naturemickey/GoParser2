@@ -1,6 +1,9 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type ForClause struct {
 	// forClause: initStmt = simpleStmt? eos expression? eos postStmt = simpleStmt?;
@@ -8,6 +11,13 @@ type ForClause struct {
 	expression *Expression
 	postStmt   SimpleStmt
 }
+
+func (a *ForClause) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*ForClause)(nil)
 
 func VisitForClause(lexer *lex.Lexer) *ForClause {
 	initStmt := VisitSimpleStmt(lexer)

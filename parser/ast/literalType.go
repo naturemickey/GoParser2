@@ -1,6 +1,9 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type LiteralType struct {
 	// literalType:
@@ -25,6 +28,13 @@ type LiteralType struct {
 	mapType   *MapType
 	typeName  *TypeName
 }
+
+func (a *LiteralType) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*LiteralType)(nil)
 
 func VisitLiteralType(lexer *lex.Lexer) *LiteralType {
 	clone := lexer.Clone()

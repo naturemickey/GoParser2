@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
@@ -9,6 +10,13 @@ type Receiver struct {
 	// receiver: parameters;
 	parameters *Parameters
 }
+
+func (a *Receiver) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*Receiver)(nil)
 
 func VisitReceiver(lexer *lex.Lexer) *Receiver {
 	clone := lexer.Clone()

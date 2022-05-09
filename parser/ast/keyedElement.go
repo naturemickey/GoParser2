@@ -1,6 +1,9 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type KeyedElement struct {
 	// keyedElement: (key COLON)? element;
@@ -8,6 +11,13 @@ type KeyedElement struct {
 	colon   *lex.Token
 	element Element
 }
+
+func (a *KeyedElement) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*KeyedElement)(nil)
 
 func VisitKeyedElement(lexer *lex.Lexer) *KeyedElement {
 	clone := lexer.Clone()

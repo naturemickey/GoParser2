@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
@@ -11,6 +12,13 @@ type TypeSpec struct {
 	assign     *lex.Token
 	type_      *Type_
 }
+
+func (a *TypeSpec) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*TypeSpec)(nil)
 
 func VisitTypeSpec(lexer *lex.Lexer) *TypeSpec {
 	clone := lexer.Clone()

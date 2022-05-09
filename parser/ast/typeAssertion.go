@@ -1,6 +1,9 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type TypeAssertion struct {
 	// typeAssertion: DOT L_PAREN type_ R_PAREN;
@@ -9,6 +12,13 @@ type TypeAssertion struct {
 	type_  *Type_
 	rParen *lex.Token
 }
+
+func (a *TypeAssertion) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*TypeAssertion)(nil)
 
 func VisitTypeAssertion(lexer *lex.Lexer) *TypeAssertion {
 	clone := lexer.Clone()

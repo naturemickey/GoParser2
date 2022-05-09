@@ -1,6 +1,9 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type BasicLit struct {
 	// basicLit:
@@ -24,6 +27,13 @@ type BasicLit struct {
 	string_   *lex.Token
 	float_lit *lex.Token
 }
+
+func (a *BasicLit) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*BasicLit)(nil)
 
 func (b BasicLit) __Literal__() {
 	panic("imposible")

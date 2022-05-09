@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
@@ -10,6 +11,13 @@ type DeferStmt struct {
 	defer_     *lex.Token
 	expression *Expression
 }
+
+func (a *DeferStmt) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*DeferStmt)(nil)
 
 func (d DeferStmt) __Statement__() {
 	panic("imposible")

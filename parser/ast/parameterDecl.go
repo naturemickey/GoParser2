@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 )
 
 type ParameterDecl struct {
@@ -10,6 +11,13 @@ type ParameterDecl struct {
 	ellipsis       *lex.Token
 	type_          *Type_
 }
+
+func (a *ParameterDecl) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*ParameterDecl)(nil)
 
 func VisitParameterDecl(lexer *lex.Lexer) *ParameterDecl {
 	clone := lexer.Clone()

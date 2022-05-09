@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 	"reflect"
 )
@@ -15,6 +16,13 @@ type SourceFile struct {
 	importDecls   []*ImportDecl
 	fmds          []IFunctionMethodDeclaration
 }
+
+func (a *SourceFile) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*SourceFile)(nil)
 
 func NewSourceFile(packageClause *PackageClause, importDecls []*ImportDecl, fmds []IFunctionMethodDeclaration) *SourceFile {
 	return &SourceFile{packageClause: packageClause, importDecls: importDecls, fmds: fmds}

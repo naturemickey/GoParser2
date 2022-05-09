@@ -1,6 +1,9 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type SendStmt struct {
 	// sendStmt: channel = expression RECEIVE expression;
@@ -8,6 +11,13 @@ type SendStmt struct {
 	receive    *lex.Token
 	expression *Expression
 }
+
+func (a *SendStmt) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*SendStmt)(nil)
 
 func (s SendStmt) __Statement__() {
 	panic("imposible")

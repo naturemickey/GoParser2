@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
@@ -21,6 +22,13 @@ type ExprSwitchStmt struct {
 	exprCaseClauses []*ExprCaseClause
 	rCurly          *lex.Token
 }
+
+func (a *ExprSwitchStmt) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*ExprSwitchStmt)(nil)
 
 func (e ExprSwitchStmt) __Statement__() {
 	panic("imposible")

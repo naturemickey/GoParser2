@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
@@ -12,6 +13,13 @@ type InterfaceType struct {
 	methodOrType_s []IMethodspecOrTypename
 	rCurly         *lex.Token
 }
+
+func (a *InterfaceType) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*InterfaceType)(nil)
 
 func (i InterfaceType) __TypeLit__() {
 	panic("imposible")

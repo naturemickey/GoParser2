@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
@@ -12,6 +13,13 @@ type FunctionDecl struct {
 	signature  *Signature
 	block      *Block
 }
+
+func (a *FunctionDecl) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*FunctionDecl)(nil)
 
 func (f FunctionDecl) __IFunctionMethodDeclaration__() {
 	panic("imposible")

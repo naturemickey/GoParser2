@@ -1,6 +1,9 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type LabeledStmt struct {
 	// labeledStmt: IDENTIFIER COLON statement?;
@@ -8,6 +11,13 @@ type LabeledStmt struct {
 	colon      *lex.Token
 	statement  Statement
 }
+
+func (a *LabeledStmt) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*LabeledStmt)(nil)
 
 func (l LabeledStmt) __Statement__() {
 	panic("imposible")

@@ -1,11 +1,21 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type FallthroughStmt struct {
 	// fallthroughStmt: FALLTHROUGH;
 	fallthrough_ *lex.Token
 }
+
+func (a *FallthroughStmt) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*FallthroughStmt)(nil)
 
 func (f FallthroughStmt) __Statement__() {
 	panic("imposible")

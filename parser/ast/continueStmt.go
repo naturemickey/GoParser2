@@ -1,12 +1,22 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type ContinueStmt struct {
 	// continueStmt: CONTINUE IDENTIFIER?;
 	continue_  *lex.Token
 	identifier *lex.Token
 }
+
+func (a *ContinueStmt) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*ContinueStmt)(nil)
 
 func (c ContinueStmt) __Statement__() {
 	panic("imposible")

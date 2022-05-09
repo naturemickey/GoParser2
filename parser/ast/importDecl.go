@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
@@ -12,6 +13,13 @@ type ImportDecl struct {
 	importSpecs []*ImportSpec
 	rParen      *lex.Token
 }
+
+func (a *ImportDecl) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*ImportDecl)(nil)
 
 func VisitImportDecl(lexer *lex.Lexer) *ImportDecl {
 	clone := lexer.Clone()

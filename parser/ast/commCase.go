@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
@@ -12,6 +13,13 @@ type CommCase struct {
 	recvStmt *RecvStmt
 	default_ *lex.Token
 }
+
+func (a *CommCase) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*CommCase)(nil)
 
 func VisitCommCase(lexer *lex.Lexer) *CommCase {
 	clone := lexer.Clone()

@@ -1,8 +1,12 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type Key interface {
+	parser.ITreeNode
 	// key: expression | literalValue;
 	__Key__()
 }

@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
@@ -13,6 +14,13 @@ type ChannelType struct {
 	receive_chan *receiveChanPair
 	elementType  *Type_
 }
+
+func (a *ChannelType) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*ChannelType)(nil)
 
 type chanReceivePair struct {
 	chan_   *lex.Token

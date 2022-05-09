@@ -1,6 +1,9 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type RangeClause struct {
 	// rangeClause: (
@@ -16,6 +19,13 @@ type RangeClause struct {
 	range_     *lex.Token
 	expression *Expression
 }
+
+func (a *RangeClause) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*RangeClause)(nil)
 
 func VisitRangeClause(lexer *lex.Lexer) *RangeClause {
 	clone := lexer.Clone()

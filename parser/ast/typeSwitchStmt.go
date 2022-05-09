@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
@@ -20,6 +21,13 @@ type TypeSwitchStmt struct {
 	typeCaseClauses []*TypeCaseClause
 	rCurly          *lex.Token
 }
+
+func (a *TypeSwitchStmt) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*TypeSwitchStmt)(nil)
 
 func (t TypeSwitchStmt) __Statement__() {
 	panic("imposible")

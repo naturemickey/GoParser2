@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
@@ -9,6 +10,13 @@ type TypeList struct {
 	// typeList: (type_ | NIL_LIT) (COMMA (type_ | NIL_LIT))*;
 	type_s []*Type_ // 为nil就表示NIL_LIT
 }
+
+func (a *TypeList) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*TypeList)(nil)
 
 func VisitTypeList(lexer *lex.Lexer) *TypeList {
 	clone := lexer.Clone()

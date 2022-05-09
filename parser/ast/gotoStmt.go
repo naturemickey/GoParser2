@@ -1,12 +1,22 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type GotoStmt struct {
 	// gotoStmt: GOTO IDENTIFIER;
 	goto_      *lex.Token
 	identifier *lex.Token
 }
+
+func (a *GotoStmt) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*GotoStmt)(nil)
 
 func (g GotoStmt) __Statement__() {
 	panic("imposible")

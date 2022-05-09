@@ -1,6 +1,9 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type MethodExpr struct {
 	// methodExpr: nonNamedType DOT IDENTIFIER;
@@ -8,6 +11,13 @@ type MethodExpr struct {
 	dot          *lex.Token
 	identifier   *lex.Token
 }
+
+func (a *MethodExpr) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*MethodExpr)(nil)
 
 func VisitMethodExpr(lexer *lex.Lexer) *MethodExpr {
 	clone := lexer.Clone()

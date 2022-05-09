@@ -1,12 +1,22 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type TypeName struct {
 	// typeName: qualifiedIdent | IDENTIFIER;
 	qualifiedIdent *QualifiedIdent
 	identifier     *lex.Token
 }
+
+func (a *TypeName) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*TypeName)(nil)
 
 func (t TypeName) __IMethodspecOrTypename__() {
 	panic("imposible")

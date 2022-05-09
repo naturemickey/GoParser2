@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
@@ -12,6 +13,13 @@ type ConstDecl struct {
 	constSpecs []*ConstSpec
 	rParen     *lex.Token
 }
+
+func (a *ConstDecl) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*ConstDecl)(nil)
 
 func (c ConstDecl) __Statement__() {
 	panic("imposible")

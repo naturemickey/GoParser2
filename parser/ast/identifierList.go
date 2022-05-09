@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
@@ -9,6 +10,13 @@ type IdentifierList struct {
 	// identifierList: IDENTIFIER (COMMA IDENTIFIER)*;
 	identifiers []*lex.Token
 }
+
+func (a *IdentifierList) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*IdentifierList)(nil)
 
 func VisitIdentifierList(lexer *lex.Lexer) *IdentifierList {
 	if lexer.LA() == nil { // 文件结束

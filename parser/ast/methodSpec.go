@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
@@ -13,6 +14,13 @@ type MethodSpec struct {
 	parameters *Parameters
 	result     Result
 }
+
+func (a *MethodSpec) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*MethodSpec)(nil)
 
 func (m MethodSpec) __IMethodspecOrTypename__() {
 	panic("imposible")

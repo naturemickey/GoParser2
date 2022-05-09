@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
@@ -12,6 +13,13 @@ type SelectStmt struct {
 	commClauses []*CommClause
 	rCurly      *lex.Token
 }
+
+func (a *SelectStmt) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*SelectStmt)(nil)
 
 func (s SelectStmt) __Statement__() {
 	panic("imposible")

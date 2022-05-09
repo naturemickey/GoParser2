@@ -1,6 +1,9 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type IncDecStmt struct {
 	// incDecStmt: expression (PLUS_PLUS | MINUS_MINUS);
@@ -8,6 +11,13 @@ type IncDecStmt struct {
 	plusplus   *lex.Token
 	minusminus *lex.Token
 }
+
+func (a *IncDecStmt) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*IncDecStmt)(nil)
 
 func (i IncDecStmt) __Statement__() {
 	panic("imposible")

@@ -1,12 +1,22 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type BreakStmt struct {
 	// breakStmt: BREAK IDENTIFIER?;
 	break_     *lex.Token
 	identifier *lex.Token
 }
+
+func (a *BreakStmt) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*BreakStmt)(nil)
 
 func (b *BreakStmt) __Statement__() {
 	panic("imposible")

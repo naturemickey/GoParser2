@@ -1,6 +1,9 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type ShortVarDecl struct {
 	// shortVarDecl: identifierList DECLARE_ASSIGN expressionList;
@@ -8,6 +11,13 @@ type ShortVarDecl struct {
 	declare_assign *lex.Token
 	expressionList *ExpressionList
 }
+
+func (a *ShortVarDecl) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*ShortVarDecl)(nil)
 
 func (s ShortVarDecl) __Statement__() {
 	panic("imposible")

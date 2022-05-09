@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
@@ -11,6 +12,13 @@ type TypeSwitchCase struct {
 	typeList *TypeList
 	default_ *lex.Token
 }
+
+func (a *TypeSwitchCase) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*TypeSwitchCase)(nil)
 
 func VisitTypeSwitchCase(lexer *lex.Lexer) *TypeSwitchCase {
 	clone := lexer.Clone()

@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
@@ -27,6 +28,13 @@ type IfStmt struct {
 	ifStmt    *IfStmt
 	elseBlock *Block
 }
+
+func (a *IfStmt) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*IfStmt)(nil)
 
 func (i IfStmt) __Statement__() {
 	panic("imposible")

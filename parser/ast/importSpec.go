@@ -1,6 +1,9 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type ImportSpec struct {
 	// importSpec: alias = (DOT | IDENTIFIER)? importPath;
@@ -9,6 +12,13 @@ type ImportSpec struct {
 	alias      *lex.Token
 	importPath *lex.Token
 }
+
+func (a *ImportSpec) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*ImportSpec)(nil)
 
 func VisitImportSpec(lexer *lex.Lexer) *ImportSpec {
 	// 识别失败不是真失败，需要恢复lexer，因为外面可能会继续使用

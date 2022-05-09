@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser"
 	"fmt"
 )
 
@@ -14,6 +15,13 @@ type MapType struct {
 	rBracket    *lex.Token
 	elementType *Type_
 }
+
+func (a *MapType) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*MapType)(nil)
 
 func (m MapType) __TypeLit__() {
 	panic("imposible")

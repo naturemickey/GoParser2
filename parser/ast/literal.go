@@ -1,8 +1,12 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type Literal interface {
+	parser.ITreeNode
 	// literal: basicLit | compositeLit | functionLit;
 
 	__Literal__()

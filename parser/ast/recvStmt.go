@@ -1,6 +1,9 @@
 package ast
 
-import "GoParser2/lex"
+import (
+	"GoParser2/lex"
+	"GoParser2/parser"
+)
 
 type RecvStmt struct {
 	// recvStmt: (expressionList ASSIGN | identifierList DECLARE_ASSIGN)? recvExpr = expression;
@@ -10,6 +13,13 @@ type RecvStmt struct {
 	declare_assign *lex.Token
 	recvExpr       *Expression
 }
+
+func (a *RecvStmt) String() string {
+	//TODO implement me
+	panic("implement me")
+}
+
+var _ parser.ITreeNode = (*RecvStmt)(nil)
 
 func VisitRecvStmt(lexer *lex.Lexer) *RecvStmt {
 	clone := lexer.Clone()
