@@ -9,8 +9,7 @@ type TypeName struct {
 }
 
 func (t TypeName) __IMethodspecOrTypename__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ IMethodspecOrTypename = (*TypeName)(nil)

@@ -12,8 +12,7 @@ type ForStmt struct {
 }
 
 func (f ForStmt) __Statement__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ Statement = (*ForStmt)(nil)

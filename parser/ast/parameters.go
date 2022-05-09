@@ -14,8 +14,7 @@ type Parameters struct {
 }
 
 func (p Parameters) __Result__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ Result = (*Parameters)(nil)

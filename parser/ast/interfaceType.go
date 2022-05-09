@@ -14,8 +14,7 @@ type InterfaceType struct {
 }
 
 func (i InterfaceType) __TypeLit__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ TypeLit = (*InterfaceType)(nil)

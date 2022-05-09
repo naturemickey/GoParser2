@@ -12,8 +12,7 @@ type FunctionType struct {
 }
 
 func (f FunctionType) __TypeLit__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ TypeLit = (*FunctionType)(nil)

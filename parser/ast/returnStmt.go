@@ -9,8 +9,7 @@ type ReturnStmt struct {
 }
 
 func (r ReturnStmt) __Statement__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ Statement = (*ReturnStmt)(nil)

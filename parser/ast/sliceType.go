@@ -14,8 +14,7 @@ type SliceType struct {
 }
 
 func (s SliceType) __TypeLit__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ TypeLit = (*SliceType)(nil)

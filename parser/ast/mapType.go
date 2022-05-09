@@ -16,8 +16,7 @@ type MapType struct {
 }
 
 func (m MapType) __TypeLit__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ TypeLit = (*MapType)(nil)

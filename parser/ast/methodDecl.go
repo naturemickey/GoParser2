@@ -15,8 +15,7 @@ type MethodDecl struct {
 }
 
 func (m MethodDecl) __IFunctionMethodDeclaration__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ IFunctionMethodDeclaration = (*MethodDecl)(nil)

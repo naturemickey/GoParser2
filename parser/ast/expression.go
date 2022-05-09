@@ -84,28 +84,23 @@ type exp2 struct {
 }
 
 func (e Expression) __Key__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 func (e Expression) __Element__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 func (e Expression) __Statement__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 func (e Expression) __SimpleStmt__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 func (e Expression) __ExpressionStmt__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ ExpressionStmt = (*Expression)(nil)

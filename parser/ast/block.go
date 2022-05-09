@@ -13,8 +13,7 @@ type Block struct {
 }
 
 func (b Block) __Statement__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ Statement = (*Block)(nil)

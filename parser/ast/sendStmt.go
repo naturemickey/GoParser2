@@ -10,13 +10,11 @@ type SendStmt struct {
 }
 
 func (s SendStmt) __Statement__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 func (s SendStmt) __SimpleStmt__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ SimpleStmt = (*SendStmt)(nil)

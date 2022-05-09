@@ -11,8 +11,7 @@ type StructType struct {
 }
 
 func (s StructType) __TypeLit__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ TypeLit = (*StructType)(nil)

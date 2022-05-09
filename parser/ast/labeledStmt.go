@@ -10,8 +10,7 @@ type LabeledStmt struct {
 }
 
 func (l LabeledStmt) __Statement__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ Statement = (*LabeledStmt)(nil)

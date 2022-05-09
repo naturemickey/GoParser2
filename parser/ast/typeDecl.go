@@ -14,18 +14,15 @@ type TypeDecl struct {
 }
 
 func (t TypeDecl) __Statement__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 func (t TypeDecl) __IFunctionMethodDeclaration__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 func (t TypeDecl) __Declaration__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ Declaration = (*TypeDecl)(nil)

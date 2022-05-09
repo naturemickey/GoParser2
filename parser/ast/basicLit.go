@@ -26,8 +26,7 @@ type BasicLit struct {
 }
 
 func (b BasicLit) __Literal__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ Literal = (*BasicLit)(nil)

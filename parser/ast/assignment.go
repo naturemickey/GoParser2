@@ -10,13 +10,11 @@ type Assignment struct {
 }
 
 func (a Assignment) __Statement__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 func (a Assignment) __SimpleStmt__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ SimpleStmt = (*Assignment)(nil)

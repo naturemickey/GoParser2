@@ -9,8 +9,7 @@ type ContinueStmt struct {
 }
 
 func (c ContinueStmt) __Statement__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ Statement = (*ContinueStmt)(nil)

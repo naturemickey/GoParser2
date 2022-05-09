@@ -10,13 +10,11 @@ type IncDecStmt struct {
 }
 
 func (i IncDecStmt) __Statement__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 func (i IncDecStmt) __SimpleStmt__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ SimpleStmt = (*IncDecStmt)(nil)

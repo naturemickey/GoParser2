@@ -10,13 +10,11 @@ type ShortVarDecl struct {
 }
 
 func (s ShortVarDecl) __Statement__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 func (s ShortVarDecl) __SimpleStmt__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ SimpleStmt = (*ShortVarDecl)(nil)

@@ -14,18 +14,15 @@ type ConstDecl struct {
 }
 
 func (c ConstDecl) __Statement__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 func (c ConstDecl) __IFunctionMethodDeclaration__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 func (c ConstDecl) __Declaration__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ Declaration = (*ConstDecl)(nil)

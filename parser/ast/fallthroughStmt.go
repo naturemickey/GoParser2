@@ -8,8 +8,7 @@ type FallthroughStmt struct {
 }
 
 func (f FallthroughStmt) __Statement__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ Statement = (*FallthroughStmt)(nil)

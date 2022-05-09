@@ -11,13 +11,11 @@ type LiteralValue struct {
 }
 
 func (l LiteralValue) __Key__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 func (l LiteralValue) __Element__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ Element = (*LiteralValue)(nil)

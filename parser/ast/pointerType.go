@@ -12,8 +12,7 @@ type PointerType struct {
 }
 
 func (p PointerType) __TypeLit__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ TypeLit = (*PointerType)(nil)

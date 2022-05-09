@@ -14,8 +14,7 @@ type SelectStmt struct {
 }
 
 func (s SelectStmt) __Statement__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ Statement = (*SelectStmt)(nil)

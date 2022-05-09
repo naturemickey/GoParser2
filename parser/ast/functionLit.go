@@ -10,8 +10,7 @@ type FunctionLit struct {
 }
 
 func (f FunctionLit) __Literal__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ Literal = (*FunctionLit)(nil)

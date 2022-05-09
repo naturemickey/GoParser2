@@ -22,13 +22,11 @@ type TypeSwitchStmt struct {
 }
 
 func (t TypeSwitchStmt) __Statement__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 func (t TypeSwitchStmt) __SwitchStmt__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ SwitchStmt = (*TypeSwitchStmt)(nil)

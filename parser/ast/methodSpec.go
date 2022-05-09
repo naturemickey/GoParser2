@@ -15,8 +15,7 @@ type MethodSpec struct {
 }
 
 func (m MethodSpec) __IMethodspecOrTypename__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ IMethodspecOrTypename = (*MethodSpec)(nil)

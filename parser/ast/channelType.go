@@ -25,8 +25,7 @@ type receiveChanPair struct {
 }
 
 func (c ChannelType) __TypeLit__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ TypeLit = (*ChannelType)(nil)

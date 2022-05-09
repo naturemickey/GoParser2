@@ -12,8 +12,7 @@ type DeferStmt struct {
 }
 
 func (d DeferStmt) __Statement__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ Statement = (*DeferStmt)(nil)

@@ -12,8 +12,7 @@ type GoStmt struct {
 }
 
 func (g GoStmt) __Statement__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ Statement = (*GoStmt)(nil)

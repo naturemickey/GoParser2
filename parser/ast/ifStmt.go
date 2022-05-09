@@ -29,8 +29,7 @@ type IfStmt struct {
 }
 
 func (i IfStmt) __Statement__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ Statement = (*IfStmt)(nil)
@@ -86,6 +85,7 @@ func VisitIfStmt(lexer *lex.Lexer) *IfStmt {
 
 	block := VisitBlock(lexer)
 	if block == nil {
+		// todo 修复 LiteralValue 与block 模式相同的问题
 		lexer.Recover(clone)
 		return nil
 	}

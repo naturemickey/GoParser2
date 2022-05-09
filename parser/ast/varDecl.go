@@ -14,18 +14,15 @@ type VarDecl struct {
 }
 
 func (v VarDecl) __Statement__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 func (v VarDecl) __IFunctionMethodDeclaration__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 func (v VarDecl) __Declaration__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ Declaration = (*VarDecl)(nil)

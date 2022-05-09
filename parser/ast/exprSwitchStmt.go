@@ -23,13 +23,11 @@ type ExprSwitchStmt struct {
 }
 
 func (e ExprSwitchStmt) __Statement__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 func (e ExprSwitchStmt) __SwitchStmt__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ SwitchStmt = (*ExprSwitchStmt)(nil)

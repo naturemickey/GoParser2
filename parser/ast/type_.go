@@ -16,8 +16,7 @@ type Type_ struct {
 }
 
 func (t Type_) __Result__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ Result = (*Type_)(nil)

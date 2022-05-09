@@ -9,8 +9,7 @@ type GotoStmt struct {
 }
 
 func (g GotoStmt) __Statement__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ Statement = (*GotoStmt)(nil)

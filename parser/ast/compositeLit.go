@@ -9,8 +9,7 @@ type CompositeLit struct {
 }
 
 func (c CompositeLit) __Literal__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ Literal = (*CompositeLit)(nil)

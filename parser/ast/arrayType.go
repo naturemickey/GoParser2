@@ -17,8 +17,7 @@ type ArrayType struct {
 }
 
 func (a ArrayType) __TypeLit__() {
-	//TODO implement me
-	panic("implement me")
+	panic("imposible")
 }
 
 var _ TypeLit = (*ArrayType)(nil)
