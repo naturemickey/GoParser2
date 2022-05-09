@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 )
 
 type LabeledStmt struct {
@@ -12,9 +13,12 @@ type LabeledStmt struct {
 	statement  Statement
 }
 
+func (a *LabeledStmt) CodeBuilder() *util.CodeBuilder {
+	return util.NewCB().AppendToken(a.identifier).AppendToken(a.colon).AppendTreeNode(a.statement)
+}
+
 func (a *LabeledStmt) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*LabeledStmt)(nil)

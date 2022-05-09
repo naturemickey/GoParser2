@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 )
 
 type ForClause struct {
@@ -12,9 +13,16 @@ type ForClause struct {
 	postStmt   SimpleStmt
 }
 
+func (a *ForClause) CodeBuilder() *util.CodeBuilder {
+	cb := util.NewCB()
+	cb.AppendTreeNode(a.initStmt).AppendString(";")
+	cb.AppendTreeNode(a.expression).AppendString(";")
+	cb.AppendTreeNode(a.postStmt)
+	return cb
+}
+
 func (a *ForClause) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*ForClause)(nil)

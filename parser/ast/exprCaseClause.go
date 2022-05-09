@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 )
 
 type ExprCaseClause struct {
@@ -12,9 +13,14 @@ type ExprCaseClause struct {
 	statementList  *StatementList
 }
 
+func (a *ExprCaseClause) CodeBuilder() *util.CodeBuilder {
+	cb := util.NewCB()
+	cb.AppendTreeNode(a.exprSwitchCase).AppendToken(a.colon).AppendTreeNode(a.statementList)
+	return cb
+}
+
 func (a *ExprCaseClause) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*ExprCaseClause)(nil)

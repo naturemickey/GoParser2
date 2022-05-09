@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -17,9 +18,12 @@ type Operand struct {
 	rParen      *lex.Token
 }
 
+func (a *Operand) CodeBuilder() *util.CodeBuilder {
+	util.NewCB().AppendTreeNode(a.literal).AppendTreeNode(a.operandName).AppendToken(a.lParen).AppendTreeNode(a.expression).AppendTreeNode(a.rParen)
+}
+
 func (a *Operand) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*Operand)(nil)

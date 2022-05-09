@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -11,9 +12,20 @@ type IdentifierList struct {
 	identifiers []*lex.Token
 }
 
+func (a *IdentifierList) CodeBuilder() *util.CodeBuilder {
+	cb := util.NewCB()
+	for i, identifier := range a.identifiers {
+		if i == 0 {
+			cb.AppendToken(identifier)
+		} else {
+			cb.AppendString(",").AppendToken(identifier)
+		}
+	}
+	return cb
+}
+
 func (a *IdentifierList) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*IdentifierList)(nil)

@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 )
 
 type FieldDecl struct {
@@ -18,9 +19,16 @@ type FieldDecl struct {
 	tag            *lex.Token
 }
 
+func (a *FieldDecl) CodeBuilder() *util.CodeBuilder {
+	cb := util.NewCB()
+	cb.AppendTreeNode(a.identifierList).AppendTreeNode(a.type_)
+	cb.AppendTreeNode(a.embeddedField)
+	cb.AppendToken(a.tag)
+	return cb
+}
+
 func (a *FieldDecl) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*FieldDecl)(nil)

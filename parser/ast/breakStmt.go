@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 )
 
 type BreakStmt struct {
@@ -11,9 +12,15 @@ type BreakStmt struct {
 	identifier *lex.Token
 }
 
+func (a *BreakStmt) CodeBuilder() *util.CodeBuilder {
+	cb := util.NewCB()
+	cb.AppendToken(a.break_)
+	cb.AppendToken(a.identifier)
+	return cb
+}
+
 func (a *BreakStmt) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*BreakStmt)(nil)

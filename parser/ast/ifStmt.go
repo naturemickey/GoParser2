@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -29,9 +30,25 @@ type IfStmt struct {
 	elseBlock *Block
 }
 
+func (a *IfStmt) CodeBuilder() *util.CodeBuilder {
+	cb := util.NewCB()
+	cb.AppendToken(a.if_)
+	if a.simpleStmt != nil {
+		cb.AppendTreeNode(a.simpleStmt).AppendString(";").AppendTreeNode(a.expression)
+	} else if a.semi != nil {
+		cb.AppendString(";").AppendTreeNode(a.expression)
+	} else {
+		cb.AppendTreeNode(a.expression)
+	}
+	cb.AppendTreeNode(a.block)
+	cb.AppendToken(a.else_)
+	cb.AppendTreeNode(a.ifStmt)
+	cb.AppendTreeNode(a.block)
+	return cb
+}
+
 func (a *IfStmt) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*IfStmt)(nil)

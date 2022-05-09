@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 )
 
 type PrimaryExpr struct {
@@ -26,9 +27,27 @@ type PrimaryExpr struct {
 	suffix      *PrimaryExprSuffix
 }
 
+func (a *PrimaryExpr) CodeBuilder() *util.CodeBuilder {
+	cb := util.NewCB()
+	cb.AppendTreeNode(a.operand)
+	cb.AppendTreeNode(a.conversion)
+	cb.AppendTreeNode(a.methodExpr)
+	cb.AppendTreeNode(a.primaryExpr)
+
+	cb.AppendToken(a.suffix.dot).AppendToken(a.suffix.identifier)
+
+	if a.suffix != nil {
+		cb.AppendTreeNode(a.suffix.index)
+		cb.AppendTreeNode(a.suffix.slice)
+		cb.AppendTreeNode(a.suffix.typeAssertion)
+		cb.AppendTreeNode(a.suffix.arguments)
+	}
+
+	return cb
+}
+
 func (a *PrimaryExpr) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*PrimaryExpr)(nil)

@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -15,9 +16,17 @@ type ConstSpec struct {
 	expressionList *ExpressionList
 }
 
+func (a *ConstSpec) CodeBuilder() *util.CodeBuilder {
+	cb := util.NewCB()
+	cb.AppendTreeNode(a.identifierList)
+	cb.AppendTreeNode(a.type_)
+	cb.AppendToken(a.assign)
+	cb.AppendTreeNode(a.expressionList)
+	return cb
+}
+
 func (a *ConstSpec) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*ConstSpec)(nil)

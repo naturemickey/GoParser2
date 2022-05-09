@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 )
 
 type LiteralValue struct {
@@ -13,9 +14,12 @@ type LiteralValue struct {
 	rCurly      *lex.Token
 }
 
+func (a *LiteralValue) CodeBuilder() *util.CodeBuilder {
+	return util.NewCB().AppendToken(a.lCurly).AppendTreeNode(a.elementList).AppendToken(a.comma).AppendToken(a.rCurly)
+}
+
 func (a *LiteralValue) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*LiteralValue)(nil)

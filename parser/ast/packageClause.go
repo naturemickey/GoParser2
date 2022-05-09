@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -12,9 +13,12 @@ type PackageClause struct {
 	packageName *lex.Token
 }
 
+func (a *PackageClause) CodeBuilder() *util.CodeBuilder {
+	return util.NewCB().AppendToken(a.package_).AppendToken(a.packageName)
+}
+
 func (a *PackageClause) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*PackageClause)(nil)

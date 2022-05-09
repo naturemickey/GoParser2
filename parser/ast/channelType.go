@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -15,9 +16,23 @@ type ChannelType struct {
 	elementType  *Type_
 }
 
+func (a *ChannelType) CodeBuilder() *util.CodeBuilder {
+	cb := util.NewCB()
+	if a.chan_ != nil {
+		cb.AppendToken(a.chan_)
+	} else if a.chan_receive != nil {
+		cb.AppendToken(a.chan_receive.chan_)
+		cb.AppendToken(a.chan_receive.receive)
+	} else if a.receive_chan != nil {
+		cb.AppendToken(a.receive_chan.receive)
+		cb.AppendToken(a.receive_chan.chan_)
+	}
+	cb.AppendTreeNode(a.elementType)
+	return cb
+}
+
 func (a *ChannelType) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*ChannelType)(nil)

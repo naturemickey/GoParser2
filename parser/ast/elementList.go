@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 )
 
 type ElementList struct {
@@ -10,9 +11,20 @@ type ElementList struct {
 	keyedElements []*KeyedElement
 }
 
+func (a *ElementList) CodeBuilder() *util.CodeBuilder {
+	cb := util.NewCB()
+	for i, element := range a.keyedElements {
+		if i == 0 {
+			cb.AppendTreeNode(element)
+		} else {
+			cb.AppendString(",").AppendTreeNode(element)
+		}
+	}
+	return cb
+}
+
 func (a *ElementList) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*ElementList)(nil)

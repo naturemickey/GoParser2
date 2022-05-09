@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -75,9 +76,23 @@ type Expression struct {
 	exp2s []*exp2
 }
 
+func (a *Expression) CodeBuilder() *util.CodeBuilder {
+	cb := util.NewCB()
+	cb.AppendTreeNode(a.primaryExpr)
+	cb.AppendToken(a.unary_op).AppendTreeNode(a.expression)
+	for _, e := range a.exp2s {
+		cb.AppendToken(e.mul_op)
+		cb.AppendToken(e.add_op)
+		cb.AppendToken(e.rel_op)
+		cb.AppendToken(e.logical_and)
+		cb.AppendToken(e.logical_or)
+		cb.AppendTreeNode(e.expression2)
+	}
+	return cb
+}
+
 func (a *Expression) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*Expression)(nil)

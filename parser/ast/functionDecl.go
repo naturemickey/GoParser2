@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -14,9 +15,15 @@ type FunctionDecl struct {
 	block      *Block
 }
 
+func (a *FunctionDecl) CodeBuilder() *util.CodeBuilder {
+	cb := util.NewCB()
+	cb.AppendToken(a.func_).AppendToken(a.identifier)
+	cb.AppendTreeNode(a.signature).AppendTreeNode(a.block)
+	return cb
+}
+
 func (a *FunctionDecl) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*FunctionDecl)(nil)

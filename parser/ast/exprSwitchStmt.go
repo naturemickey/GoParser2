@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -23,9 +24,26 @@ type ExprSwitchStmt struct {
 	rCurly          *lex.Token
 }
 
+func (a *ExprSwitchStmt) CodeBuilder() *util.CodeBuilder {
+	cb := util.NewCB()
+	cb.AppendToken(a.switch_)
+	if a.simpleStmt != nil {
+		cb.AppendTreeNode(a.simpleStmt)
+		cb.AppendString(";")
+		cb.AppendTreeNode(a.expression)
+	} else {
+		cb.AppendTreeNode(a.expression)
+	}
+	cb.AppendToken(a.lCurly).Newline()
+	for _, clause := range a.exprCaseClauses {
+		cb.AppendTreeNode(clause).Newline()
+	}
+	cb.AppendToken(a.rCurly)
+	return cb
+}
+
 func (a *ExprSwitchStmt) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*ExprSwitchStmt)(nil)

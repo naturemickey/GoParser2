@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -12,9 +13,15 @@ type DeferStmt struct {
 	expression *Expression
 }
 
+func (a *DeferStmt) CodeBuilder() *util.CodeBuilder {
+	cb := util.NewCB()
+	cb.AppendToken(a.defer_)
+	cb.AppendTreeNode(a.expression)
+	return cb
+}
+
 func (a *DeferStmt) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*DeferStmt)(nil)

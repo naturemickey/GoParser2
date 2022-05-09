@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -13,9 +14,16 @@ type Block struct {
 	rCurly        *lex.Token
 }
 
+func (a *Block) CodeBuilder() *util.CodeBuilder {
+	cb := util.NewCB()
+	cb.AppendToken(a.lCurly).Newline()
+	cb.AppendTreeNode(a.statementList).Newline()
+	cb.AppendToken(a.rCurly).Newline()
+	return cb
+}
+
 func (a *Block) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*Block)(nil)

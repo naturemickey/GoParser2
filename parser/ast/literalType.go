@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 )
 
 type LiteralType struct {
@@ -29,9 +30,19 @@ type LiteralType struct {
 	typeName  *TypeName
 }
 
+func (a *LiteralType) CodeBuilder() *util.CodeBuilder {
+	cb := util.NewCB()
+	cb.AppendTreeNode(a.structType)
+	cb.AppendTreeNode(a.arrayType)
+	cb.AppendToken(a.lBracket).AppendToken(a.ellipsis).AppendToken(a.rBracket).AppendTreeNode(a.elementType)
+	cb.AppendTreeNode(a.sliceType)
+	cb.AppendTreeNode(a.mapType)
+	cb.AppendTreeNode(a.typeName)
+	return cb
+}
+
 func (a *LiteralType) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*LiteralType)(nil)

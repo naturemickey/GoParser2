@@ -11,6 +11,11 @@ type Receiver struct {
 	parameters *Parameters
 }
 
+func (a *Receiver) CodeBuilder() *util.CodeBuilder {
+	//TODO implement me
+	panic("implement me")
+}
+
 func (a *Receiver) String() string {
 	//TODO implement me
 	panic("implement me")

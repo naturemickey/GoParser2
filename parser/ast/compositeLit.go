@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 )
 
 type CompositeLit struct {
@@ -11,9 +12,15 @@ type CompositeLit struct {
 	literalValue *LiteralValue
 }
 
+func (a *CompositeLit) CodeBuilder() *util.CodeBuilder {
+	cb := util.NewCB()
+	cb.AppendTreeNode(a.literalType)
+	cb.AppendTreeNode(a.literalValue)
+	return cb
+}
+
 func (a *CompositeLit) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*CompositeLit)(nil)

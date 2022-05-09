@@ -3,6 +3,7 @@ package ast
 import (
 	"GoParser2/lex"
 	"GoParser2/parser"
+	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -15,9 +16,12 @@ type MethodSpec struct {
 	result     Result
 }
 
+func (a *MethodSpec) CodeBuilder() *util.CodeBuilder {
+	return util.NewCB().AppendToken(a.identifier).AppendTreeNode(a.parameters).AppendTreeNode(a.result)
+}
+
 func (a *MethodSpec) String() string {
-	//TODO implement me
-	panic("implement me")
+	return a.CodeBuilder().String()
 }
 
 var _ parser.ITreeNode = (*MethodSpec)(nil)
