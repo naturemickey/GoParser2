@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -18,8 +16,8 @@ type Operand struct {
 	rParen      *lex.Token
 }
 
-func (a *Operand) CodeBuilder() *util.CodeBuilder {
-	return util.NewCB().AppendTreeNode(a.literal).AppendToken(a.operandName).
+func (a *Operand) CodeBuilder() *CodeBuilder {
+	return NewCB().AppendTreeNode(a.literal).AppendToken(a.operandName).
 		AppendToken(a.lParen).AppendTreeNode(a.expression).AppendToken(a.rParen)
 }
 
@@ -27,7 +25,7 @@ func (a *Operand) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*Operand)(nil)
+var _ ITreeNode = (*Operand)(nil)
 
 func VisitOperand(lexer *lex.Lexer) *Operand {
 	clone := lexer.Clone()

@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -15,8 +13,8 @@ type InterfaceType struct {
 	rCurly         *lex.Token
 }
 
-func (a *InterfaceType) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *InterfaceType) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	cb.AppendToken(a.interface_).AppendToken(a.lCurly).Newline()
 	for _, mt := range a.methodOrType_s {
 		cb.AppendTreeNode(mt).Newline()
@@ -29,7 +27,7 @@ func (a *InterfaceType) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*InterfaceType)(nil)
+var _ ITreeNode = (*InterfaceType)(nil)
 
 func (i InterfaceType) __TypeLit__() {
 	panic("imposible")

@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type FallthroughStmt struct {
@@ -11,15 +9,15 @@ type FallthroughStmt struct {
 	fallthrough_ *lex.Token
 }
 
-func (a *FallthroughStmt) CodeBuilder() *util.CodeBuilder {
-	return util.NewCB().AppendToken(a.fallthrough_)
+func (a *FallthroughStmt) CodeBuilder() *CodeBuilder {
+	return NewCB().AppendToken(a.fallthrough_)
 }
 
 func (a *FallthroughStmt) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*FallthroughStmt)(nil)
+var _ ITreeNode = (*FallthroughStmt)(nil)
 
 func (f FallthroughStmt) __Statement__() {
 	panic("imposible")

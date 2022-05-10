@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -18,8 +16,8 @@ type ArrayType struct {
 	elementType *Type_
 }
 
-func (a *ArrayType) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *ArrayType) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	cb.AppendToken(a.lBracket)
 	cb.AppendTreeNode(a.arrayLength)
 	cb.AppendToken(a.rBracket)
@@ -31,7 +29,7 @@ func (a *ArrayType) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*ArrayType)(nil)
+var _ ITreeNode = (*ArrayType)(nil)
 
 func (a ArrayType) __TypeLit__() {
 	panic("imposible")

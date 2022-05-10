@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -76,8 +74,8 @@ type Expression struct {
 	exp2s []*exp2
 }
 
-func (a *Expression) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *Expression) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	cb.AppendTreeNode(a.primaryExpr)
 	cb.AppendToken(a.unary_op).AppendTreeNode(a.expression)
 	for _, e := range a.exp2s {
@@ -95,7 +93,7 @@ func (a *Expression) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*Expression)(nil)
+var _ ITreeNode = (*Expression)(nil)
 
 type exp2 struct {
 	mul_op      *lex.Token
@@ -220,6 +218,11 @@ func _visitExp2(lexer *lex.Lexer) *exp2 {
 	//		| BIT_CLEAR
 	//	) expression
 	mul_op := lexer.LA()
+
+	if mul_op == nil {
+		return nil
+	}
+
 	switch mul_op.Type_() {
 	case lex.GoLexerSTAR,
 		lex.GoLexerDIV,

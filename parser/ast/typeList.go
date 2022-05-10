@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -12,8 +10,8 @@ type TypeList struct {
 	type_s []*Type_ // 为nil就表示NIL_LIT
 }
 
-func (a *TypeList) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *TypeList) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	for i, type_ := range a.type_s {
 		if i == 0 {
 			if type_ == nil {
@@ -36,7 +34,7 @@ func (a *TypeList) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*TypeList)(nil)
+var _ ITreeNode = (*TypeList)(nil)
 
 func VisitTypeList(lexer *lex.Lexer) *TypeList {
 	clone := lexer.Clone()

@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type Assignment struct {
@@ -13,8 +11,8 @@ type Assignment struct {
 	rExpressionList *ExpressionList
 }
 
-func (a *Assignment) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *Assignment) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	cb.AppendTreeNode(a.lExpressionList)
 	cb.AppendTreeNode(a.assign_op)
 	cb.AppendTreeNode(a.rExpressionList)
@@ -25,7 +23,7 @@ func (a *Assignment) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*Assignment)(nil)
+var _ ITreeNode = (*Assignment)(nil)
 
 func (a Assignment) __Statement__() {
 	panic("imposible")

@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -24,8 +22,8 @@ type ExprSwitchStmt struct {
 	rCurly          *lex.Token
 }
 
-func (a *ExprSwitchStmt) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *ExprSwitchStmt) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	cb.AppendToken(a.switch_)
 	if a.simpleStmt != nil {
 		cb.AppendTreeNode(a.simpleStmt)
@@ -46,7 +44,7 @@ func (a *ExprSwitchStmt) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*ExprSwitchStmt)(nil)
+var _ ITreeNode = (*ExprSwitchStmt)(nil)
 
 func (e ExprSwitchStmt) __Statement__() {
 	panic("imposible")

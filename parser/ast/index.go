@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type Index struct {
@@ -13,15 +11,15 @@ type Index struct {
 	rBracket   *lex.Token
 }
 
-func (a *Index) CodeBuilder() *util.CodeBuilder {
-	return util.NewCB().AppendToken(a.lBracket).AppendTreeNode(a.expression).AppendToken(a.rBracket)
+func (a *Index) CodeBuilder() *CodeBuilder {
+	return NewCB().AppendToken(a.lBracket).AppendTreeNode(a.expression).AppendToken(a.rBracket)
 }
 
 func (a *Index) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*Index)(nil)
+var _ ITreeNode = (*Index)(nil)
 
 func VisitIndex(lexer *lex.Lexer) *Index {
 	clone := lexer.Clone()

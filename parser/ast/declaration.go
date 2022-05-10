@@ -2,11 +2,10 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
 )
 
 type Declaration interface {
-	parser.ITreeNode
+	ITreeNode
 	IFunctionMethodDeclaration
 	Statement
 	__Declaration__()

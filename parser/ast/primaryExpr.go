@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type PrimaryExpr struct {
@@ -27,14 +25,16 @@ type PrimaryExpr struct {
 	suffix      *PrimaryExprSuffix
 }
 
-func (a *PrimaryExpr) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *PrimaryExpr) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	cb.AppendTreeNode(a.operand)
 	cb.AppendTreeNode(a.conversion)
 	cb.AppendTreeNode(a.methodExpr)
 	cb.AppendTreeNode(a.primaryExpr)
 
-	cb.AppendToken(a.suffix.dot).AppendToken(a.suffix.identifier)
+	if a.suffix != nil {
+		cb.AppendToken(a.suffix.dot).AppendToken(a.suffix.identifier)
+	}
 
 	if a.suffix != nil {
 		cb.AppendTreeNode(a.suffix.index)
@@ -50,7 +50,7 @@ func (a *PrimaryExpr) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*PrimaryExpr)(nil)
+var _ ITreeNode = (*PrimaryExpr)(nil)
 
 type PrimaryExprSuffix struct {
 	dot, identifier *lex.Token
@@ -103,6 +103,9 @@ func _tryVisitSuffix(lexer *lex.Lexer) *PrimaryExprSuffix {
 	clone := lexer.Clone()
 
 	dot := lexer.LA()
+	if dot == nil {
+		return nil
+	}
 	if dot.Type_() == lex.GoLexerDOT {
 		lexer.Pop() // dot
 

@@ -1,8 +1,6 @@
 package ast
 
-import "GoParser2/parser"
-
 type IMethodspecOrTypename interface {
-	parser.ITreeNode
+	ITreeNode
 	__IMethodspecOrTypename__()
 }

@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type BasicLit struct {
@@ -29,8 +27,8 @@ type BasicLit struct {
 	float_lit *lex.Token
 }
 
-func (a *BasicLit) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *BasicLit) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	cb.AppendToken(a.nil_lit)
 	cb.AppendToken(a.integer)
 	cb.AppendToken(a.string_)
@@ -42,7 +40,7 @@ func (a *BasicLit) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*BasicLit)(nil)
+var _ ITreeNode = (*BasicLit)(nil)
 
 func (b BasicLit) __Literal__() {
 	panic("imposible")

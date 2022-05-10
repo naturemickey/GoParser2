@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type KeyedElement struct {
@@ -13,15 +11,15 @@ type KeyedElement struct {
 	element Element
 }
 
-func (a *KeyedElement) CodeBuilder() *util.CodeBuilder {
-	return util.NewCB().AppendTreeNode(a.key).AppendToken(a.colon).AppendTreeNode(a.element)
+func (a *KeyedElement) CodeBuilder() *CodeBuilder {
+	return NewCB().AppendTreeNode(a.key).AppendToken(a.colon).AppendTreeNode(a.element)
 }
 
 func (a *KeyedElement) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*KeyedElement)(nil)
+var _ ITreeNode = (*KeyedElement)(nil)
 
 func VisitKeyedElement(lexer *lex.Lexer) *KeyedElement {
 	clone := lexer.Clone()

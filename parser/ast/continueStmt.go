@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type ContinueStmt struct {
@@ -12,8 +10,8 @@ type ContinueStmt struct {
 	identifier *lex.Token
 }
 
-func (a *ContinueStmt) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *ContinueStmt) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	cb.AppendToken(a.continue_)
 	cb.AppendToken(a.identifier)
 	return cb
@@ -23,7 +21,7 @@ func (a *ContinueStmt) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*ContinueStmt)(nil)
+var _ ITreeNode = (*ContinueStmt)(nil)
 
 func (c ContinueStmt) __Statement__() {
 	panic("imposible")

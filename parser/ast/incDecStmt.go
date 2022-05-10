@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type IncDecStmt struct {
@@ -13,8 +11,8 @@ type IncDecStmt struct {
 	minusminus *lex.Token
 }
 
-func (a *IncDecStmt) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *IncDecStmt) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	return cb.AppendTreeNode(a.expression).AppendToken(a.plusplus).AppendToken(a.minusminus)
 }
 
@@ -22,7 +20,7 @@ func (a *IncDecStmt) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*IncDecStmt)(nil)
+var _ ITreeNode = (*IncDecStmt)(nil)
 
 func (i IncDecStmt) __Statement__() {
 	panic("imposible")

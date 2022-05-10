@@ -2,11 +2,10 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
 )
 
 type Result interface {
-	parser.ITreeNode
+	ITreeNode
 	// result: parameters | type_;
 
 	__Result__()

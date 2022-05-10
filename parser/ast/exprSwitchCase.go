@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -14,8 +12,8 @@ type ExprSwitchCase struct {
 	default_       *lex.Token
 }
 
-func (a *ExprSwitchCase) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *ExprSwitchCase) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	cb.AppendToken(a.case_)
 	cb.AppendTreeNode(a.expressionList)
 	cb.AppendToken(a.default_)
@@ -26,7 +24,7 @@ func (a *ExprSwitchCase) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*ExprSwitchCase)(nil)
+var _ ITreeNode = (*ExprSwitchCase)(nil)
 
 func VisitExprSwitchCase(lexer *lex.Lexer) *ExprSwitchCase {
 	clone := lexer.Clone()

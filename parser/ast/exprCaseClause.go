@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type ExprCaseClause struct {
@@ -13,8 +11,8 @@ type ExprCaseClause struct {
 	statementList  *StatementList
 }
 
-func (a *ExprCaseClause) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *ExprCaseClause) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	cb.AppendTreeNode(a.exprSwitchCase).AppendToken(a.colon).AppendTreeNode(a.statementList)
 	return cb
 }
@@ -23,7 +21,7 @@ func (a *ExprCaseClause) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*ExprCaseClause)(nil)
+var _ ITreeNode = (*ExprCaseClause)(nil)
 
 func VisitExprCaseClause(lexer *lex.Lexer) *ExprCaseClause {
 	clone := lexer.Clone()

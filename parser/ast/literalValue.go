@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type LiteralValue struct {
@@ -14,15 +12,15 @@ type LiteralValue struct {
 	rCurly      *lex.Token
 }
 
-func (a *LiteralValue) CodeBuilder() *util.CodeBuilder {
-	return util.NewCB().AppendToken(a.lCurly).AppendTreeNode(a.elementList).AppendToken(a.comma).AppendToken(a.rCurly)
+func (a *LiteralValue) CodeBuilder() *CodeBuilder {
+	return NewCB().AppendToken(a.lCurly).AppendTreeNode(a.elementList).AppendToken(a.comma).AppendToken(a.rCurly)
 }
 
 func (a *LiteralValue) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*LiteralValue)(nil)
+var _ ITreeNode = (*LiteralValue)(nil)
 
 func (l LiteralValue) __Key__() {
 	panic("imposible")
@@ -39,7 +37,7 @@ func VisitLiteralValue(lexer *lex.Lexer) *LiteralValue {
 	clone := lexer.Clone()
 
 	lCurly := lexer.LA()
-	if lCurly.Type_() != lex.GoLexerL_CURLY {
+	if lCurly == nil || lCurly.Type_() != lex.GoLexerL_CURLY {
 		lexer.Recover(clone)
 		return nil
 	}

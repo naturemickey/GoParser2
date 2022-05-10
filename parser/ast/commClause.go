@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -14,8 +12,8 @@ type CommClause struct {
 	statementList *StatementList
 }
 
-func (a *CommClause) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *CommClause) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	cb.AppendTreeNode(a.commCase)
 	cb.AppendToken(a.colon).Newline()
 	cb.AppendTreeNode(a.statementList)
@@ -26,7 +24,7 @@ func (a *CommClause) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*CommClause)(nil)
+var _ ITreeNode = (*CommClause)(nil)
 
 func VisitCommClause(lexer *lex.Lexer) *CommClause {
 	clone := lexer.Clone()

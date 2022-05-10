@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type EmbeddedField struct {
@@ -12,8 +10,8 @@ type EmbeddedField struct {
 	typeName *TypeName
 }
 
-func (a *EmbeddedField) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *EmbeddedField) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	cb.AppendToken(a.star)
 	cb.AppendTreeNode(a.typeName)
 	return cb
@@ -23,7 +21,7 @@ func (a *EmbeddedField) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*EmbeddedField)(nil)
+var _ ITreeNode = (*EmbeddedField)(nil)
 
 func VisitEmbeddedField(lexer *lex.Lexer) *EmbeddedField {
 	clone := lexer.Clone()

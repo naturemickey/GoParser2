@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -14,8 +12,8 @@ type Block struct {
 	rCurly        *lex.Token
 }
 
-func (a *Block) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *Block) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	cb.AppendToken(a.lCurly).Newline()
 	cb.AppendTreeNode(a.statementList).Newline()
 	cb.AppendToken(a.rCurly).Newline()
@@ -26,7 +24,7 @@ func (a *Block) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*Block)(nil)
+var _ ITreeNode = (*Block)(nil)
 
 func (b Block) __Statement__() {
 	panic("imposible")

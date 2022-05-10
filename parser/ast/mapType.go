@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -17,15 +15,15 @@ type MapType struct {
 	elementType *Type_
 }
 
-func (a *MapType) CodeBuilder() *util.CodeBuilder {
-	return util.NewCB().AppendToken(a.map_).AppendToken(a.lBracket).AppendTreeNode(a.type_).AppendToken(a.rBracket).AppendTreeNode(a.elementType)
+func (a *MapType) CodeBuilder() *CodeBuilder {
+	return NewCB().AppendToken(a.map_).AppendToken(a.lBracket).AppendTreeNode(a.type_).AppendToken(a.rBracket).AppendTreeNode(a.elementType)
 }
 
 func (a *MapType) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*MapType)(nil)
+var _ ITreeNode = (*MapType)(nil)
 
 func (m MapType) __TypeLit__() {
 	panic("imposible")

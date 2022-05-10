@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -15,8 +13,8 @@ type Parameters struct {
 	rParen         *lex.Token
 }
 
-func (a *Parameters) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB().AppendToken(a.lParen)
+func (a *Parameters) CodeBuilder() *CodeBuilder {
+	cb := NewCB().AppendToken(a.lParen)
 	for i, decl := range a.parameterDecls {
 		if i == 0 {
 			cb.AppendTreeNode(decl)
@@ -32,7 +30,7 @@ func (a *Parameters) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*Parameters)(nil)
+var _ ITreeNode = (*Parameters)(nil)
 
 func (p Parameters) __Result__() {
 	panic("imposible")

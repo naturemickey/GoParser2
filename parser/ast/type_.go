@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -17,15 +15,15 @@ type Type_ struct {
 	rParen *lex.Token
 }
 
-func (a *Type_) CodeBuilder() *util.CodeBuilder {
-	return util.NewCB().AppendTreeNode(a.typeName).AppendTreeNode(a.typeLit).AppendToken(a.lParen).AppendTreeNode(a.type_).AppendToken(a.rParen)
+func (a *Type_) CodeBuilder() *CodeBuilder {
+	return NewCB().AppendTreeNode(a.typeName).AppendTreeNode(a.typeLit).AppendToken(a.lParen).AppendTreeNode(a.type_).AppendToken(a.rParen)
 }
 
 func (a *Type_) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*Type_)(nil)
+var _ ITreeNode = (*Type_)(nil)
 
 func (t Type_) __Result__() {
 	panic("imposible")

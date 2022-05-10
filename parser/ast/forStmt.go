@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type ForStmt struct {
@@ -15,8 +13,8 @@ type ForStmt struct {
 	block       *Block
 }
 
-func (a *ForStmt) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *ForStmt) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	cb.AppendToken(a.for_)
 	cb.AppendTreeNode(a.expression)
 	cb.AppendTreeNode(a.forClause)
@@ -29,7 +27,7 @@ func (a *ForStmt) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*ForStmt)(nil)
+var _ ITreeNode = (*ForStmt)(nil)
 
 func (f ForStmt) __Statement__() {
 	panic("imposible")

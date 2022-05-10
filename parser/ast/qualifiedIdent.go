@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type QualifiedIdent struct {
@@ -13,15 +11,15 @@ type QualifiedIdent struct {
 	identifier2 *lex.Token
 }
 
-func (a *QualifiedIdent) CodeBuilder() *util.CodeBuilder {
-	return util.NewCB().AppendToken(a.identifier1).AppendToken(a.dot).AppendToken(a.identifier2)
+func (a *QualifiedIdent) CodeBuilder() *CodeBuilder {
+	return NewCB().AppendToken(a.identifier1).AppendToken(a.dot).AppendToken(a.identifier2)
 }
 
 func (a *QualifiedIdent) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*QualifiedIdent)(nil)
+var _ ITreeNode = (*QualifiedIdent)(nil)
 
 func VisitQualifiedIdent(lexer *lex.Lexer) *QualifiedIdent {
 	clone := lexer.Clone()
@@ -34,7 +32,7 @@ func VisitQualifiedIdent(lexer *lex.Lexer) *QualifiedIdent {
 	lexer.Pop() // identifier1
 
 	dot := lexer.LA()
-	if dot.Type_() != lex.GoLexerDOT {
+	if dot == nil || dot.Type_() != lex.GoLexerDOT {
 		lexer.Recover(clone)
 		return nil
 	}

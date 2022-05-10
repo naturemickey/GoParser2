@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"reflect"
 )
 
@@ -12,8 +10,8 @@ type StatementList struct {
 	statements []Statement
 }
 
-func (a *StatementList) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *StatementList) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	for _, statement := range a.statements {
 		cb.AppendTreeNode(statement).Newline()
 	}
@@ -24,7 +22,7 @@ func (a *StatementList) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*StatementList)(nil)
+var _ ITreeNode = (*StatementList)(nil)
 
 func VisitStatementList(lexer *lex.Lexer) *StatementList {
 	VisitEos(lexer)

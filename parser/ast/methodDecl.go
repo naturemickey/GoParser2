@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -16,15 +14,15 @@ type MethodDecl struct {
 	block      *Block
 }
 
-func (a *MethodDecl) CodeBuilder() *util.CodeBuilder {
-	return util.NewCB().AppendToken(a.func_).AppendTreeNode(a.receiver).AppendToken(a.identifier).AppendTreeNode(a.signature).AppendTreeNode(a.block)
+func (a *MethodDecl) CodeBuilder() *CodeBuilder {
+	return NewCB().AppendToken(a.func_).AppendTreeNode(a.receiver).AppendToken(a.identifier).AppendTreeNode(a.signature).AppendTreeNode(a.block)
 }
 
 func (a *MethodDecl) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*MethodDecl)(nil)
+var _ ITreeNode = (*MethodDecl)(nil)
 
 func (m MethodDecl) __IFunctionMethodDeclaration__() {
 	panic("imposible")

@@ -2,11 +2,10 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
 )
 
 type Element interface {
-	parser.ITreeNode
+	ITreeNode
 	// element: expression | literalValue;
 	__Element__()
 }

@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -26,8 +24,8 @@ type Assign_op struct {
 	assign *lex.Token
 }
 
-func (a *Assign_op) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *Assign_op) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	cb.AppendToken(a.prefix)
 	cb.AppendToken(a.assign)
 	return cb
@@ -37,7 +35,7 @@ func (a *Assign_op) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*Assign_op)(nil)
+var _ ITreeNode = (*Assign_op)(nil)
 
 func VisitAssign_op(lexer *lex.Lexer) *Assign_op {
 	clone := lexer.Clone()

@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type ReturnStmt struct {
@@ -12,15 +10,15 @@ type ReturnStmt struct {
 	expressionList *ExpressionList
 }
 
-func (a *ReturnStmt) CodeBuilder() *util.CodeBuilder {
-	return util.NewCB().AppendToken(a.return_).AppendTreeNode(a.expressionList)
+func (a *ReturnStmt) CodeBuilder() *CodeBuilder {
+	return NewCB().AppendToken(a.return_).AppendTreeNode(a.expressionList)
 }
 
 func (a *ReturnStmt) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*ReturnStmt)(nil)
+var _ ITreeNode = (*ReturnStmt)(nil)
 
 func (r ReturnStmt) __Statement__() {
 	panic("imposible")

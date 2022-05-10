@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type MethodExpr struct {
@@ -13,15 +11,15 @@ type MethodExpr struct {
 	identifier   *lex.Token
 }
 
-func (a *MethodExpr) CodeBuilder() *util.CodeBuilder {
-	return util.NewCB().AppendTreeNode(a.nonNamedType).AppendToken(a.dot).AppendToken(a.identifier)
+func (a *MethodExpr) CodeBuilder() *CodeBuilder {
+	return NewCB().AppendTreeNode(a.nonNamedType).AppendToken(a.dot).AppendToken(a.identifier)
 }
 
 func (a *MethodExpr) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*MethodExpr)(nil)
+var _ ITreeNode = (*MethodExpr)(nil)
 
 func VisitMethodExpr(lexer *lex.Lexer) *MethodExpr {
 	clone := lexer.Clone()

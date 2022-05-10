@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -19,15 +17,15 @@ type VarSpec struct {
 	expressionList *ExpressionList
 }
 
-func (a *VarSpec) CodeBuilder() *util.CodeBuilder {
-	return util.NewCB().AppendTreeNode(a.identifierList).AppendTreeNode(a.type_).AppendToken(a.assign).AppendTreeNode(a.expressionList)
+func (a *VarSpec) CodeBuilder() *CodeBuilder {
+	return NewCB().AppendTreeNode(a.identifierList).AppendTreeNode(a.type_).AppendToken(a.assign).AppendTreeNode(a.expressionList)
 }
 
 func (a *VarSpec) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*VarSpec)(nil)
+var _ ITreeNode = (*VarSpec)(nil)
 
 func VisitVarSpec(lexer *lex.Lexer) *VarSpec {
 	clone := lexer.Clone()

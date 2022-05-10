@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 	"reflect"
 )
@@ -18,8 +16,8 @@ type SourceFile struct {
 	fmds          []IFunctionMethodDeclaration
 }
 
-func (a *SourceFile) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *SourceFile) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	cb.AppendTreeNode(a.packageClause).Newline()
 	for _, decl := range a.importDecls {
 		cb.AppendTreeNode(decl).Newline()
@@ -34,7 +32,7 @@ func (a *SourceFile) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*SourceFile)(nil)
+var _ ITreeNode = (*SourceFile)(nil)
 
 func NewSourceFile(packageClause *PackageClause, importDecls []*ImportDecl, fmds []IFunctionMethodDeclaration) *SourceFile {
 	return &SourceFile{packageClause: packageClause, importDecls: importDecls, fmds: fmds}

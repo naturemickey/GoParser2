@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -15,8 +13,8 @@ type ImportDecl struct {
 	rParen      *lex.Token
 }
 
-func (a *ImportDecl) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *ImportDecl) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	cb.AppendToken(a.import_)
 	if a.lParen != nil {
 		cb.AppendToken(a.lParen).Newline()
@@ -34,7 +32,7 @@ func (a *ImportDecl) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*ImportDecl)(nil)
+var _ ITreeNode = (*ImportDecl)(nil)
 
 func VisitImportDecl(lexer *lex.Lexer) *ImportDecl {
 	clone := lexer.Clone()

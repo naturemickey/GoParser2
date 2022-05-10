@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type TypeAssertion struct {
@@ -14,15 +12,15 @@ type TypeAssertion struct {
 	rParen *lex.Token
 }
 
-func (a *TypeAssertion) CodeBuilder() *util.CodeBuilder {
-	return util.NewCB().AppendToken(a.dot).AppendToken(a.lParen).AppendTreeNode(a.type_).AppendToken(a.rParen)
+func (a *TypeAssertion) CodeBuilder() *CodeBuilder {
+	return NewCB().AppendToken(a.dot).AppendToken(a.lParen).AppendTreeNode(a.type_).AppendToken(a.rParen)
 }
 
 func (a *TypeAssertion) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*TypeAssertion)(nil)
+var _ ITreeNode = (*TypeAssertion)(nil)
 
 func VisitTypeAssertion(lexer *lex.Lexer) *TypeAssertion {
 	clone := lexer.Clone()

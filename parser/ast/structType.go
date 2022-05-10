@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type StructType struct {
@@ -14,8 +12,8 @@ type StructType struct {
 	rCurly     *lex.Token
 }
 
-func (a *StructType) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB().AppendToken(a.struct_).AppendToken(a.lCurly).Newline()
+func (a *StructType) CodeBuilder() *CodeBuilder {
+	cb := NewCB().AppendToken(a.struct_).AppendToken(a.lCurly).Newline()
 	for _, decl := range a.fieldDecls {
 		cb.AppendTreeNode(decl).Newline()
 	}
@@ -27,7 +25,7 @@ func (a *StructType) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*StructType)(nil)
+var _ ITreeNode = (*StructType)(nil)
 
 func (s StructType) __TypeLit__() {
 	panic("imposible")

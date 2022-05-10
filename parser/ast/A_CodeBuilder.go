@@ -1,8 +1,7 @@
-package util
+package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
 	"reflect"
 	"strings"
 )
@@ -28,7 +27,7 @@ func (this *CodeBuilder) AppendToken(token *lex.Token) *CodeBuilder {
 	return this
 }
 
-func (this *CodeBuilder) AppendTreeNode(node parser.ITreeNode) *CodeBuilder {
+func (this *CodeBuilder) AppendTreeNode(node ITreeNode) *CodeBuilder {
 	if node == nil || reflect.ValueOf(node).IsNil() {
 		return this
 	}

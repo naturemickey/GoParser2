@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type ParameterDecl struct {
@@ -13,15 +11,15 @@ type ParameterDecl struct {
 	type_          *Type_
 }
 
-func (a *ParameterDecl) CodeBuilder() *util.CodeBuilder {
-	return util.NewCB().AppendTreeNode(a.identifierList).AppendToken(a.ellipsis).AppendTreeNode(a.type_)
+func (a *ParameterDecl) CodeBuilder() *CodeBuilder {
+	return NewCB().AppendTreeNode(a.identifierList).AppendToken(a.ellipsis).AppendTreeNode(a.type_)
 }
 
 func (a *ParameterDecl) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*ParameterDecl)(nil)
+var _ ITreeNode = (*ParameterDecl)(nil)
 
 func VisitParameterDecl(lexer *lex.Lexer) *ParameterDecl {
 	clone := lexer.Clone()

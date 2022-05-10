@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type Signature struct {
@@ -14,15 +12,15 @@ type Signature struct {
 	result     Result
 }
 
-func (a *Signature) CodeBuilder() *util.CodeBuilder {
-	return util.NewCB().AppendTreeNode(a.parameters).AppendTreeNode(a.result)
+func (a *Signature) CodeBuilder() *CodeBuilder {
+	return NewCB().AppendTreeNode(a.parameters).AppendTreeNode(a.result)
 }
 
 func (a *Signature) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*Signature)(nil)
+var _ ITreeNode = (*Signature)(nil)
 
 func VisitSignature(lexer *lex.Lexer) *Signature {
 	parameters := VisitParameters(lexer)

@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type Slice struct {
@@ -23,8 +21,8 @@ type Slice struct {
 	colon2 *lex.Token
 }
 
-func (a *Slice) CodeBuilder() *util.CodeBuilder {
-	return util.NewCB().AppendToken(a.lBracket).AppendTreeNode(a.expression1).AppendToken(a.colon1).
+func (a *Slice) CodeBuilder() *CodeBuilder {
+	return NewCB().AppendToken(a.lBracket).AppendTreeNode(a.expression1).AppendToken(a.colon1).
 		AppendTreeNode(a.expression2).AppendToken(a.colon2).AppendTreeNode(a.expression3).AppendToken(a.rBracket)
 }
 
@@ -32,7 +30,7 @@ func (a *Slice) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*Slice)(nil)
+var _ ITreeNode = (*Slice)(nil)
 
 func VisitSlice(lexer *lex.Lexer) *Slice {
 	clone := lexer.Clone()

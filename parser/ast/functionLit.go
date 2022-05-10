@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type FunctionLit struct {
@@ -13,8 +11,8 @@ type FunctionLit struct {
 	block     *Block
 }
 
-func (a *FunctionLit) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *FunctionLit) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	cb.AppendToken(a.func_).AppendTreeNode(a.signature).AppendTreeNode(a.block)
 	return cb
 }
@@ -23,7 +21,7 @@ func (a *FunctionLit) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*FunctionLit)(nil)
+var _ ITreeNode = (*FunctionLit)(nil)
 
 func (f FunctionLit) __Literal__() {
 	panic("imposible")

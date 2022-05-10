@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type Conversion struct {
@@ -15,8 +13,8 @@ type Conversion struct {
 	rParen       *lex.Token
 }
 
-func (a *Conversion) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *Conversion) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	cb.AppendTreeNode(a.nonNamedType)
 	cb.AppendToken(a.lParen)
 	cb.AppendTreeNode(a.expression)
@@ -29,7 +27,7 @@ func (a *Conversion) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*Conversion)(nil)
+var _ ITreeNode = (*Conversion)(nil)
 
 func VisitConversion(lexer *lex.Lexer) *Conversion {
 	clone := lexer.Clone()

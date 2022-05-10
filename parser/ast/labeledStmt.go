@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type LabeledStmt struct {
@@ -13,15 +11,15 @@ type LabeledStmt struct {
 	statement  Statement
 }
 
-func (a *LabeledStmt) CodeBuilder() *util.CodeBuilder {
-	return util.NewCB().AppendToken(a.identifier).AppendToken(a.colon).AppendTreeNode(a.statement)
+func (a *LabeledStmt) CodeBuilder() *CodeBuilder {
+	return NewCB().AppendToken(a.identifier).AppendToken(a.colon).AppendTreeNode(a.statement)
 }
 
 func (a *LabeledStmt) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*LabeledStmt)(nil)
+var _ ITreeNode = (*LabeledStmt)(nil)
 
 func (l LabeledStmt) __Statement__() {
 	panic("imposible")

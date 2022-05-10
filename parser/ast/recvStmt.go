@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type RecvStmt struct {
@@ -15,8 +13,8 @@ type RecvStmt struct {
 	recvExpr       *Expression
 }
 
-func (a *RecvStmt) CodeBuilder() *util.CodeBuilder {
-	return util.NewCB().AppendTreeNode(a.expressionList).AppendToken(a.assign).
+func (a *RecvStmt) CodeBuilder() *CodeBuilder {
+	return NewCB().AppendTreeNode(a.expressionList).AppendToken(a.assign).
 		AppendTreeNode(a.identifierList).AppendToken(a.declare_assign).AppendTreeNode(a.recvExpr)
 }
 
@@ -24,7 +22,7 @@ func (a *RecvStmt) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*RecvStmt)(nil)
+var _ ITreeNode = (*RecvStmt)(nil)
 
 func VisitRecvStmt(lexer *lex.Lexer) *RecvStmt {
 	clone := lexer.Clone()

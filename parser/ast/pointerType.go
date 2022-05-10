@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -13,15 +11,15 @@ type PointerType struct {
 	type_ *Type_
 }
 
-func (a *PointerType) CodeBuilder() *util.CodeBuilder {
-	return util.NewCB().AppendToken(a.star).AppendTreeNode(a.type_)
+func (a *PointerType) CodeBuilder() *CodeBuilder {
+	return NewCB().AppendToken(a.star).AppendTreeNode(a.type_)
 }
 
 func (a *PointerType) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*PointerType)(nil)
+var _ ITreeNode = (*PointerType)(nil)
 
 func (p PointerType) __TypeLit__() {
 	panic("imposible")

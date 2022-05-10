@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -16,8 +14,8 @@ type ChannelType struct {
 	elementType  *Type_
 }
 
-func (a *ChannelType) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *ChannelType) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	if a.chan_ != nil {
 		cb.AppendToken(a.chan_)
 	} else if a.chan_receive != nil {
@@ -35,7 +33,7 @@ func (a *ChannelType) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*ChannelType)(nil)
+var _ ITreeNode = (*ChannelType)(nil)
 
 type chanReceivePair struct {
 	chan_   *lex.Token

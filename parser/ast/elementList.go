@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type ElementList struct {
@@ -11,8 +9,8 @@ type ElementList struct {
 	keyedElements []*KeyedElement
 }
 
-func (a *ElementList) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *ElementList) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	for i, element := range a.keyedElements {
 		if i == 0 {
 			cb.AppendTreeNode(element)
@@ -27,7 +25,7 @@ func (a *ElementList) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*ElementList)(nil)
+var _ ITreeNode = (*ElementList)(nil)
 
 func VisitElementList(lexer *lex.Lexer) *ElementList {
 	clone := lexer.Clone()

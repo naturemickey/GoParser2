@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -16,8 +14,8 @@ type ConstSpec struct {
 	expressionList *ExpressionList
 }
 
-func (a *ConstSpec) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *ConstSpec) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	cb.AppendTreeNode(a.identifierList)
 	cb.AppendTreeNode(a.type_)
 	cb.AppendToken(a.assign)
@@ -29,7 +27,7 @@ func (a *ConstSpec) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*ConstSpec)(nil)
+var _ ITreeNode = (*ConstSpec)(nil)
 
 func VisitConstSpec(lexer *lex.Lexer) *ConstSpec {
 	// 识别失败不是真失败，需要恢复lexer，因为外面可能会继续使用

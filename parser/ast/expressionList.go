@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -12,8 +10,8 @@ type ExpressionList struct {
 	expressions []*Expression
 }
 
-func (a *ExpressionList) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *ExpressionList) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	for i, expression := range a.expressions {
 		if i == 0 {
 			cb.AppendTreeNode(expression)
@@ -28,7 +26,7 @@ func (a *ExpressionList) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*ExpressionList)(nil)
+var _ ITreeNode = (*ExpressionList)(nil)
 
 func VisitExpressionList(lexer *lex.Lexer) *ExpressionList {
 	expression := VisitExpression(lexer)

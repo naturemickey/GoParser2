@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -13,15 +11,15 @@ type GoStmt struct {
 	expression *Expression
 }
 
-func (a *GoStmt) CodeBuilder() *util.CodeBuilder {
-	return util.NewCB().AppendToken(a.go_).AppendTreeNode(a.expression)
+func (a *GoStmt) CodeBuilder() *CodeBuilder {
+	return NewCB().AppendToken(a.go_).AppendTreeNode(a.expression)
 }
 
 func (a *GoStmt) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*GoStmt)(nil)
+var _ ITreeNode = (*GoStmt)(nil)
 
 func (g GoStmt) __Statement__() {
 	panic("imposible")

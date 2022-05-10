@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -15,8 +13,8 @@ type SelectStmt struct {
 	rCurly      *lex.Token
 }
 
-func (a *SelectStmt) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *SelectStmt) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	cb.AppendToken(a.select_).AppendToken(a.rCurly).Newline()
 	for _, clause := range a.commClauses {
 		cb.AppendTreeNode(clause).Newline()
@@ -29,7 +27,7 @@ func (a *SelectStmt) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*SelectStmt)(nil)
+var _ ITreeNode = (*SelectStmt)(nil)
 
 func (s SelectStmt) __Statement__() {
 	panic("imposible")

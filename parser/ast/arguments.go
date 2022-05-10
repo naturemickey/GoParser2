@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 )
 
 type Arguments struct {
@@ -24,8 +22,8 @@ type Arguments struct {
 	rParen *lex.Token
 }
 
-func (a *Arguments) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *Arguments) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	cb.AppendToken(a.lParen)
 	cb.AppendTreeNode(a.expressionList)
 	cb.AppendTreeNode(a.nonNamedType)
@@ -41,7 +39,7 @@ func (a *Arguments) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*Arguments)(nil)
+var _ ITreeNode = (*Arguments)(nil)
 
 func VisitArguments(lexer *lex.Lexer) *Arguments {
 	clone := lexer.Clone()

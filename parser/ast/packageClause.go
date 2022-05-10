@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -13,15 +11,15 @@ type PackageClause struct {
 	packageName *lex.Token
 }
 
-func (a *PackageClause) CodeBuilder() *util.CodeBuilder {
-	return util.NewCB().AppendToken(a.package_).AppendToken(a.packageName)
+func (a *PackageClause) CodeBuilder() *CodeBuilder {
+	return NewCB().AppendToken(a.package_).AppendToken(a.packageName)
 }
 
 func (a *PackageClause) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*PackageClause)(nil)
+var _ ITreeNode = (*PackageClause)(nil)
 
 func VisitPackageClause(lexer *lex.Lexer) *PackageClause {
 	package_ := lexer.LA()

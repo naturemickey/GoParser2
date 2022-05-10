@@ -2,8 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/util"
 	"fmt"
 )
 
@@ -15,8 +13,8 @@ type VarDecl struct {
 	rParen   *lex.Token
 }
 
-func (a *VarDecl) CodeBuilder() *util.CodeBuilder {
-	cb := util.NewCB()
+func (a *VarDecl) CodeBuilder() *CodeBuilder {
+	cb := NewCB()
 	cb.AppendToken(a.var_)
 	if a.lParen != nil {
 		cb.AppendToken(a.lParen).Newline()
@@ -34,7 +32,7 @@ func (a *VarDecl) String() string {
 	return a.CodeBuilder().String()
 }
 
-var _ parser.ITreeNode = (*VarDecl)(nil)
+var _ ITreeNode = (*VarDecl)(nil)
 
 func (v VarDecl) __Statement__() {
 	panic("imposible")
