@@ -57,7 +57,7 @@ func VisitTypeList(lexer *lex.Lexer) *TypeList {
 
 		type_, ok := _visitTypeOrNil(lexer)
 		if !ok {
-			fmt.Printf("逗号后面需要跟着另外一个类型（或nil）。%s\n", comma.ErrorMsg())
+			fmt.Printf("typeLit,逗号后面需要跟着另外一个类型（或nil）。%s\n", comma.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}

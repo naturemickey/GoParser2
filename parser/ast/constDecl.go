@@ -63,7 +63,7 @@ func VisitConstDecl(lexer *lex.Lexer) *ConstDecl {
 	if lParen == nil {
 		constSpec := VisitConstSpec(lexer)
 		if constSpec == nil {
-			fmt.Printf("const后面跟的东西不对。%s\n")
+			fmt.Printf("constDecl,const后面跟的东西不对。%s\n")
 			return nil
 		}
 		constSpecs = append(constSpecs, constSpec)
@@ -82,7 +82,7 @@ func VisitConstDecl(lexer *lex.Lexer) *ConstDecl {
 
 		rParen := lexer.LA()
 		if rParen.Type_() != lex.GoLexerR_PAREN {
-			fmt.Printf("有左括号，但没找到右括号。%s\n", rParen.ErrorMsg())
+			fmt.Printf("constDecl,有左括号，但没找到右括号。%s\n", rParen.ErrorMsg())
 			return nil
 		}
 		lexer.Pop()

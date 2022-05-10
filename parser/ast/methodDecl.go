@@ -41,7 +41,7 @@ func VisitMethodDecl(lexer *lex.Lexer) *MethodDecl {
 
 	receiver := VisitReceiver(lexer)
 	if receiver == nil {
-		fmt.Printf("func后面没看到receiver定义。%s\n", func_.ErrorMsg())
+		fmt.Printf("methodDecl,func后面没看到receiver定义。%s\n", func_.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}
@@ -55,7 +55,7 @@ func VisitMethodDecl(lexer *lex.Lexer) *MethodDecl {
 
 	signature := VisitSignature(lexer)
 	if signature == nil {
-		fmt.Printf("没看到参数的部分。%s\n", identifier.ErrorMsg())
+		fmt.Printf("methodDecl,没看到参数的部分。%s\n", identifier.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}

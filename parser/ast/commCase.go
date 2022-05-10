@@ -41,7 +41,7 @@ func VisitCommCase(lexer *lex.Lexer) *CommCase {
 		if sendStmt == nil {
 			recvStmt = VisitRecvStmt(lexer)
 			if recvStmt == nil {
-				fmt.Printf("case后面要么是一个send语句，要么是一个recv语句，现在都不是。%s\n", case_.ErrorMsg())
+				fmt.Printf("commCase,case后面要么是一个send语句，要么是一个recv语句，现在都不是。%s\n", case_.ErrorMsg())
 				lexer.Recover(clone)
 				return nil
 			}
@@ -52,7 +52,7 @@ func VisitCommCase(lexer *lex.Lexer) *CommCase {
 		lexer.Pop() // default_
 		return &CommCase{default_: default_}
 	} else {
-		fmt.Printf("这里要么是个case，要么是个default。%s\n", la.ErrorMsg())
+		fmt.Printf("commCase,这里要么是个case，要么是个default。%s\n", la.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}

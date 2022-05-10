@@ -50,7 +50,7 @@ func VisitFunctionDecl(lexer *lex.Lexer) *FunctionDecl {
 
 	signature := VisitSignature(lexer)
 	if signature == nil {
-		fmt.Printf("没看到参数的部分。%s\n", identifier.ErrorMsg())
+		fmt.Printf("functionDecl,没看到参数的部分。%s\n", identifier.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}

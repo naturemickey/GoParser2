@@ -62,7 +62,7 @@ func VisitImportDecl(lexer *lex.Lexer) *ImportDecl {
 
 		rParen := lexer.LA()
 		if rParen.Type_() != lex.GoLexerR_PAREN {
-			fmt.Printf("此处应该是一个')'才对。%s\n", rParen.ErrorMsg())
+			fmt.Printf("importDecl,此处应该是一个')'才对。%s\n", rParen.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}
@@ -72,7 +72,7 @@ func VisitImportDecl(lexer *lex.Lexer) *ImportDecl {
 	} else {
 		importSpec := VisitImportSpec(lexer)
 		if importSpec == nil {
-			fmt.Printf("import后面没看到路径描述，%s\n", import_.ErrorMsg())
+			fmt.Printf("importDecl,import后面没看到路径描述，%s\n", import_.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		} else {

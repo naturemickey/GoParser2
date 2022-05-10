@@ -41,7 +41,7 @@ func VisitMethodSpec(lexer *lex.Lexer) *MethodSpec {
 
 	parameters := VisitParameters(lexer)
 	if parameters == nil {
-		fmt.Printf("方法名后面找不到参数列表。%s\n", identifier.ErrorMsg())
+		fmt.Printf("methodSpec,方法名后面找不到参数列表。%s\n", identifier.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}

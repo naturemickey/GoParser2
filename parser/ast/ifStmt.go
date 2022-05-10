@@ -153,7 +153,7 @@ L:
 		} else {
 			elseBlock := VisitBlock(lexer)
 			if elseBlock == nil {
-				fmt.Printf("else后面的语句块不对。%s\n", else_.ErrorMsg())
+				fmt.Printf("ifStmt,else后面的语句块不对。%s\n", else_.ErrorMsg())
 				lexer.Recover(clone)
 				return nil
 			}
@@ -180,19 +180,25 @@ func _visitIfCondition(lexer *lex.Lexer) (*Expression, SimpleStmt, *lex.Token, b
 		}
 	} else {
 		semi = nil
+		clone2 := lexer.Clone()
 		// 先识别 simpleStmt eos expression
 		simpleStmt = VisitSimpleStmt(lexer)
 		if simpleStmt != nil {
 			semi = lexer.LA()
-			if semi.Type_() != lex.GoLexerSEMI {
-				lexer.Recover(clone)
-				return nil, nil, nil, false
-			}
-			lexer.Pop() // semi
-			expression = VisitExpression(lexer)
-			if expression == nil {
-				lexer.Recover(clone)
-				return nil, nil, nil, false
+			if semi.Type_() != lex.GoLexerSEMI { // simpleStmt开头走不通就直接走expression的分支
+				lexer.Recover(clone2)
+				expression = VisitExpression(lexer)
+				if expression == nil {
+					lexer.Recover(clone)
+					return nil, nil, nil, false
+				}
+			} else {
+				lexer.Pop() // semi
+				expression = VisitExpression(lexer)
+				if expression == nil {
+					lexer.Recover(clone)
+					return nil, nil, nil, false
+				}
 			}
 		} else {
 			// 再识别 expression

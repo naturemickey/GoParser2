@@ -30,7 +30,7 @@ func VisitReceiver(lexer *lex.Lexer) *Receiver {
 	}
 	onlyOneParams := true // todo 需要判断receiver中是否只有一个参数
 	if !onlyOneParams {
-		fmt.Printf("receiver只可以有1个。%s\n", lexer.LA().ErrorMsg())
+		fmt.Printf("receiver,receiver只可以有1个。%s\n", lexer.LA().ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}

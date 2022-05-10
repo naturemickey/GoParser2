@@ -36,14 +36,14 @@ func VisitOperand(lexer *lex.Lexer) *Operand {
 
 		expression := VisitExpression(lexer)
 		if expression == nil {
-			fmt.Printf("'('后面应该是一个表达式才对。%s\n", lParen.ErrorMsg())
+			fmt.Printf("operand,'('后面应该是一个表达式才对。%s\n", lParen.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}
 
 		rParen := lexer.LA()
 		if rParen.Type_() != lex.GoLexerR_PAREN {
-			fmt.Printf("此处应该有一个')'。%s\n", rParen.ErrorMsg())
+			fmt.Printf("operand,此处应该有一个')'。%s\n", rParen.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}

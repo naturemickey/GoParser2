@@ -42,7 +42,7 @@ func VisitSourceFile(lexer *lex.Lexer) *SourceFile {
 	var packageClause = VisitPackageClause(lexer)
 
 	if packageClause == nil {
-		fmt.Println("文件第一个部分必须是package语句")
+		fmt.Println("sourceFile,文件第一个部分必须是package语句")
 		return nil
 	}
 
@@ -72,7 +72,7 @@ func VisitSourceFile(lexer *lex.Lexer) *SourceFile {
 					if methodDecl != nil {
 						fmds = append(fmds, methodDecl)
 					} else {
-						fmt.Printf("看到了func关键字，但识别不到method的定义。 %s\n", la.ErrorMsg())
+						fmt.Printf("sourceFile,看到了func关键字，但识别不到method的定义。 %s\n", la.ErrorMsg())
 						return nil
 					}
 				} else if la1 != nil && la1.Type_() == lex.GoLexerIDENTIFIER { // function
@@ -80,11 +80,11 @@ func VisitSourceFile(lexer *lex.Lexer) *SourceFile {
 					if functionDecl != nil {
 						fmds = append(fmds, functionDecl)
 					} else {
-						fmt.Printf("看到了func关键字，但识别不到function的定义。 %s\n", la.ErrorMsg())
+						fmt.Printf("sourceFile,看到了func关键字，但识别不到function的定义。 %s\n", la.ErrorMsg())
 						return nil
 					}
 				} else { // unknown, error
-					fmt.Printf("func关键字后面必须跟着函数名或者receiver。 %s\n", la.ErrorMsg())
+					fmt.Printf("sourceFile,func关键字后面必须跟着函数名或者receiver。 %s\n", la.ErrorMsg())
 					return nil
 				}
 
@@ -93,7 +93,7 @@ func VisitSourceFile(lexer *lex.Lexer) *SourceFile {
 				if declaration != nil && !reflect.ValueOf(declaration).IsNil() {
 					fmds = append(fmds, declaration)
 				} else {
-					fmt.Printf("看到了%s关键字，但识别不到后面的定义。 %s\n", la.Literal(), la.ErrorMsg())
+					fmt.Printf("sourceFile,看到了%s关键字，但识别不到后面的定义。 %s\n", la.Literal(), la.ErrorMsg())
 					return nil
 				}
 			}
@@ -105,7 +105,7 @@ func VisitSourceFile(lexer *lex.Lexer) *SourceFile {
 
 	la := lexer.LA()
 	if la != nil {
-		fmt.Printf("无法识别的语法元素，%s\n", la.ErrorMsg())
+		fmt.Printf("sourceFile,无法识别的语法元素，%s\n", la.ErrorMsg())
 	}
 
 	return NewSourceFile(packageClause, importDecls, fmds)

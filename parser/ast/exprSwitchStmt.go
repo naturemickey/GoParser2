@@ -74,26 +74,26 @@ func VisitExprSwitchStmt(lexer *lex.Lexer) *ExprSwitchStmt {
 	if expression == nil {
 		simpleStmt = VisitSimpleStmt(lexer)
 		if simpleStmt == nil {
-			fmt.Printf("switch关键字后面需要有一个表达式。%s\n", switch_.ErrorMsg())
+			fmt.Printf("exprSwitchStmt,switch关键字后面需要有一个表达式。%s\n", switch_.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}
 		eos := VisitEos(lexer)
 		if eos == nil {
-			fmt.Printf("此处应该有一个分号。%s\n", lexer.LA().ErrorMsg())
+			fmt.Printf("exprSwitchStmt,此处应该有一个分号。%s\n", lexer.LA().ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}
 		expression = VisitExpression(lexer)
 		if expression == nil {
-			fmt.Printf("分号后面需要有一个表达式。%s\n", switch_.ErrorMsg())
+			fmt.Printf("exprSwitchStmt,分号后面需要有一个表达式。%s\n", switch_.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}
 	}
 	lCurly := lexer.LA()
 	if lCurly.Type_() != lex.GoLexerL_CURLY {
-		fmt.Printf("此处应该是一个左花括号才对。%s\n", lCurly.ErrorMsg())
+		fmt.Printf("exprSwitchStmt,此处应该是一个左花括号才对。%s\n", lCurly.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}
@@ -111,7 +111,7 @@ func VisitExprSwitchStmt(lexer *lex.Lexer) *ExprSwitchStmt {
 
 	rCurly := lexer.LA()
 	if rCurly.Type_() != lex.GoLexerR_CURLY {
-		fmt.Printf("此处应该是一个右花括号才对。%s\n", lCurly.ErrorMsg())
+		fmt.Printf("exprSwitchStmt,此处应该是一个右花括号才对。%s\n", lCurly.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}

@@ -53,7 +53,7 @@ func VisitVarSpec(lexer *lex.Lexer) *VarSpec {
 	} else {
 		assign := lexer.LA()
 		if assign.Type_() != lex.GoLexerASSIGN {
-			fmt.Printf("此处应该有一个等号。%s\n", assign.ErrorMsg())
+			fmt.Printf("varSpec,此处应该有一个等号。%s\n", assign.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}

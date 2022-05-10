@@ -49,7 +49,7 @@ func VisitIdentifierList(lexer *lex.Lexer) *IdentifierList {
 
 			identifier := lexer.LA()
 			if identifier.Type_() != lex.GoLexerIDENTIFIER {
-				fmt.Printf("逗号后面要跟着一个标识符才对。%s\n", comma.ErrorMsg())
+				fmt.Printf("identifierList,逗号后面要跟着一个标识符才对。%s\n", comma.ErrorMsg())
 				return nil
 			}
 			lexer.Pop()

@@ -43,7 +43,7 @@ func VisitNonNamedType(lexer *lex.Lexer) *NonNamedType {
 
 		rParen := lexer.LA()
 		if rParen.Type_() != lex.GoLexerR_PAREN {
-			fmt.Printf("此处应该是一个')'。%s\n", rParen.ErrorMsg())
+			fmt.Printf("nonNamedType,此处应该是一个')'。%s\n", rParen.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}

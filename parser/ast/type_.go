@@ -44,14 +44,14 @@ func VisitType_(lexer *lex.Lexer) *Type_ {
 
 		type_ := VisitType_(lexer)
 		if type_ == nil {
-			fmt.Printf("此处括号里面需要是一个类型。%s\n", lParen.ErrorMsg())
+			fmt.Printf("type_,此处括号里面需要是一个类型。%s\n", lParen.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}
 
 		rParen := lexer.LA()
 		if rParen.Type_() != lex.GoLexerR_PAREN {
-			fmt.Printf("此处应该有一个')'。%s\n", rParen.ErrorMsg())
+			fmt.Printf("type_,此处应该有一个')'。%s\n", rParen.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}

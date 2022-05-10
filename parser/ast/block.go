@@ -49,7 +49,7 @@ func VisitBlock(lexer *lex.Lexer) *Block {
 
 	rCurly := lexer.LA()
 	if rCurly.Type_() != lex.GoLexerR_CURLY {
-		fmt.Printf("此处没有看到右花括号。%s\n", rCurly.ErrorMsg())
+		fmt.Printf("block,此处没有看到右花括号。%s\n", rCurly.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}

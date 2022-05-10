@@ -46,7 +46,7 @@ func VisitInterfaceType(lexer *lex.Lexer) *InterfaceType {
 
 	lCurly := lexer.LA()
 	if lCurly.Type_() != lex.GoLexerL_CURLY {
-		fmt.Printf("此处应该是一个'{'。%s\n", lCurly.ErrorMsg())
+		fmt.Printf("interfaceType,此处应该是一个'{'。%s\n", lCurly.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}
@@ -69,7 +69,7 @@ func VisitInterfaceType(lexer *lex.Lexer) *InterfaceType {
 
 	rCurly := lexer.LA()
 	if rCurly.Type_() != lex.GoLexerR_CURLY {
-		fmt.Printf("此处应该有一个'}'才对。%s\n", rCurly.ErrorMsg())
+		fmt.Printf("interfaceType,此处应该有一个'}'才对。%s\n", rCurly.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}

@@ -40,7 +40,7 @@ func VisitSliceType(lexer *lex.Lexer) *SliceType {
 
 	rBracket := lexer.LA()
 	if rBracket.Type_() != lex.GoLexerR_BRACKET {
-		fmt.Printf("此处应该是一个']'。%s\n", rBracket.ErrorMsg())
+		fmt.Printf("sliceType,此处应该是一个']'。%s\n", rBracket.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}
@@ -48,7 +48,7 @@ func VisitSliceType(lexer *lex.Lexer) *SliceType {
 
 	elementType := VisitType_(lexer)
 	if elementType == nil {
-		fmt.Printf("']'后面应该是类型描述。%s\n", rBracket.ErrorMsg())
+		fmt.Printf("sliceType,']'后面应该是类型描述。%s\n", rBracket.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}

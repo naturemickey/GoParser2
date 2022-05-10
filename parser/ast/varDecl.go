@@ -69,7 +69,7 @@ func VisitVarDecl(lexer *lex.Lexer) *VarDecl {
 	if lParen == nil {
 		varSpec := VisitVarSpec(lexer)
 		if varSpec == nil {
-			fmt.Printf("没找到变量的定义。%s\n", var_.ErrorMsg())
+			fmt.Printf("varDecl,没找到变量的定义。%s\n", var_.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		} else {
@@ -87,7 +87,7 @@ func VisitVarDecl(lexer *lex.Lexer) *VarDecl {
 		}
 		rParen := lexer.LA()
 		if rParen.Type_() != lex.GoLexerR_PAREN {
-			fmt.Printf("没找到右括号。%s\n", rParen.ErrorMsg())
+			fmt.Printf("varDecl,没找到右括号。%s\n", rParen.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}

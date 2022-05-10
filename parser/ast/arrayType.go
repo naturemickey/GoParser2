@@ -48,14 +48,14 @@ func VisitArrayType(lexer *lex.Lexer) *ArrayType {
 
 	arrayLength := VisitExpression(lexer)
 	if arrayLength == nil {
-		fmt.Printf("方括号中间应该是一个值为数字的表达式。%s\n", lBracket.ErrorMsg())
+		fmt.Printf("arrayType,方括号中间应该是一个值为数字的表达式。%s\n", lBracket.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}
 
 	rBracket := lexer.LA()
 	if rBracket.Type_() != lex.GoLexerR_BRACKET {
-		fmt.Printf("此处应该有一个右方括号。%s\n", rBracket.ErrorMsg())
+		fmt.Printf("arrayType,此处应该有一个右方括号。%s\n", rBracket.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}
@@ -63,7 +63,7 @@ func VisitArrayType(lexer *lex.Lexer) *ArrayType {
 
 	elementType := VisitType_(lexer)
 	if elementType == nil {
-		fmt.Printf("这里（']'右边）需要一个类型描述。%s\n", rBracket.ErrorMsg())
+		fmt.Printf("arrayType,这里（']'右边）需要一个类型描述。%s\n", rBracket.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}

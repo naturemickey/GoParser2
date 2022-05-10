@@ -51,7 +51,7 @@ func VisitConstSpec(lexer *lex.Lexer) *ConstSpec {
 
 	expressionList := VisitExpressionList(lexer)
 	if expressionList == nil {
-		fmt.Printf("'='后面跟的东西不对。%s\n", assign.ErrorMsg())
+		fmt.Printf("constSpec,'='后面跟的东西不对。%s\n", assign.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}

@@ -68,7 +68,7 @@ func VisitTypeDecl(lexer *lex.Lexer) *TypeDecl {
 	if lParen == nil {
 		typeSpec := VisitTypeSpec(lexer)
 		if typeSpec == nil {
-			fmt.Printf("type后面要跟着类型定义。%s\n", type_.ErrorMsg())
+			fmt.Printf("typeDecl,type后面要跟着类型定义。%s\n", type_.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		} else {
@@ -86,7 +86,7 @@ func VisitTypeDecl(lexer *lex.Lexer) *TypeDecl {
 		}
 		rParen := lexer.LA()
 		if rParen.Type_() != lex.GoLexerR_PAREN {
-			fmt.Printf("此处应该有一个')'。%s\n", rParen.ErrorMsg())
+			fmt.Printf("typeDecl,此处应该有一个')'。%s\n", rParen.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}

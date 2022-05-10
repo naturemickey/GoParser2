@@ -97,7 +97,7 @@ func (this *lexerInner) NextToken() *Token {
 
 		if set.isEmpty() {
 			if this.lastFinishState == nil {
-				fmt.Printf("error char '%s'， %s\n", string(char), this.scanner.cursor.string())
+				fmt.Printf("lexer_inner,error char '%s'， %s\n", string(char), this.scanner.cursor.string())
 				// 报错之后忽略一个字母，继续前进
 				continue
 			} else {

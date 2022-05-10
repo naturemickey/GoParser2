@@ -42,7 +42,7 @@ func VisitGoStmt(lexer *lex.Lexer) *GoStmt {
 
 	expression := VisitExpression(lexer)
 	if expression == nil {
-		fmt.Printf("go后面必须是一个表达式。%s\n", go_.ErrorMsg())
+		fmt.Printf("goStmt,go后面必须是一个表达式。%s\n", go_.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}

@@ -31,7 +31,7 @@ func VisitTypeSwitchCase(lexer *lex.Lexer) *TypeSwitchCase {
 		lexer.Pop() // la
 		typeList := VisitTypeList(lexer)
 		if typeList == nil {
-			fmt.Printf("case后面要有表达式。%s\n", la.ErrorMsg())
+			fmt.Printf("typeSwitchCase,case后面要有表达式。%s\n", la.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}

@@ -35,7 +35,7 @@ func VisitExprSwitchCase(lexer *lex.Lexer) *ExprSwitchCase {
 		lexer.Pop() // case_
 		expressionList := VisitExpressionList(lexer)
 		if expressionList == nil {
-			fmt.Printf("case后面要有表达式。%s\n", case_.ErrorMsg())
+			fmt.Printf("exprSwitchCase,case后面要有表达式。%s\n", case_.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}

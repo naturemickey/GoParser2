@@ -38,7 +38,7 @@ func VisitFunctionType(lexer *lex.Lexer) *FunctionType {
 
 	signature := VisitSignature(lexer)
 	if signature == nil {
-		fmt.Printf("func后面找不到函数的签名。%s\n", func_.ErrorMsg())
+		fmt.Printf("functionType,func后面找不到函数的签名。%s\n", func_.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}

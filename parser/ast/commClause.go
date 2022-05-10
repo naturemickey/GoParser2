@@ -37,7 +37,7 @@ func VisitCommClause(lexer *lex.Lexer) *CommClause {
 
 	colon := lexer.LA()
 	if colon.Type_() != lex.GoLexerCOLON {
-		fmt.Printf("冒号在哪里？%s\n", colon.ErrorMsg())
+		fmt.Printf("commClause,冒号在哪里？%s\n", colon.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}

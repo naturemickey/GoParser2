@@ -75,7 +75,7 @@ func VisitChannelType(lexer *lex.Lexer) *ChannelType {
 			lexer.Pop() // receive <-
 			lexer.Pop() // chan
 		} else {
-			fmt.Printf("'<-'后面应该有一个'chan'。%s\n", la.ErrorMsg())
+			fmt.Printf("channelType,'<-'后面应该有一个'chan'。%s\n", la.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}
@@ -86,7 +86,7 @@ func VisitChannelType(lexer *lex.Lexer) *ChannelType {
 
 	elementType := VisitType_(lexer)
 	if elementType == nil {
-		fmt.Printf("此处应该是一个类型描述。%s\n", lexer.LA().ErrorMsg())
+		fmt.Printf("channelType,此处应该是一个类型描述。%s\n", lexer.LA().ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}

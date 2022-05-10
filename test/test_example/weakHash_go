@@ -9,9 +9,9 @@ import "golang.org/x/crypto/blake2s"
 
 // Trivial routine
 func WeakHash(a int32) {
-	hMd5 := md5.New()
-	hSha := sha256.New()
-	hBlake2s, err := blake2s.New256(nil)
+//	hMd5 := md5.New()
+//	hSha := sha256.New()
+//	hBlake2s, err := blake2s.New256(nil)
 	if err == nil {
 		io.WriteString(hMd5, "Welcome to Go Language Secure Coding Practices")
 		io.WriteString(hSha, "Welcome to Go Language Secure Coding Practices")

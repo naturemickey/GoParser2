@@ -57,7 +57,7 @@ func VisitAssign_op(lexer *lex.Lexer) *Assign_op {
 
 		la := lexer.LA()
 		if la.Type_() != lex.GoLexerASSIGN {
-			fmt.Printf("等号在哪里？%s\n", la)
+			fmt.Printf("assign_op,等号在哪里？%s\n", la)
 			lexer.Recover(clone)
 			return nil
 		}

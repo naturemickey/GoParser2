@@ -42,7 +42,7 @@ func VisitMapType(lexer *lex.Lexer) *MapType {
 
 	lBracket := lexer.LA()
 	if lBracket.Type_() != lex.GoLexerL_BRACKET {
-		fmt.Printf("此处需要一个'['。%s\n", lBracket.ErrorMsg())
+		fmt.Printf("mapType,此处需要一个'['。%s\n", lBracket.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}
@@ -50,14 +50,14 @@ func VisitMapType(lexer *lex.Lexer) *MapType {
 
 	type_ := VisitType_(lexer)
 	if type_ == nil {
-		fmt.Printf("'['后面需要跟着一个类型定义。%s\n", lBracket.ErrorMsg())
+		fmt.Printf("mapType,'['后面需要跟着一个类型定义。%s\n", lBracket.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}
 
 	rBracket := lexer.LA()
 	if rBracket.Type_() != lex.GoLexerR_BRACKET {
-		fmt.Printf("此处应该是一个']'。%s\n", rBracket.ErrorMsg())
+		fmt.Printf("mapType,此处应该是一个']'。%s\n", rBracket.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}
@@ -65,7 +65,7 @@ func VisitMapType(lexer *lex.Lexer) *MapType {
 
 	elementType := VisitType_(lexer)
 	if elementType == nil {
-		fmt.Printf("']'右边应该是一个类型描述。%s\n", rBracket.ErrorMsg())
+		fmt.Printf("mapType,']'右边应该是一个类型描述。%s\n", rBracket.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}

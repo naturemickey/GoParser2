@@ -42,7 +42,7 @@ func VisitExpressionList(lexer *lex.Lexer) *ExpressionList {
 			lexer.Pop() // comma
 			expression := VisitExpression(lexer)
 			if expression == nil {
-				fmt.Printf("逗号后面要跟着一个表达式才对。%s\n", comma.ErrorMsg())
+				fmt.Printf("expressionList,逗号后面要跟着一个表达式才对。%s\n", comma.ErrorMsg())
 				return nil
 			}
 			expressions = append(expressions, expression)

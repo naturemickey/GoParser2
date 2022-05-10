@@ -50,7 +50,7 @@ func VisitSelectStmt(lexer *lex.Lexer) *SelectStmt {
 
 	lCurly := lexer.LA()
 	if lCurly.Type_() != lex.GoLexerL_CURLY {
-		fmt.Printf("select后面必须是一个{。%s\n", lCurly.ErrorMsg())
+		fmt.Printf("selectStmt,select后面必须是一个{。%s\n", lCurly.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}
@@ -67,7 +67,7 @@ func VisitSelectStmt(lexer *lex.Lexer) *SelectStmt {
 	}
 	rCurly := lexer.LA()
 	if rCurly.Type_() != lex.GoLexerR_CURLY {
-		fmt.Printf("select需要一个'}'，在这里。%s\n", rCurly.ErrorMsg())
+		fmt.Printf("selectStmt,select需要一个'}'，在这里。%s\n", rCurly.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}

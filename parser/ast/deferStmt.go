@@ -43,7 +43,7 @@ func VisitDeferStmt(lexer *lex.Lexer) *DeferStmt {
 
 	expression := VisitExpression(lexer)
 	if expression == nil {
-		fmt.Printf("defer后面需要是一个'表达式'。%s\n", defer_.ErrorMsg())
+		fmt.Printf("deferStmt,defer后面需要是一个'表达式'。%s\n", defer_.ErrorMsg())
 		return nil
 	}
 

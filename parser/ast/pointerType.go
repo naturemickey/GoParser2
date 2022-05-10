@@ -38,7 +38,7 @@ func VisitPointerType(lexer *lex.Lexer) *PointerType {
 
 	type_ := VisitType_(lexer)
 	if type_ == nil {
-		fmt.Printf("'*'后面需要一个类型描述。%s\n", star.ErrorMsg())
+		fmt.Printf("pointerType,'*'后面需要一个类型描述。%s\n", star.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}
