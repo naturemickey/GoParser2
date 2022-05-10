@@ -81,6 +81,8 @@ func VisitVarDecl(lexer *lex.Lexer) *VarDecl {
 			varSpec := VisitVarSpec(lexer)
 			if varSpec != nil {
 				varSpecs = append(varSpecs, varSpec)
+			} else {
+				break
 			}
 		}
 		rParen := lexer.LA()
