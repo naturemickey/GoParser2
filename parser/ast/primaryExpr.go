@@ -73,7 +73,7 @@ func VisitPrimaryExpr(lexer *lex.Lexer) *PrimaryExpr {
 			primaryExpr = &PrimaryExpr{conversion: conversion}
 		} else {
 			methodExpr := VisitMethodExpr(lexer)
-			if conversion != nil {
+			if methodExpr != nil {
 				primaryExpr = &PrimaryExpr{methodExpr: methodExpr}
 			}
 		}

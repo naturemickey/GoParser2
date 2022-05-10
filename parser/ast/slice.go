@@ -56,7 +56,7 @@ func VisitSlice(lexer *lex.Lexer) *Slice {
 
 	colon2 := lexer.LA()
 	if colon2.Type_() != lex.GoLexerCOLON {
-		lexer.Recover(clone)
+		// lexer.Recover(clone)
 		colon2 = nil
 	} else {
 		lexer.Pop() // colon2
