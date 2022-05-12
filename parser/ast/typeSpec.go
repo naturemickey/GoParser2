@@ -26,7 +26,7 @@ func VisitTypeSpec(lexer *lex.Lexer) *TypeSpec {
 	clone := lexer.Clone()
 
 	identifier := lexer.LA()
-	if identifier == nil {
+	if identifier == nil || identifier.Type_() != lex.GoLexerIDENTIFIER {
 		return nil
 	}
 	lexer.Pop()
@@ -41,7 +41,7 @@ func VisitTypeSpec(lexer *lex.Lexer) *TypeSpec {
 	type_ := VisitType_(lexer)
 
 	if type_ == nil {
-		fmt.Println("后面没看到类型的描述。%s\n", identifier.ErrorMsg())
+		fmt.Printf("typeSpec,后面没看到类型的描述。%s\n", identifier.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}

@@ -6,8 +6,15 @@ import (
 )
 
 func main() {
-	lexer := lex.NewLexerWithCode("for range kvs {\n\t\tfmt.Printf(\"empty range\\n\")\n\t}")
-	a := ast.VisitForStmt(lexer)
-	println(a, a.String())
+	//{
+	//	lexer := lex.NewLexerWithCode("fields := map[string]interface{}{\n\t\t\"extra\": `{\"test_update_fields\":\"update_fields_by_test\"}`,\n\t}")
+	//	a := ast.VisitStatement(lexer)
+	//	println(a, a.String())
+	//}
 
+	{
+		lexer := lex.NewLexerWithCode("map[string]interface{}{\n\t\t\"extra\": `{\"test_update_fields\":\"update_fields_by_test\"}`,\n\t}")
+		a := ast.VisitExpression(lexer)
+		println(a, a.String())
+	}
 }

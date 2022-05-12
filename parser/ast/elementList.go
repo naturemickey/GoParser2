@@ -48,8 +48,9 @@ func VisitElementList(lexer *lex.Lexer) *ElementList {
 
 		keyedElement := VisitKeyedElement(lexer)
 		if keyedElement == nil {
-			lexer.Recover(clone)
-			return nil
+			//lexer.Recover(clone)
+			//return nil
+			break
 		}
 		keyedElements = append(keyedElements, keyedElement)
 	}

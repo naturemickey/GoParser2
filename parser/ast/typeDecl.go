@@ -90,6 +90,7 @@ func VisitTypeDecl(lexer *lex.Lexer) *TypeDecl {
 			lexer.Recover(clone)
 			return nil
 		}
+		lexer.Pop()
 		return &TypeDecl{type_: type_, lParen: lParen, typeSpecs: typeSpecs, rParen: rParen}
 	}
 }
