@@ -13,8 +13,8 @@ func main() {
 	//}
 
 	{
-		lexer := lex.NewLexerWithCode("map[string]interface{}{\n\t\t\"extra\": `{\"test_update_fields\":\"update_fields_by_test\"}`,\n\t}")
-		a := ast.VisitExpression(lexer)
+		lexer := lex.NewLexerWithCode("case i1 = <-c1")
+		a := ast.VisitCommCase(lexer)
 		println(a, a.String())
 	}
 }

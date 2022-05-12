@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	sourceFile := parser.Parse("test/test_example/multiple_type_decl_go")
+	sourceFile := parser.Parse("test/test_example/select_go")
 
 	println(sourceFile)
 	//println("============================")

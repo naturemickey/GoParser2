@@ -27,30 +27,33 @@ var _ ITreeNode = (*RecvStmt)(nil)
 func VisitRecvStmt(lexer *lex.Lexer) *RecvStmt {
 	clone := lexer.Clone()
 
-	var identifierList = VisitIdentifierList(lexer)
+	var identifierList *IdentifierList
 	var expressionList *ExpressionList
 	var assign *lex.Token
 	var declare_assign *lex.Token
 
-	clone1 := lexer.Clone()
+	identifierList = VisitIdentifierList(lexer)
+	if identifierList != nil {
+		declare_assign = lexer.LA()
+		if declare_assign.Type_() != lex.GoLexerDECLARE_ASSIGN {
+			identifierList = nil
+			declare_assign = nil
+			lexer.Recover(clone)
+		} else {
+			lexer.Pop() // declare_assign
+		}
+	}
 	if identifierList == nil {
 		expressionList = VisitExpressionList(lexer)
 		if expressionList != nil {
 			assign = lexer.LA()
 			if assign.Type_() != lex.GoLexerASSIGN {
+				expressionList = nil
 				assign = nil
-				lexer.Recover(clone1)
+				lexer.Recover(clone)
 			} else {
 				lexer.Pop() // assign
 			}
-		}
-	} else {
-		declare_assign = lexer.LA()
-		if declare_assign.Type_() != lex.GoLexerDECLARE_ASSIGN {
-			declare_assign = nil
-			lexer.Recover(clone1)
-		} else {
-			lexer.Pop() // declare_assign
 		}
 	}
 

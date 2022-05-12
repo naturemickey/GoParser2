@@ -52,7 +52,7 @@ func VisitCommCase(lexer *lex.Lexer) *CommCase {
 		lexer.Pop() // default_
 		return &CommCase{default_: default_}
 	} else {
-		fmt.Printf("commCase,这里要么是个case，要么是个default。%s\n", la.ErrorMsg())
+		// fmt.Printf("commCase,这里要么是个case，要么是个default。%s\n", la.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}
