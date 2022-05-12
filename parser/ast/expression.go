@@ -242,6 +242,7 @@ func _visitExp2(lexer *lex.Lexer) *exp2 {
 		exp2.expression2 = expression2
 		return exp2
 	}
+	mul_op = nil
 
 	//	expression add_op = (PLUS | MINUS | OR | CARET) expression
 	add_op := lexer.LA()
@@ -261,6 +262,7 @@ func _visitExp2(lexer *lex.Lexer) *exp2 {
 		exp2.expression2 = expression2
 		return exp2
 	}
+	add_op = nil
 
 	//	expression rel_op = (
 	//		EQUALS
@@ -289,6 +291,7 @@ func _visitExp2(lexer *lex.Lexer) *exp2 {
 		exp2.expression2 = expression2
 		return exp2
 	}
+	rel_op = nil
 
 	//	expression LOGICAL_AND expression
 	logical_and := lexer.LA()
@@ -304,6 +307,7 @@ func _visitExp2(lexer *lex.Lexer) *exp2 {
 		exp2.expression2 = expression2
 		return exp2
 	}
+	logical_and = nil
 
 	//	expression LOGICAL_OR expression
 	logical_or := lexer.LA()
@@ -319,6 +323,7 @@ func _visitExp2(lexer *lex.Lexer) *exp2 {
 		exp2.expression2 = expression2
 		return exp2
 	}
+	logical_or = nil
 
 	lexer.Recover(clone)
 	return nil

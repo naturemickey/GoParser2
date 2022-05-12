@@ -25,10 +25,13 @@ type Arguments struct {
 func (a *Arguments) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendToken(a.lParen)
-	cb.AppendTreeNode(a.expressionList)
-	cb.AppendTreeNode(a.nonNamedType)
-	cb.AppendToken(a.comma)
-	cb.AppendTreeNode(a.expressionList)
+	if a.nonNamedType != nil {
+		cb.AppendTreeNode(a.nonNamedType)
+		cb.AppendToken(a.comma)
+		cb.AppendTreeNode(a.expressionList)
+	} else {
+		cb.AppendTreeNode(a.expressionList)
+	}
 	cb.AppendToken(a.ellipsis)
 	cb.AppendToken(a.comma2)
 	cb.AppendToken(a.rParen)
