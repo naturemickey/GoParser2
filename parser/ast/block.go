@@ -15,8 +15,8 @@ type Block struct {
 func (a *Block) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendToken(a.lCurly).Newline()
-	cb.AppendTreeNode(a.statementList).Newline()
-	cb.AppendToken(a.rCurly).Newline()
+	cb.AppendTreeNode(a.statementList)
+	cb.AppendToken(a.rCurly)
 	return cb
 }
 
@@ -55,5 +55,5 @@ func VisitBlock(lexer *lex.Lexer) *Block {
 	}
 	lexer.Pop() // rCurly
 
-	return &Block{lCurly: lCurly, statementList: statementList, rCurly: lCurly}
+	return &Block{lCurly: lCurly, statementList: statementList, rCurly: rCurly}
 }

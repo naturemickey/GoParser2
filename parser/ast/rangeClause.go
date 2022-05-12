@@ -42,10 +42,6 @@ func VisitRangeClause(lexer *lex.Lexer) *RangeClause {
 	expressionList, assign = _expressionList_ASSIGN(lexer)
 	if expressionList == nil {
 		identifierList, declare_assign = _identifierList_DECLARE_ASSIGN(lexer)
-		if identifierList == nil {
-			lexer.Recover(clone)
-			return nil
-		}
 	}
 
 	range_ := lexer.LA()

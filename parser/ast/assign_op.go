@@ -25,10 +25,7 @@ type Assign_op struct {
 }
 
 func (a *Assign_op) CodeBuilder() *CodeBuilder {
-	cb := NewCB()
-	cb.AppendToken(a.prefix)
-	cb.AppendToken(a.assign)
-	return cb
+	return NewCB().AppendString(a.prefix.Literal() + a.assign.Literal())
 }
 
 func (a *Assign_op) String() string {

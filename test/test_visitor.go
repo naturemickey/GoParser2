@@ -6,8 +6,8 @@ import (
 )
 
 func main() {
-	lexer := lex.NewLexerWithCode("sum += num")
-	a := ast.VisitExpression(lexer)
-	println(a)
+	lexer := lex.NewLexerWithCode("for range kvs {\n\t\tfmt.Printf(\"empty range\\n\")\n\t}")
+	a := ast.VisitForStmt(lexer)
+	println(a, a.String())
 
 }

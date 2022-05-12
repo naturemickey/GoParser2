@@ -234,7 +234,7 @@ func _visitExp2(lexer *lex.Lexer) *exp2 {
 		lexer.Pop() // mul_op
 		expression2 := VisitExpression(lexer)
 		if expression2 == nil {
-			fmt.Printf("expression,此符号后面需要一个表达式。%s\n", mul_op.ErrorMsg())
+			//fmt.Printf("expression,此符号后面需要一个表达式。%s\n", mul_op.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}
@@ -254,7 +254,7 @@ func _visitExp2(lexer *lex.Lexer) *exp2 {
 		lexer.Pop() // add_op
 		expression2 := VisitExpression(lexer)
 		if expression2 == nil {
-			fmt.Printf("expression,此符号后面需要一个表达式。%s\n", add_op.ErrorMsg())
+			//fmt.Printf("expression,此符号后面需要一个表达式。%s\n", add_op.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}
@@ -283,7 +283,7 @@ func _visitExp2(lexer *lex.Lexer) *exp2 {
 		lexer.Pop() // rel_op
 		expression2 := VisitExpression(lexer)
 		if expression2 == nil {
-			fmt.Printf("expression,此符号后面需要一个表达式。%s\n", rel_op.ErrorMsg())
+			//fmt.Printf("expression,此符号后面需要一个表达式。%s\n", rel_op.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}
@@ -299,7 +299,7 @@ func _visitExp2(lexer *lex.Lexer) *exp2 {
 		lexer.Pop() // logical_and
 		expression2 := VisitExpression(lexer)
 		if expression2 == nil {
-			fmt.Printf("expression,此符号后面需要一个表达式。%s\n", logical_and.ErrorMsg())
+			//fmt.Printf("expression,此符号后面需要一个表达式。%s\n", logical_and.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}
@@ -315,7 +315,7 @@ func _visitExp2(lexer *lex.Lexer) *exp2 {
 		lexer.Pop() // logical_or
 		expression2 := VisitExpression(lexer)
 		if expression2 == nil {
-			fmt.Printf("expression,此符号后面需要一个表达式。%s\n", logical_or.ErrorMsg())
+			//fmt.Printf("expression,此符号后面需要一个表达式。%s\n", logical_or.ErrorMsg())
 			lexer.Recover(clone)
 			return nil
 		}

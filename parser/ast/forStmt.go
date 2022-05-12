@@ -36,6 +36,8 @@ func (f ForStmt) __Statement__() {
 var _ Statement = (*ForStmt)(nil)
 
 func VisitForStmt(lexer *lex.Lexer) *ForStmt {
+	clone := lexer.Clone()
+
 	if lexer.LA() == nil { // 文件结束
 		return nil
 	}
@@ -59,6 +61,67 @@ func VisitForStmt(lexer *lex.Lexer) *ForStmt {
 	}
 
 	block := VisitBlock(lexer)
+	if block == nil {
+		// 	todo 修复 LiteralValue 与block 模式相同的问题
+		if expression != nil {
+			pe := expression.primaryExpr
+			if pe != nil {
+				opd := pe.operand
+				if opd != nil {
+					cmpl := opd.literal
+					if cmpl != nil {
+						if c, ok := cmpl.(*CompositeLit); ok {
+							literalValue := c.literalValue
+							if literalValue != nil { // 几乎可以确定literalValue不会为空
+								c.literalValue = nil
+								blockLexer := lex.NewLexerWithCode(literalValue.String())
+								expressionLexer := lex.NewLexerWithCode(expression.String())
+								block = VisitBlock(blockLexer)
+								expression = VisitExpression(expressionLexer)
+								if expression == nil || block == nil {
+									lexer.Recover(clone)
+									return nil
+								}
+								goto L
+							}
+						}
+					}
+				}
+			}
+		}
+		if rangeClause != nil {
+			pe := rangeClause.expression.primaryExpr // rangeClause.expression不可能为nil
+			if pe != nil {
+				opd := pe.operand
+				if opd != nil {
+					cmpl := opd.literal
+					if cmpl != nil {
+						if c, ok := cmpl.(*CompositeLit); ok {
+							literalValue := c.literalValue
+							if literalValue != nil { // 几乎可以确定literalValue不会为空
+								c.literalValue = nil
+								blockLexer := lex.NewLexerWithCode(literalValue.String())
+								rangeClauseLexer := lex.NewLexerWithCode(rangeClause.String())
+								block = VisitBlock(blockLexer)
+								rangeClause = VisitRangeClause(rangeClauseLexer)
+								if rangeClause == nil || block == nil {
+									lexer.Recover(clone)
+									return nil
+								}
+								goto L
+							}
+						}
+					}
+				}
+			}
+		}
+		if forClause != nil {
+			// 这里似乎没有这个问题，这个if先留着，后续再观察
+		}
+		lexer.Recover(clone)
+		return nil
+	}
+L:
 
 	return &ForStmt{for_: for_, expression: expression, forClause: forClause, rangeClause: rangeClause, block: block}
 }
