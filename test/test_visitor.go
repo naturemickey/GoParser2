@@ -13,8 +13,8 @@ func main() {
 	//}
 
 	{
-		lexer := lex.NewLexerWithCode("case i1 = <-c1")
-		a := ast.VisitCommCase(lexer)
+		lexer := lex.NewLexerWithCode("{\nbreak\n\tLabel:\n\t}")
+		a := ast.VisitBlock(lexer)
 		println(a, a.String())
 	}
 }

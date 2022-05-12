@@ -6,9 +6,10 @@ import (
 )
 
 func main() {
-	sourceFile := parser.Parse("test/test_example/select_go")
+	sourceFile := parser.Parse("test/test_example/statementlessLabel_go")
 
 	println(sourceFile)
+	println(sourceFile.String())
 	//println("============================")
 	//println(sourceFile.String())
 	//println("============================")

@@ -38,7 +38,7 @@ func VisitExpressionList(lexer *lex.Lexer) *ExpressionList {
 
 	for true {
 		comma := lexer.LA()
-		if comma.Type_() == lex.GoLexerCOMMA {
+		if comma != nil && comma.Type_() == lex.GoLexerCOMMA {
 			lexer.Pop() // comma
 			expression := VisitExpression(lexer)
 			if expression == nil {

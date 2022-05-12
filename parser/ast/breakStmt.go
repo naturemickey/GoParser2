@@ -43,6 +43,8 @@ func VisitBreakStmt(lexer *lex.Lexer) *BreakStmt {
 	identifier := lexer.LA()
 	if identifier.Type_() != lex.GoLexerIDENTIFIER {
 		identifier = nil
+	} else if identifier.Line() != break_.Line() {
+		identifier = nil
 	} else {
 		lexer.Pop()
 	}
