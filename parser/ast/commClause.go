@@ -17,7 +17,7 @@ func (a *CommClause) CodeBuilder() *CodeBuilder {
 	cb.AppendTreeNode(a.commCase)
 	cb.AppendToken(a.colon)
 	if a.statementList != nil {
-		cb.Newline().AppendTreeNode(a.statementList)
+		cb.AppendTreeNode(a.statementList)
 	}
 	return cb
 }

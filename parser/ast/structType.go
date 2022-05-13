@@ -13,9 +13,12 @@ type StructType struct {
 }
 
 func (a *StructType) CodeBuilder() *CodeBuilder {
-	cb := NewCB().AppendToken(a.struct_).AppendToken(a.lCurly).Newline()
-	for _, decl := range a.fieldDecls {
-		cb.AppendTreeNode(decl).Newline()
+	cb := NewCB().AppendToken(a.struct_).AppendToken(a.lCurly)
+	if len(a.fieldDecls) > 0 {
+		cb.Newline()
+		for _, decl := range a.fieldDecls {
+			cb.AppendTreeNode(decl).Newline()
+		}
 	}
 	cb.AppendToken(a.rCurly)
 	return cb

@@ -23,7 +23,7 @@ func (a *SourceFile) CodeBuilder() *CodeBuilder {
 		cb.AppendTreeNode(decl).Newline()
 	}
 	for _, fmd := range a.fmds {
-		cb.AppendTreeNode(fmd).Newline()
+		cb.AppendTreeNode(fmd).Newline().Newline()
 	}
 	return cb
 }

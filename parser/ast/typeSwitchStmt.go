@@ -69,20 +69,40 @@ func VisitTypeSwitchStmt(lexer *lex.Lexer) *TypeSwitchStmt {
 	}
 	lexer.Pop() // switch_
 
-	eos := VisitEos(lexer)
-
 	typeSwitchGuard := VisitTypeSwitchGuard(lexer)
+	var eos *Eos
 	var simpleStmt SimpleStmt
 	if typeSwitchGuard == nil {
-		simpleStmt = VisitSimpleStmt(lexer)
-		if simpleStmt == nil {
-			fmt.Printf("typeSwitchStmt,switch后面的表达式语法不正确。%s\n", switch_.ErrorMsg())
-			lexer.Recover(clone)
-			return nil
+		eos = VisitEos(lexer)
+		if eos != nil {
+			typeSwitchGuard = VisitTypeSwitchGuard(lexer)
+			if typeSwitchGuard == nil {
+				fmt.Printf("TypeSwitchStmt,分号后面没有类型条件。%s\n", eos.semi.ErrorMsg())
+				lexer.Recover(clone)
+				return nil
+			}
+		} else {
+			simpleStmt = VisitSimpleStmt(lexer)
+			if simpleStmt == nil {
+				fmt.Printf("TypeSwitchStmt,此处应该是一个简单表达式。%s\n", lexer.LA().ErrorMsg())
+				lexer.Recover(clone)
+				return nil
+			}
+			eos = VisitEos(lexer)
+			if eos == nil {
+				fmt.Printf("TypeSwitchStmt,此处应该是一个分号。%s\n", lexer.LA().ErrorMsg())
+				lexer.Recover(clone)
+				return nil
+			}
+			typeSwitchGuard = VisitTypeSwitchGuard(lexer)
+			if typeSwitchGuard == nil {
+				fmt.Printf("TypeSwitchStmt,此处应该是一个类型条件。%s\n", lexer.LA().ErrorMsg())
+				lexer.Recover(clone)
+				return nil
+			}
 		}
-		VisitEos(lexer)
-		typeSwitchGuard = VisitTypeSwitchGuard(lexer)
 	}
+
 	lCurly := lexer.LA()
 	if lCurly.Type_() != lex.GoLexerL_CURLY {
 		fmt.Printf("typeSwitchStmt,switch语句的左花括号没有找到。%s\n", switch_.ErrorMsg())

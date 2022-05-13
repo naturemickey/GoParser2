@@ -9,7 +9,7 @@ func main() {
 	sourceFile := parser.Parse("test/test_example/switchesExpr_go")
 
 	//println(sourceFile)
-	println(sourceFile.String())
+	//println(sourceFile.String())
 	println(util.GoFmt(sourceFile.String()))
 	//println("============================")
 	//println(sourceFile.String())

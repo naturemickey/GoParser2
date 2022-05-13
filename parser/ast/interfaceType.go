@@ -15,9 +15,12 @@ type InterfaceType struct {
 
 func (a *InterfaceType) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
-	cb.AppendToken(a.interface_).AppendToken(a.lCurly).Newline()
-	for _, mt := range a.methodOrType_s {
-		cb.AppendTreeNode(mt).Newline()
+	cb.AppendToken(a.interface_).AppendToken(a.lCurly)
+	if len(a.methodOrType_s) != 0 {
+		cb.Newline()
+		for _, mt := range a.methodOrType_s {
+			cb.AppendTreeNode(mt).Newline()
+		}
 	}
 	cb.AppendToken(a.rCurly)
 	return cb

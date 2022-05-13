@@ -14,8 +14,11 @@ type Block struct {
 
 func (a *Block) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
-	cb.AppendToken(a.lCurly).Newline()
-	cb.AppendTreeNode(a.statementList)
+	cb.AppendToken(a.lCurly)
+	if a.statementList != nil && len(a.statementList.statements) > 0 {
+		cb.Newline()
+		cb.AppendTreeNode(a.statementList)
+	}
 	cb.AppendToken(a.rCurly)
 	return cb
 }

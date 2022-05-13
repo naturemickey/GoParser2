@@ -13,8 +13,8 @@ func main() {
 	//}
 
 	{
-		lexer := lex.NewLexerWithCode("struct {\n\twork func()\n\tname string\n\tage int32\n}")
-		a := ast.VisitStructType(lexer)
+		lexer := lex.NewLexerWithCode("for a < b {\n\t\tfmt.Println(\"From condition-only ForStmt\")\n\t\tbreak\n\t}")
+		a := ast.VisitForStmt(lexer)
 		println(a.String())
 	}
 }

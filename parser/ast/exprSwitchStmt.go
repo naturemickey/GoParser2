@@ -35,9 +35,12 @@ func (a *ExprSwitchStmt) CodeBuilder() *CodeBuilder {
 	} else {
 		cb.AppendTreeNode(a.expression)
 	}
-	cb.AppendToken(a.lCurly).Newline()
-	for _, clause := range a.exprCaseClauses {
-		cb.AppendTreeNode(clause).Newline()
+	cb.AppendToken(a.lCurly)
+	if len(a.exprCaseClauses) > 0 {
+		cb.Newline()
+		for _, clause := range a.exprCaseClauses {
+			cb.AppendTreeNode(clause).Newline()
+		}
 	}
 	cb.AppendToken(a.rCurly)
 	return cb
@@ -87,15 +90,11 @@ func VisitExprSwitchStmt(lexer *lex.Lexer) *ExprSwitchStmt {
 	}
 	if expression == nil {
 		simpleStmt = VisitSimpleStmt(lexer)
-		//if simpleStmt != nil {
+
 		eos = VisitEos(lexer)
-		if eos == nil {
-			//fmt.Printf("exprSwitchStmt,此处应该有一个分号。%s\n", lexer.LA().ErrorMsg())
-			lexer.Recover(clone)
-			return nil
+		if eos != nil {
+			expression = VisitExpression(lexer)
 		}
-		expression = VisitExpression(lexer)
-		//}
 	}
 
 	lCurly := lexer.LA()
