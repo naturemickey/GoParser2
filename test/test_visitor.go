@@ -13,8 +13,8 @@ func main() {
 	//}
 
 	{
-		lexer := lex.NewLexerWithCode("for a < b {\n\t\tfmt.Println(\"From condition-only ForStmt\")\n\t\tbreak\n\t}")
-		a := ast.VisitForStmt(lexer)
+		lexer := lex.NewLexerWithCode("{\nif string(decrypt) != theMsg {\n\t\tt.Fatal(\"test fail! the msg is not equal\")\n\t}\n}")
+		a := ast.VisitBlock(lexer)
 		println(a.String())
 	}
 }

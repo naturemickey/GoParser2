@@ -81,7 +81,16 @@ func VisitIfStmt(lexer *lex.Lexer) *IfStmt {
 	block := VisitBlock(lexer)
 	if block == nil {
 		//  修复 LiteralValue 与block 模式相同的问题
-		pe := expression.primaryExpr
+		var pe *PrimaryExpr
+
+		if expression.exp2s != nil && len(expression.exp2s) > 0 {
+			pe = expression.exp2s[len(expression.exp2s)-1].expression2.primaryExpr
+		} else if expression.expression != nil {
+			pe = expression.expression.primaryExpr
+		} else {
+			pe = expression.primaryExpr
+		}
+
 		if pe != nil {
 			opd := pe.operand
 			if opd != nil {
@@ -154,6 +163,7 @@ func _visitIfCondition(lexer *lex.Lexer) (*Expression, SimpleStmt, *lex.Token, b
 			semi = lexer.LA()
 			if semi.Type_() != lex.GoLexerSEMI { // simpleStmt开头走不通就直接走expression的分支
 				simpleStmt = nil
+				semi = nil
 				lexer.Recover(clone2)
 				expression = VisitExpression(lexer)
 				if expression == nil {

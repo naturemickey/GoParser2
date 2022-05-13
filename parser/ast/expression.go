@@ -311,7 +311,7 @@ func _visitExp2(lexer *lex.Lexer) *exp2 {
 
 	//	expression LOGICAL_OR expression
 	logical_or := lexer.LA()
-	if logical_or.Type_() == lex.GoLexerLOGICAL_AND {
+	if logical_or.Type_() == lex.GoLexerLOGICAL_OR {
 		lexer.Pop() // logical_or
 		expression2 := VisitExpression(lexer)
 		if expression2 == nil {
