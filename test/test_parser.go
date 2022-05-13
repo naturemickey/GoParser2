@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	sourceFile := parser.Parse("test/test_example/statementlessLabel_go")
+	sourceFile := parser.Parse("test/test_example/typeAsserts_go")
 
 	println(sourceFile)
 	println(sourceFile.String())

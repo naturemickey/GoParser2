@@ -69,29 +69,32 @@ func VisitExprSwitchStmt(lexer *lex.Lexer) *ExprSwitchStmt {
 	}
 	lexer.Pop() // switch_
 
-	expression := VisitExpression(lexer)
+	var expression *Expression
 	var simpleStmt SimpleStmt
 	var eos *Eos
+
+	clone1 := lexer.Clone()
+	expression = VisitExpression(lexer)
+	if expression != nil {
+		lCurly := lexer.LA()
+		if lCurly.Type_() != lex.GoLexerL_CURLY {
+			expression = nil
+			lexer.Recover(clone1)
+		}
+	}
 	if expression == nil {
 		simpleStmt = VisitSimpleStmt(lexer)
-		//if simpleStmt == nil {
-		//	fmt.Printf("exprSwitchStmt,switch关键字后面需要有一个表达式。%s\n", switch_.ErrorMsg())
-		//	lexer.Recover(clone)
-		//	return nil
-		//}
-		eos = VisitEos(lexer)
-		if eos == nil {
-			//fmt.Printf("exprSwitchStmt,此处应该有一个分号。%s\n", lexer.LA().ErrorMsg())
-			lexer.Recover(clone)
-			return nil
+		if simpleStmt != nil {
+			eos = VisitEos(lexer)
+			if eos == nil {
+				//fmt.Printf("exprSwitchStmt,此处应该有一个分号。%s\n", lexer.LA().ErrorMsg())
+				lexer.Recover(clone)
+				return nil
+			}
+			expression = VisitExpression(lexer)
 		}
-		expression = VisitExpression(lexer)
-		//if expression == nil {
-		//	fmt.Printf("exprSwitchStmt,分号后面需要有一个表达式。%s\n", switch_.ErrorMsg())
-		//	lexer.Recover(clone)
-		//	return nil
-		//}
 	}
+
 	lCurly := lexer.LA()
 	if lCurly.Type_() != lex.GoLexerL_CURLY {
 		//fmt.Printf("exprSwitchStmt,此处应该是一个左花括号才对。%s\n", lCurly.ErrorMsg())

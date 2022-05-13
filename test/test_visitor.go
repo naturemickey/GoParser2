@@ -13,8 +13,8 @@ func main() {
 	//}
 
 	{
-		lexer := lex.NewLexerWithCode("{\nbreak\n\tLabel:\n\t}")
-		a := ast.VisitBlock(lexer)
+		lexer := lex.NewLexerWithCode("i.(string)")
+		a := ast.VisitExpression(lexer)
 		println(a, a.String())
 	}
 }

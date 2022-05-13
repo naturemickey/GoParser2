@@ -85,7 +85,7 @@ func VisitTypeSwitchStmt(lexer *lex.Lexer) *TypeSwitchStmt {
 	}
 	lCurly := lexer.LA()
 	if lCurly.Type_() != lex.GoLexerL_CURLY {
-		fmt.Println("typeSwitchStmt,switch语句的左花括号没有找到。%s\n", switch_.ErrorMsg())
+		fmt.Printf("typeSwitchStmt,switch语句的左花括号没有找到。%s\n", switch_.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}
@@ -102,7 +102,7 @@ func VisitTypeSwitchStmt(lexer *lex.Lexer) *TypeSwitchStmt {
 	}
 	rCurly := lexer.LA()
 	if rCurly.Type_() != lex.GoLexerR_CURLY {
-		fmt.Println("typeSwitchStmt,switch语句的右花括号没有找到。%s\n", switch_.ErrorMsg())
+		fmt.Printf("typeSwitchStmt,switch语句的右花括号没有找到。%s\n", switch_.ErrorMsg())
 		lexer.Recover(clone)
 		return nil
 	}

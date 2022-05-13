@@ -43,6 +43,8 @@ func VisitContinueStmt(lexer *lex.Lexer) *ContinueStmt {
 	identifier := lexer.LA()
 	if identifier.Type_() != lex.GoLexerIDENTIFIER {
 		identifier = nil
+	} else if identifier.Line() != continue_.Line() {
+		identifier = nil
 	} else {
 		lexer.Pop() // identifier
 	}

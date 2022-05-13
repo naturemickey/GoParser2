@@ -33,7 +33,7 @@ func VisitTypeAssertion(lexer *lex.Lexer) *TypeAssertion {
 	lexer.Pop() // dot
 
 	lParen := lexer.LA()
-	if lParen.Type_() != lex.GoLexerR_PAREN {
+	if lParen.Type_() != lex.GoLexerL_PAREN {
 		lexer.Recover(clone)
 		return nil
 	}
