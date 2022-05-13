@@ -12,7 +12,7 @@ type PackageClause struct {
 }
 
 func (a *PackageClause) CodeBuilder() *CodeBuilder {
-	return NewCB().AppendToken(a.package_).AppendToken(a.packageName)
+	return NewCB().AppendToken(a.package_).AppendToken(a.packageName).Newline()
 }
 
 func (a *PackageClause) String() string {

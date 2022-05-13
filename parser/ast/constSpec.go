@@ -39,12 +39,14 @@ func VisitConstSpec(lexer *lex.Lexer) *ConstSpec {
 		return nil
 	}
 
+	clone2 := lexer.Clone()
 	type_ := VisitType_(lexer)
 
 	assign := lexer.LA()
 	if assign.Type_() != lex.GoLexerASSIGN {
 		// 如果assign不在，那么这一整段就只有identifierList了
 		assign = nil
+		lexer.Recover(clone2)
 		return &ConstSpec{identifierList: identifierList}
 	}
 	lexer.Pop() // assign

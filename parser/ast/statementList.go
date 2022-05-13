@@ -14,6 +14,7 @@ func (a *StatementList) CodeBuilder() *CodeBuilder {
 	for _, statement := range a.statements {
 		cb.AppendTreeNode(statement).Newline()
 	}
+	cb.popLast()
 	return cb
 }
 

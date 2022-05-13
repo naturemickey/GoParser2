@@ -29,6 +29,9 @@ func (a *ExprSwitchStmt) CodeBuilder() *CodeBuilder {
 		cb.AppendTreeNode(a.simpleStmt)
 		cb.AppendString(";")
 		cb.AppendTreeNode(a.expression)
+	} else if a.eos != nil {
+		cb.AppendString(";")
+		cb.AppendTreeNode(a.expression)
 	} else {
 		cb.AppendTreeNode(a.expression)
 	}
@@ -84,15 +87,15 @@ func VisitExprSwitchStmt(lexer *lex.Lexer) *ExprSwitchStmt {
 	}
 	if expression == nil {
 		simpleStmt = VisitSimpleStmt(lexer)
-		if simpleStmt != nil {
-			eos = VisitEos(lexer)
-			if eos == nil {
-				//fmt.Printf("exprSwitchStmt,此处应该有一个分号。%s\n", lexer.LA().ErrorMsg())
-				lexer.Recover(clone)
-				return nil
-			}
-			expression = VisitExpression(lexer)
+		//if simpleStmt != nil {
+		eos = VisitEos(lexer)
+		if eos == nil {
+			//fmt.Printf("exprSwitchStmt,此处应该有一个分号。%s\n", lexer.LA().ErrorMsg())
+			lexer.Recover(clone)
+			return nil
 		}
+		expression = VisitExpression(lexer)
+		//}
 	}
 
 	lCurly := lexer.LA()

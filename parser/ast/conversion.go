@@ -55,6 +55,8 @@ func VisitConversion(lexer *lex.Lexer) *Conversion {
 	comma := lexer.LA()
 	if comma.Type_() == lex.GoLexerCOMMA {
 		lexer.Pop() // comma
+	} else {
+		comma = nil
 	}
 
 	rParen := lexer.LA()

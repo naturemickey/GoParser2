@@ -43,10 +43,18 @@ func VisitFieldDecl(lexer *lex.Lexer) *FieldDecl {
 
 	identifierList = VisitIdentifierList(lexer)
 	if identifierList != nil {
-		type_ = VisitType_(lexer)
-		if type_ == nil {
+		last_id := identifierList.identifiers[len(identifierList.identifiers)-1]
+		la := lexer.LA()
+
+		if last_id.Line() < la.Line() { // 后面的type不能换行
 			identifierList = nil
 			lexer.Recover(clone)
+		} else {
+			type_ = VisitType_(lexer)
+			if type_ == nil {
+				identifierList = nil
+				lexer.Recover(clone)
+			}
 		}
 	}
 	if identifierList == nil {

@@ -24,11 +24,17 @@ var _ ITreeNode = (*Signature)(nil)
 
 func VisitSignature(lexer *lex.Lexer) *Signature {
 	parameters := VisitParameters(lexer)
+	var result Result
+
 	if parameters == nil {
 		return nil
 	}
 
-	result := VisitResult(lexer)
+	rParen := parameters.rParen
+	la := lexer.LA()
+	if la != nil && la.Line() == rParen.Line() {
+		result = VisitResult(lexer)
+	}
 
 	return &Signature{parameters: parameters, result: result}
 }

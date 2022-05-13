@@ -15,8 +15,10 @@ type CommClause struct {
 func (a *CommClause) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendTreeNode(a.commCase)
-	cb.AppendToken(a.colon).Newline()
-	cb.AppendTreeNode(a.statementList)
+	cb.AppendToken(a.colon)
+	if a.statementList != nil {
+		cb.Newline().AppendTreeNode(a.statementList)
+	}
 	return cb
 }
 

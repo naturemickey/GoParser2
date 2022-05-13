@@ -39,9 +39,11 @@ func (a *IfStmt) CodeBuilder() *CodeBuilder {
 		cb.AppendTreeNode(a.expression)
 	}
 	cb.AppendTreeNode(a.block)
+	//if a.else_ != nil {
 	cb.AppendToken(a.else_)
 	cb.AppendTreeNode(a.ifStmt)
-	cb.AppendTreeNode(a.block)
+	cb.AppendTreeNode(a.elseBlock)
+	//}
 	return cb
 }
 
@@ -70,50 +72,15 @@ func VisitIfStmt(lexer *lex.Lexer) *IfStmt {
 	}
 	lexer.Pop() // if_
 
-	//var expression *Expression
-	//var simpleStmt SimpleStmt
-	//var semi = lexer.LA()
 	expression, simpleStmt, semi, success := _visitIfCondition(lexer)
 	if !success {
 		lexer.Recover(clone)
 		return nil
 	}
-	//if semi.Type_() == lex.GoLexerSEMI { // eos expression
-	//	lexer.Pop() // semi
-	//	expression = VisitExpression(lexer)
-	//	if expression == nil {
-	//		lexer.Recover(clone)
-	//		return nil
-	//	}
-	//} else {
-	//	semi = nil
-	//	// 先识别 simpleStmt eos expression
-	//	simpleStmt = VisitSimpleStmt(lexer)
-	//	if simpleStmt != nil {
-	//		semi = lexer.LA()
-	//		if semi.Type_() != lex.GoLexerSEMI {
-	//			lexer.Recover(clone)
-	//			return nil
-	//		}
-	//		lexer.Pop() // semi
-	//		expression = VisitExpression(lexer)
-	//		if expression == nil {
-	//			lexer.Recover(clone)
-	//			return nil
-	//		}
-	//	} else {
-	//		// 再识别 expression
-	//		expression = VisitExpression(lexer)
-	//		if expression == nil {
-	//			lexer.Recover(clone)
-	//			return nil
-	//		}
-	//	}
-	//}
 
 	block := VisitBlock(lexer)
 	if block == nil {
-		// 	todo 修复 LiteralValue 与block 模式相同的问题
+		//  修复 LiteralValue 与block 模式相同的问题
 		pe := expression.primaryExpr
 		if pe != nil {
 			opd := pe.operand
@@ -186,6 +153,7 @@ func _visitIfCondition(lexer *lex.Lexer) (*Expression, SimpleStmt, *lex.Token, b
 		if simpleStmt != nil {
 			semi = lexer.LA()
 			if semi.Type_() != lex.GoLexerSEMI { // simpleStmt开头走不通就直接走expression的分支
+				simpleStmt = nil
 				lexer.Recover(clone2)
 				expression = VisitExpression(lexer)
 				if expression == nil {

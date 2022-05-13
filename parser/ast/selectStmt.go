@@ -15,7 +15,7 @@ type SelectStmt struct {
 
 func (a *SelectStmt) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
-	cb.AppendToken(a.select_).AppendToken(a.rCurly).Newline()
+	cb.AppendToken(a.select_).AppendToken(a.lCurly).Newline()
 	for _, clause := range a.commClauses {
 		cb.AppendTreeNode(clause).Newline()
 	}

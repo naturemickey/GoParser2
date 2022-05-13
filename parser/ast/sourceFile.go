@@ -29,7 +29,9 @@ func (a *SourceFile) CodeBuilder() *CodeBuilder {
 }
 
 func (a *SourceFile) String() string {
-	return a.CodeBuilder().String()
+	code := a.CodeBuilder().String()
+	//return utils.GoFmt(code)
+	return code
 }
 
 var _ ITreeNode = (*SourceFile)(nil)

@@ -16,11 +16,17 @@ type ConstDecl struct {
 func (a *ConstDecl) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendToken(a.const_)
-	cb.AppendToken(a.lParen).Newline()
-	for _, spec := range a.constSpecs {
-		cb.AppendTreeNode(spec).Newline()
+	if a.lParen != nil {
+		cb.AppendToken(a.lParen).Newline()
+		for _, spec := range a.constSpecs {
+			cb.AppendTreeNode(spec).Newline()
+		}
+		cb.AppendToken(a.rParen)
+	} else {
+		for _, spec := range a.constSpecs {
+			cb.AppendTreeNode(spec)
+		}
 	}
-	cb.AppendToken(a.rParen)
 	return cb
 }
 

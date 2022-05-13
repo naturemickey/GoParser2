@@ -48,3 +48,11 @@ func (this *CodeBuilder) Tab() *CodeBuilder {
 func (this *CodeBuilder) String() string {
 	return strings.Join(this.code, " ")
 }
+
+func (this *CodeBuilder) popLast() *CodeBuilder {
+	len := len(this.code)
+	if len > 0 {
+		this.code = this.code[:len-1]
+	}
+	return this
+}

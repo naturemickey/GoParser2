@@ -205,15 +205,35 @@ func New_TERMINATOR_nfa() *nfa {
 
 func New_COMMENT_nfa() *nfa {
 	// '/*' .*? '*/'
-	nfa := And(
-		NewNfaWithString("/*", GoLexerNone),
-		Le1(Kc(
-			NewNfaWithRegular(func(c rune) bool { return true }, GoLexerNone),
-		)),
-		NewNfaWithString("*/", GoLexerNone),
-	)
-	nfa.SetType(GoLexerCOMMENT)
-	return nfa
+	// todo 这个地方要看一下如何防止贪婪匹配
+	commitStart := NewNfaWithString("/*", GoLexerNone)
+
+	stateToBeFinish := NewState()
+	stateAny := NewState()
+	stateFinish := NewStateWithType(GoLexerCOMMENT)
+
+	commitStart.finish.addCharPath('*', stateToBeFinish)
+	commitStart.finish.addRegularPath(func(c rune) bool {
+		return c != '*'
+	}, stateAny)
+	stateAny.addCharPath('*', stateToBeFinish)
+	stateAny.addRegularPath(func(c rune) bool {
+		return c != '*'
+	}, stateAny)
+	stateToBeFinish.addRegularPath(func(c rune) bool {
+		return c != '/'
+	}, stateAny)
+	stateToBeFinish.addCharPath('/', stateFinish)
+
+	//nfa := And(
+	//	commitStart,
+	//	Le1(Kc(
+	//		NewNfaWithRegular(func(c rune) bool { return true }, GoLexerNone),
+	//	)),
+	//	NewNfaWithString("*/", GoLexerNone),
+	//)
+	//nfa.SetType(GoLexerCOMMENT)
+	return &nfa{commitStart.start, stateFinish}
 }
 
 func New_LINE_COMMENT_nfa() *nfa {

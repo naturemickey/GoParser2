@@ -13,8 +13,8 @@ func main() {
 	//}
 
 	{
-		lexer := lex.NewLexerWithCode("i.(string)")
-		a := ast.VisitExpression(lexer)
-		println(a, a.String())
+		lexer := lex.NewLexerWithCode("struct {\n\twork func()\n\tname string\n\tage int32\n}")
+		a := ast.VisitStructType(lexer)
+		println(a.String())
 	}
 }
