@@ -13,7 +13,7 @@ func main() {
 	//}
 
 	{
-		lexer := lex.NewLexerWithCode("{\nif string(decrypt) != theMsg {\n\t\tt.Fatal(\"test fail! the msg is not equal\")\n\t}\n}")
+		lexer := lex.NewLexerWithCode("{\nif  b && c != d {}\n}")
 		a := ast.VisitBlock(lexer)
 		println(a.String())
 	}

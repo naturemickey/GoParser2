@@ -204,6 +204,13 @@ func _visitExp1(lexer *lex.Lexer) *struct {
 }
 
 func _visitExp2(lexer *lex.Lexer) *exp2 {
+	// expression 在符号前不换行
+	lb := lexer.LB()
+	la := lexer.LA()
+	if lb != nil && la != nil && lb.Line() < la.Line() {
+		return nil
+	}
+
 	exp2 := &exp2{}
 
 	clone := lexer.Clone()

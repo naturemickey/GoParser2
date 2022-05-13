@@ -38,6 +38,13 @@ func (this *Lexer) LA() *Token {
 	return this._la(0)
 }
 
+func (this *Lexer) LB() *Token {
+	if this.index > 0 {
+		return this.tokens[this.index-1]
+	}
+	return nil
+}
+
 func (this *Lexer) LA0() *Token {
 	return this._la(0)
 }
