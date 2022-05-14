@@ -13,7 +13,7 @@ func main() {
 	//}
 
 	{
-		lexer := lex.NewLexerWithCode("{\nif  b && c != d {}\n}")
+		lexer := lex.NewLexerWithCode("{\nif len(*partnerIdList) > 0 {\n\t\t\t\tfilter.AndEntityIdIn(*partnerIdList)\n\t\t\t\t*partnerIdList = []int64{}\n\t\t\t}\n}")
 		a := ast.VisitBlock(lexer)
 		println(a.String())
 	}

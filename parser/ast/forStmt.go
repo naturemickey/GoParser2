@@ -62,9 +62,10 @@ func VisitForStmt(lexer *lex.Lexer) *ForStmt {
 
 	block := VisitBlock(lexer)
 	if block == nil {
-		// 	todo 修复 LiteralValue 与block 模式相同的问题
+		// 修复 LiteralValue 与block 模式相同的问题
+		// todo 下面有多个 if pe != nil { ... }，重复代码，研究如何去掉。
 		if expression != nil {
-			pe := expression.primaryExpr
+			pe := _getPrimaryFromExpression(expression)
 			if pe != nil {
 				opd := pe.operand
 				if opd != nil {
@@ -90,7 +91,7 @@ func VisitForStmt(lexer *lex.Lexer) *ForStmt {
 			}
 		}
 		if rangeClause != nil {
-			pe := rangeClause.expression.primaryExpr // rangeClause.expression不可能为nil
+			pe := _getPrimaryFromExpression(rangeClause.expression) // rangeClause.expression不可能为nil
 			if pe != nil {
 				opd := pe.operand
 				if opd != nil {
@@ -116,7 +117,43 @@ func VisitForStmt(lexer *lex.Lexer) *ForStmt {
 			}
 		}
 		if forClause != nil {
-			// 这里似乎没有这个问题，这个if先留着，后续再观察
+			var pe *PrimaryExpr
+			if forClause.postStmt != nil {
+				switch simpleStmt := forClause.postStmt.(type) {
+				case *SendStmt:
+					pe = _getPrimaryFromExpression(simpleStmt.expression)
+				case *IncDecStmt: // 不可能
+				case *Assignment:
+					pe = _getPrimaryFromExpressionList(simpleStmt.rExpressionList)
+				case *ShortVarDecl:
+					pe = _getPrimaryFromExpressionList(simpleStmt.expressionList)
+				case *Expression:
+					pe = _getPrimaryFromExpression(simpleStmt)
+				}
+			}
+			if pe != nil {
+				opd := pe.operand
+				if opd != nil {
+					cmpl := opd.literal
+					if cmpl != nil {
+						if c, ok := cmpl.(*CompositeLit); ok {
+							literalValue := c.literalValue
+							if literalValue != nil { // 几乎可以确定literalValue不会为空
+								c.literalValue = nil
+								blockLexer := lex.NewLexerWithCode(literalValue.String())
+								forClauseLexer := lex.NewLexerWithCode(forClause.String())
+								block = VisitBlock(blockLexer)
+								forClause = VisitForClause(forClauseLexer)
+								if forClause == nil || block == nil {
+									lexer.Recover(clone)
+									return nil
+								}
+								goto L
+							}
+						}
+					}
+				}
+			}
 		}
 		lexer.Recover(clone)
 		return nil

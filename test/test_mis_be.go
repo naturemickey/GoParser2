@@ -16,7 +16,7 @@ func main() {
 }
 
 func parse_go_file(filePath string) {
-	if strings.HasSuffix(filePath, ".go") {
+	if strings.HasSuffix(filePath, ".go") && !strings.HasSuffix(filePath, ".pb.go") {
 		//println("=======================================================================================")
 		println("开始处理文件：", filePath)
 

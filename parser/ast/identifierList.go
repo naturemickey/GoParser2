@@ -2,7 +2,6 @@ package ast
 
 import (
 	"GoParser2/lex"
-	"fmt"
 )
 
 type IdentifierList struct {
@@ -32,6 +31,7 @@ func VisitIdentifierList(lexer *lex.Lexer) *IdentifierList {
 	if lexer.LA() == nil { // 文件结束
 		return nil
 	}
+	clone := lexer.Clone()
 
 	identifier := lexer.LA()
 	if identifier.Type_() != lex.GoLexerIDENTIFIER {
@@ -49,7 +49,8 @@ func VisitIdentifierList(lexer *lex.Lexer) *IdentifierList {
 
 			identifier := lexer.LA()
 			if identifier.Type_() != lex.GoLexerIDENTIFIER {
-				fmt.Printf("identifierList,逗号后面要跟着一个标识符才对。%s\n", comma.ErrorMsg())
+				//fmt.Printf("identifierList,逗号后面要跟着一个标识符才对。%s\n", comma.ErrorMsg())
+				lexer.Recover(clone)
 				return nil
 			}
 			lexer.Pop()

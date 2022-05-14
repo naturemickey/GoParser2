@@ -182,13 +182,3 @@ func _visitIfCondition(lexer *lex.Lexer) (*Expression, SimpleStmt, *lex.Token, b
 
 	return expression, simpleStmt, semi, true
 }
-
-func _getPrimaryFromExpression(expression *Expression) *PrimaryExpr {
-	if expression.exp2s != nil && len(expression.exp2s) > 0 {
-		return _getPrimaryFromExpression(expression.exp2s[len(expression.exp2s)-1].expression2)
-	} else if expression.expression != nil {
-		return _getPrimaryFromExpression(expression.expression)
-	} else {
-		return expression.primaryExpr
-	}
-}
