@@ -1,6 +1,8 @@
 package lex
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type lexerInner struct {
 	currentState    *lexerState
@@ -108,7 +110,7 @@ func (this *lexerInner) NextToken() *Token {
 
 		if tokenType, ok := set.isFinish(); ok {
 			this.lastFinishState = this.currentState.clone()
-			if tokenType == GoLexerCOMMENT { // comment不要贪婪匹配
+			if tokenType == GoLexerCOMMENT || tokenType == GoLexerTAG_COMMENT { // comment不要贪婪匹配
 				break
 			}
 		}

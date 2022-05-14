@@ -186,6 +186,7 @@ func GoLexerNFA() *nfa {
 		New_INTERPRETED_STRING_LIT_nfa(),
 		// Hidden tokens
 		New_WS_nfa(),
+		New_TAG_COMMENT_nfa(), // 这个不是被忽略的，放在这里好看一点
 		New_COMMENT_nfa(),
 		New_TERMINATOR_nfa(),
 		New_LINE_COMMENT_nfa(),
@@ -201,6 +202,33 @@ func New_WS_nfa() *nfa {
 func New_TERMINATOR_nfa() *nfa {
 	// [\r\n]+
 	return Kc1(NewNfaWithChars("\r\n", GoLexerTERMINATOR))
+}
+
+func New_TAG_COMMENT_nfa() *nfa {
+	// '/*@\w+' ('(' \w+=\w+ (',' \w+=\w+)* ')')? '*/' ;
+	nfa := And(
+		NewNfaWithString("/*@", GoLexerNone),
+		new_w_plus_nfa(),
+		Le1(And(
+			NewNfaWithString("(", GoLexerNone),
+			new_w_plus_nfa(), NewNfaWithString("=", GoLexerNone), new_w_plus_nfa(),
+			Kc(And(
+				NewNfaWithString(",", GoLexerNone),
+				new_w_plus_nfa(), NewNfaWithString("=", GoLexerNone), new_w_plus_nfa(),
+			)),
+			NewNfaWithString(")", GoLexerNone),
+		)),
+		NewNfaWithString("*/", GoLexerNone),
+	)
+	nfa.SetType(GoLexerTAG_COMMENT)
+	return nfa
+}
+
+func new_w_plus_nfa() *nfa {
+	// \w+
+	return Kc1(NewNfaWithRegular(func(c rune) bool {
+		return ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z') || ('0' <= c && c <= '9') || c == '_'
+	}, GoLexerNone))
 }
 
 func New_COMMENT_nfa() *nfa {

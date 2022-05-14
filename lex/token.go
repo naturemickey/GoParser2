@@ -121,12 +121,13 @@ const (
 	GoLexerRAW_STRING_LIT         TokenType = 78
 	GoLexerINTERPRETED_STRING_LIT TokenType = 79
 	GoLexerWS                     TokenType = 80
-	GoLexerCOMMENT                TokenType = 81
-	GoLexerTERMINATOR             TokenType = 82
-	GoLexerLINE_COMMENT           TokenType = 83
-	GoLexerWS_NLSEMI              TokenType = 84
-	GoLexerCOMMENT_NLSEMI         TokenType = 85
-	GoLexerLINE_COMMENT_NLSEMI    TokenType = 86
-	GoLexerEOS                    TokenType = 87
-	GoLexerOTHER                  TokenType = 88
+	GoLexerTAG_COMMENT            TokenType = 81
+	GoLexerCOMMENT                TokenType = 82
+	GoLexerTERMINATOR             TokenType = 83
+	GoLexerLINE_COMMENT           TokenType = 84
+	GoLexerWS_NLSEMI              TokenType = 85
+	GoLexerCOMMENT_NLSEMI         TokenType = 86
+	GoLexerLINE_COMMENT_NLSEMI    TokenType = 87
+	GoLexerEOS                    TokenType = 88
+	GoLexerOTHER                  TokenType = 89
 )

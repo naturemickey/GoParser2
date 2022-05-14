@@ -44,6 +44,7 @@ func parse_go_file(filePath string) {
 		//
 		//accept := tree.Accept(visitor).(ast.INode)
 
+		//_ = sourceFile.String()
 		content := sourceFile.String()
 
 		//println("------------------------")
