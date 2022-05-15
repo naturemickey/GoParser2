@@ -9,6 +9,7 @@ type MethodSpec struct {
 	//	IDENTIFIER parameters result
 	//	| IDENTIFIER parameters;
 	identifier *lex.Token
+	annotation *Annotation
 	parameters *Parameters
 	result     Result
 }
@@ -38,6 +39,8 @@ func VisitMethodSpec(lexer *lex.Lexer) *MethodSpec {
 	}
 	lexer.Pop() // identifier
 
+	annotation := VisitAnnotation(lexer)
+
 	parameters := VisitParameters(lexer)
 	if parameters == nil {
 		//fmt.Printf("methodSpec,方法名后面找不到参数列表。%s\n", identifier.ErrorMsg())
@@ -52,6 +55,6 @@ func VisitMethodSpec(lexer *lex.Lexer) *MethodSpec {
 		return &MethodSpec{identifier: identifier, parameters: parameters}
 	} else {
 		result := VisitResult(lexer)
-		return &MethodSpec{identifier: identifier, parameters: parameters, result: result}
+		return &MethodSpec{identifier: identifier, annotation: annotation, parameters: parameters, result: result}
 	}
 }

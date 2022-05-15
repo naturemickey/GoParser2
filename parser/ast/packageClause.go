@@ -11,6 +11,10 @@ type PackageClause struct {
 	packageName *lex.Token
 }
 
+func (this *PackageClause) PackageName() string {
+	return this.packageName.Literal()
+}
+
 func (a *PackageClause) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendToken(a.package_).AppendToken(a.packageName).Newline()
 }

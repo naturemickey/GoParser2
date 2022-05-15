@@ -41,6 +41,9 @@ var _ ITreeNode = (*Assign_op)(nil)
 func VisitAssign_op(lexer *lex.Lexer) *Assign_op {
 	clone := lexer.Clone()
 	la := lexer.LA()
+	if la == nil {
+		return nil
+	}
 	if la.Type_() == lex.GoLexerASSIGN {
 		lexer.Pop()
 		return &Assign_op{assign: la}

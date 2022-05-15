@@ -6,12 +6,25 @@ import (
 )
 
 type MethodDecl struct {
-	// methodDecl: FUNC receiver IDENTIFIER ( signature block?);
+	// methodDecl: FUNC annotation=ANNOTATION_COMMENT receiver IDENTIFIER ( signature block?);
 	func_      *lex.Token
+	annotation *Annotation
 	receiver   *Receiver
 	identifier *lex.Token
 	signature  *Signature
 	block      *Block
+}
+
+func (this *MethodDecl) Receiver() *Receiver {
+	return this.receiver
+}
+
+func (this *MethodDecl) Name() string {
+	return this.identifier.Literal()
+}
+
+func (a *MethodDecl) Annotation() *Annotation {
+	return a.annotation
 }
 
 func (a *MethodDecl) CodeBuilder() *CodeBuilder {
@@ -39,6 +52,8 @@ func VisitMethodDecl(lexer *lex.Lexer) *MethodDecl {
 	}
 	lexer.Pop()
 
+	annotation := VisitAnnotation(lexer)
+
 	receiver := VisitReceiver(lexer)
 	if receiver == nil {
 		fmt.Printf("methodDecl,func后面没看到receiver定义。%s\n", func_.ErrorMsg())
@@ -63,5 +78,5 @@ func VisitMethodDecl(lexer *lex.Lexer) *MethodDecl {
 	block := VisitBlock(lexer)
 	// todo 看一下定义上为什么block可以为nil的？
 
-	return &MethodDecl{func_: func_, receiver: receiver, identifier: identifier, signature: signature, block: block}
+	return &MethodDecl{func_: func_, annotation: annotation, receiver: receiver, identifier: identifier, signature: signature, block: block}
 }

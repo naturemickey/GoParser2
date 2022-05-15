@@ -13,6 +13,10 @@ type ImportDecl struct {
 	rParen      *lex.Token
 }
 
+func NewImportDecl(import_ *lex.Token, lParen *lex.Token, importSpecs []*ImportSpec, rParen *lex.Token) *ImportDecl {
+	return &ImportDecl{import_: import_, lParen: lParen, importSpecs: importSpecs, rParen: rParen}
+}
+
 func (a *ImportDecl) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendToken(a.import_)

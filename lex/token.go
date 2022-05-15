@@ -121,7 +121,7 @@ const (
 	GoLexerRAW_STRING_LIT         TokenType = 78
 	GoLexerINTERPRETED_STRING_LIT TokenType = 79
 	GoLexerWS                     TokenType = 80
-	GoLexerTAG_COMMENT            TokenType = 81
+	GoLexerANNOTATION_COMMENT     TokenType = 81
 	GoLexerCOMMENT                TokenType = 82
 	GoLexerTERMINATOR             TokenType = 83
 	GoLexerLINE_COMMENT           TokenType = 84

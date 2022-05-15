@@ -59,13 +59,13 @@ expressionList: expression (COMMA expression)*;
 
 typeDecl: TYPE (typeSpec | L_PAREN (typeSpec eos)* R_PAREN);
 
-typeSpec: IDENTIFIER ASSIGN? type_;
+typeSpec: annotation=ANNOTATION_COMMENT IDENTIFIER ASSIGN? type_;
 
 // Function declarations
 
-functionDecl: FUNC IDENTIFIER (signature block?);
+functionDecl: FUNC annotation=ANNOTATION_COMMENT IDENTIFIER (signature block?);
 
-methodDecl: FUNC receiver IDENTIFIER ( signature block?);
+methodDecl: FUNC annotation=ANNOTATION_COMMENT receiver IDENTIFIER ( signature block?);
 
 receiver: parameters;
 
@@ -231,8 +231,8 @@ mapType: MAP L_BRACKET type_ R_BRACKET elementType;
 channelType: (ch=CHAN | ch_re=CHAN RECEIVE | re_ch=RECEIVE CHAN) elementType;
 
 methodSpec:
-	IDENTIFIER parameters result
-	| IDENTIFIER parameters;
+	IDENTIFIER annotation=ANNOTATION_COMMENT parameters result
+	| IDENTIFIER annotation=ANNOTATION_COMMENT parameters;
 
 functionType: FUNC signature;
 
@@ -340,7 +340,7 @@ element: expression | literalValue;
 
 structType: STRUCT L_CURLY (fieldDecl eos)* R_CURLY;
 
-fieldDecl: (
+fieldDecl: annotation=ANNOTATION_COMMENT (
 		identifierList type_
 		| embeddedField
 	) tag = string_?;

@@ -110,7 +110,7 @@ func (this *lexerInner) NextToken() *Token {
 
 		if tokenType, ok := set.isFinish(); ok {
 			this.lastFinishState = this.currentState.clone()
-			if tokenType == GoLexerCOMMENT || tokenType == GoLexerTAG_COMMENT { // comment不要贪婪匹配
+			if tokenType == GoLexerCOMMENT || tokenType == GoLexerANNOTATION_COMMENT { // comment不要贪婪匹配
 				break
 			}
 		}

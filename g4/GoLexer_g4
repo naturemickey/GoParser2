@@ -521,9 +521,9 @@ EOS:              ([\r\n]+ | ';' | '/*' .*? '*/' | EOF)            -> mode(DEFAU
 // Did not find an EOS, so go back to normal lexing
 OTHER: -> mode(DEFAULT_MODE), channel(HIDDEN);
 
-// 添加注解——因go中存在tag，所以这里叫标签可能更好一点点
+// 添加注解——为了兼容go语言，所以做成注释的形式
 // 想像中大概是这个样子 /*@Bean(name=abc,cached=true)*/
-TAG_COMMENT :
+ANNOTATION_COMMENT :
             '/*@\w+' (
                 \w+ ('(' \w+=\w+ (',' \w+=\w+)* ')')?
             ) '*/' ;

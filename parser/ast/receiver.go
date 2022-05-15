@@ -10,6 +10,20 @@ type Receiver struct {
 	parameters *Parameters
 }
 
+func (this *Receiver) VarName() string {
+	return this.parameters.parameterDecls[0].identifierList.identifiers[0].Literal()
+}
+
+func (this *Receiver) VarType() string {
+	t := this.parameters.parameterDecls[0].type_.String()
+	//return strings.TrimPrefix(t, "*")
+	return t
+}
+
+func (a *Receiver) Parameters() *Parameters {
+	return a.parameters
+}
+
 func (a *Receiver) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendTreeNode(a.parameters)
 }

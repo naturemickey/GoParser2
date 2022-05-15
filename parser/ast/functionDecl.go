@@ -6,11 +6,28 @@ import (
 )
 
 type FunctionDecl struct {
-	// functionDecl: FUNC IDENTIFIER (signature block?);
+	// functionDecl: FUNC annotation=ANNOTATION_COMMENT IDENTIFIER (signature block?);
 	func_      *lex.Token
+	annotation *Annotation
 	identifier *lex.Token
 	signature  *Signature
 	block      *Block
+}
+
+func (this *FunctionDecl) Signature() *Signature {
+	return this.signature
+}
+
+func (this *FunctionDecl) Block() *Block {
+	return this.block
+}
+
+func (this *FunctionDecl) Annotation() *Annotation {
+	return this.annotation
+}
+
+func (this *FunctionDecl) Name() string {
+	return this.identifier.Literal()
 }
 
 func (a *FunctionDecl) CodeBuilder() *CodeBuilder {
@@ -41,6 +58,8 @@ func VisitFunctionDecl(lexer *lex.Lexer) *FunctionDecl {
 	}
 	lexer.Pop() // func_
 
+	annotation := VisitAnnotation(lexer)
+
 	identifier := lexer.LA()
 	if identifier.Type_() != lex.GoLexerIDENTIFIER {
 		lexer.Recover(clone)
@@ -58,5 +77,5 @@ func VisitFunctionDecl(lexer *lex.Lexer) *FunctionDecl {
 	block := VisitBlock(lexer)
 	// todo 看一下定义上为什么block可以为nil的？
 
-	return &FunctionDecl{func_: func_, identifier: identifier, signature: signature, block: block}
+	return &FunctionDecl{func_: func_, annotation: annotation, identifier: identifier, signature: signature, block: block}
 }

@@ -42,6 +42,10 @@ func VisitIncDecStmt(lexer *lex.Lexer) *IncDecStmt {
 	}
 
 	la := lexer.LA()
+	if la == nil {
+		lexer.Recover(clone)
+		return nil
+	}
 	if la.Type_() == lex.GoLexerPLUS_PLUS {
 		lexer.Pop()
 		return &IncDecStmt{expression: expression, plusplus: la}

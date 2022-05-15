@@ -12,6 +12,17 @@ type Block struct {
 	rCurly        *lex.Token
 }
 
+func (this *Block) AddStatement(statement Statement) {
+	if this.statementList == nil {
+		this.statementList = NewStatementList()
+	}
+	this.statementList.statements = append(this.statementList.statements, statement)
+}
+
+func (a *Block) StatementList() *StatementList {
+	return a.statementList
+}
+
 func (a *Block) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendToken(a.lCurly)

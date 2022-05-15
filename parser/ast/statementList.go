@@ -9,6 +9,10 @@ type StatementList struct {
 	statements []Statement
 }
 
+func NewStatementList() *StatementList {
+	return &StatementList{}
+}
+
 func (a *StatementList) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	for _, statement := range a.statements {

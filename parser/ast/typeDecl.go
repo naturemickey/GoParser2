@@ -13,6 +13,10 @@ type TypeDecl struct {
 	rParen    *lex.Token
 }
 
+func (a *TypeDecl) TypeSpecs() []*TypeSpec {
+	return a.typeSpecs
+}
+
 func (a *TypeDecl) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendToken(a.type_)

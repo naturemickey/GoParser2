@@ -2,6 +2,7 @@ package ast
 
 import (
 	"GoParser2/lex"
+	"GoParser2/parser/util"
 	"fmt"
 	"reflect"
 )
@@ -14,6 +15,22 @@ type SourceFile struct {
 	packageClause *PackageClause
 	importDecls   []*ImportDecl
 	fmds          []IFunctionMethodDeclaration
+}
+
+func (a *SourceFile) PackageClause() *PackageClause {
+	return a.packageClause
+}
+
+func (a *SourceFile) ImportDecls() []*ImportDecl {
+	return a.importDecls
+}
+
+func (a *SourceFile) Fmds() []IFunctionMethodDeclaration {
+	return a.fmds
+}
+
+func NewSourceFile(packageClause *PackageClause, importDecls []*ImportDecl, fmds []IFunctionMethodDeclaration) *SourceFile {
+	return &SourceFile{packageClause: packageClause, importDecls: importDecls, fmds: fmds}
 }
 
 func (a *SourceFile) CodeBuilder() *CodeBuilder {
@@ -30,15 +47,11 @@ func (a *SourceFile) CodeBuilder() *CodeBuilder {
 
 func (a *SourceFile) String() string {
 	code := a.CodeBuilder().String()
-	//return utils.GoFmt(code)
-	return code
+	return util.GoFmt(code)
+	//return code
 }
 
 var _ ITreeNode = (*SourceFile)(nil)
-
-func NewSourceFile(packageClause *PackageClause, importDecls []*ImportDecl, fmds []IFunctionMethodDeclaration) *SourceFile {
-	return &SourceFile{packageClause: packageClause, importDecls: importDecls, fmds: fmds}
-}
 
 func VisitSourceFile(lexer *lex.Lexer) *SourceFile {
 	var packageClause = VisitPackageClause(lexer)
@@ -68,28 +81,18 @@ func VisitSourceFile(lexer *lex.Lexer) *SourceFile {
 			la.Type_() == lex.GoLexerCONST || la.Type_() == lex.GoLexerTYPE) {
 
 			if la.Type_() == lex.GoLexerFUNC {
-				la1 := lexer.LA1()
-				if la1 != nil && la1.Type_() == lex.GoLexerL_PAREN { // method
-					methodDecl := VisitMethodDecl(lexer)
-					if methodDecl != nil {
-						fmds = append(fmds, methodDecl)
-					} else {
-						fmt.Printf("sourceFile,看到了func关键字，但识别不到method的定义。 %s\n", la.ErrorMsg())
-						return nil
-					}
-				} else if la1 != nil && la1.Type_() == lex.GoLexerIDENTIFIER { // function
-					functionDecl := VisitFunctionDecl(lexer)
-					if functionDecl != nil {
-						fmds = append(fmds, functionDecl)
-					} else {
-						fmt.Printf("sourceFile,看到了func关键字，但识别不到function的定义。 %s\n", la.ErrorMsg())
-						return nil
-					}
-				} else { // unknown, error
-					fmt.Printf("sourceFile,func关键字后面必须跟着函数名或者receiver。 %s\n", la.ErrorMsg())
-					return nil
+				functionDecl := VisitFunctionDecl(lexer)
+				if functionDecl != nil {
+					fmds = append(fmds, functionDecl)
+					continue
 				}
-
+				methodDecl := VisitMethodDecl(lexer)
+				if methodDecl != nil {
+					fmds = append(fmds, methodDecl)
+					continue
+				}
+				fmt.Printf("sourceFile,func关键字后面的语法不对 %s\n", la.ErrorMsg())
+				return nil
 			} else if la.Type_() == lex.GoLexerVAR || la.Type_() == lex.GoLexerCONST || la.Type_() == lex.GoLexerTYPE {
 				declaration := VisitDeclaration(lexer)
 				if declaration != nil && !reflect.ValueOf(declaration).IsNil() {
