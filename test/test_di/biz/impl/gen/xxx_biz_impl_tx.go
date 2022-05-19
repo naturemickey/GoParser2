@@ -7,7 +7,7 @@ import (
 	"context"
 )
 
-type XxxBizImplTx struct {
+type /*@Bean*/ XxxBizImplTx struct {
 	/*Inject*/ XxxBiz biz.IXxxBiz
 }
 

@@ -5,16 +5,21 @@ import (
 )
 
 type FieldDecl struct {
-	// fieldDecl: (
+	// fieldDecl: annotationList (
 	//		identifierList type_
 	//		| embeddedField
 	//	) tag = string_?;
 	// string_: RAW_STRING_LIT | INTERPRETED_STRING_LIT;
 
+	annotationList *AnnotationList
 	identifierList *IdentifierList
 	type_          *Type_
 	embeddedField  *EmbeddedField
 	tag            *lex.Token
+}
+
+func (a *FieldDecl) AnnotationList() *AnnotationList {
+	return a.annotationList
 }
 
 func (a *FieldDecl) CodeBuilder() *CodeBuilder {
@@ -35,11 +40,14 @@ func VisitFieldDecl(lexer *lex.Lexer) *FieldDecl {
 	clone := lexer.Clone()
 
 	var (
+		annotationList *AnnotationList
 		identifierList *IdentifierList
 		type_          *Type_
 		embeddedField  *EmbeddedField
 		tag            *lex.Token
 	)
+
+	annotationList = VisitAnnotationList(lexer)
 
 	identifierList = VisitIdentifierList(lexer)
 	if identifierList != nil {
@@ -72,5 +80,5 @@ func VisitFieldDecl(lexer *lex.Lexer) *FieldDecl {
 		lexer.Pop() // tag
 	}
 
-	return &FieldDecl{identifierList: identifierList, type_: type_, embeddedField: embeddedField, tag: tag}
+	return &FieldDecl{annotationList: annotationList, identifierList: identifierList, type_: type_, embeddedField: embeddedField, tag: tag}
 }

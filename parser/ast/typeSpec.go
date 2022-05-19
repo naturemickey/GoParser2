@@ -6,19 +6,19 @@ import (
 )
 
 type TypeSpec struct {
-	// typeSpec: annotation=ANNOTATION_COMMENT IDENTIFIER ASSIGN? type_;
-	annotation *Annotation
-	identifier *lex.Token
-	assign     *lex.Token
-	type_      *Type_
+	// typeSpec: annotationList IDENTIFIER ASSIGN? type_;
+	annotationList *AnnotationList
+	identifier     *lex.Token
+	assign         *lex.Token
+	type_          *Type_
+}
+
+func (this *TypeSpec) AnnotationList() *AnnotationList {
+	return this.annotationList
 }
 
 func (this *TypeSpec) Name() string {
 	return this.identifier.Literal()
-}
-
-func (a *TypeSpec) Annotation() *Annotation {
-	return a.annotation
 }
 
 func (a *TypeSpec) CodeBuilder() *CodeBuilder {
@@ -34,7 +34,7 @@ var _ ITreeNode = (*TypeSpec)(nil)
 func VisitTypeSpec(lexer *lex.Lexer) *TypeSpec {
 	clone := lexer.Clone()
 
-	annotation := VisitAnnotation(lexer)
+	annotationList := VisitAnnotationList(lexer)
 
 	identifier := lexer.LA()
 	if identifier == nil || identifier.Type_() != lex.GoLexerIDENTIFIER {
@@ -57,5 +57,5 @@ func VisitTypeSpec(lexer *lex.Lexer) *TypeSpec {
 		return nil
 	}
 
-	return &TypeSpec{annotation: annotation, identifier: identifier, assign: assign, type_: type_}
+	return &TypeSpec{annotationList: annotationList, identifier: identifier, assign: assign, type_: type_}
 }

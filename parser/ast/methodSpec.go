@@ -6,12 +6,16 @@ import (
 
 type MethodSpec struct {
 	// methodSpec:
-	//	IDENTIFIER parameters result
-	//	| IDENTIFIER parameters;
-	identifier *lex.Token
-	annotation *Annotation
-	parameters *Parameters
-	result     Result
+	//	IDENTIFIER annotationList parameters result
+	//	| IDENTIFIER annotationList parameters;
+	identifier     *lex.Token
+	annotationList *AnnotationList
+	parameters     *Parameters
+	result         Result
+}
+
+func (a *MethodSpec) AnnotationList() *AnnotationList {
+	return a.annotationList
 }
 
 func (a *MethodSpec) CodeBuilder() *CodeBuilder {
@@ -39,7 +43,7 @@ func VisitMethodSpec(lexer *lex.Lexer) *MethodSpec {
 	}
 	lexer.Pop() // identifier
 
-	annotation := VisitAnnotation(lexer)
+	annotationList := VisitAnnotationList(lexer)
 
 	parameters := VisitParameters(lexer)
 	if parameters == nil {
@@ -55,6 +59,6 @@ func VisitMethodSpec(lexer *lex.Lexer) *MethodSpec {
 		return &MethodSpec{identifier: identifier, parameters: parameters}
 	} else {
 		result := VisitResult(lexer)
-		return &MethodSpec{identifier: identifier, annotation: annotation, parameters: parameters, result: result}
+		return &MethodSpec{identifier: identifier, annotationList: annotationList, parameters: parameters, result: result}
 	}
 }
