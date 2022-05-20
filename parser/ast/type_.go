@@ -1,8 +1,8 @@
 package ast
 
 import (
-	"GoParser2/lex"
 	"fmt"
+	"github.com/naturemickey/GoParser2/lex"
 )
 
 type Type_ struct {

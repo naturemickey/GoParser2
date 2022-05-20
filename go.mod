@@ -1,3 +1,3 @@
-module GoParser2
+module github.com/naturemickey/GoParser2
 
 go 1.17

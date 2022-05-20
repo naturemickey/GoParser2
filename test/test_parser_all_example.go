@@ -1,9 +1,9 @@
 package main
 
 import (
-	"GoParser2/parser"
-	"GoParser2/parser/util"
-	utils "GoParser2/test/util"
+	"github.com/naturemickey/GoParser2/parser"
+	"github.com/naturemickey/GoParser2/parser/util"
+	utils "github.com/naturemickey/GoParser2/test/util"
 	"io/ioutil"
 )
 

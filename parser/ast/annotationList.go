@@ -1,6 +1,6 @@
 package ast
 
-import "GoParser2/lex"
+import "github.com/naturemickey/GoParser2/lex"
 
 type AnnotationList struct {
 	annotations []*Annotation

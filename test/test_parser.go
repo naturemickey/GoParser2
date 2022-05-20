@@ -1,8 +1,8 @@
 package main
 
 import (
-	"GoParser2/parser"
-	"GoParser2/parser/util"
+	"github.com/naturemickey/GoParser2/parser"
+	"github.com/naturemickey/GoParser2/parser/util"
 )
 
 func main() {

@@ -1,8 +1,8 @@
 package parser
 
 import (
-	"GoParser2/lex"
-	"GoParser2/parser/ast"
+	"github.com/naturemickey/GoParser2/lex"
+	"github.com/naturemickey/GoParser2/parser/ast"
 )
 
 func Parse(filepath string) *ast.SourceFile {

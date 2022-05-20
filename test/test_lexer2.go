@@ -1,7 +1,7 @@
 package main
 
 import (
-	"GoParser2/lex"
+	"github.com/naturemickey/GoParser2/lex"
 )
 
 func main() {

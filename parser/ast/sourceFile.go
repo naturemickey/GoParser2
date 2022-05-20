@@ -1,9 +1,9 @@
 package ast
 
 import (
-	"GoParser2/lex"
-	"GoParser2/parser/util"
 	"fmt"
+	"github.com/naturemickey/GoParser2/lex"
+	"github.com/naturemickey/GoParser2/parser/util"
 	"reflect"
 )
 
