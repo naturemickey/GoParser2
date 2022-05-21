@@ -13,6 +13,38 @@ type InterfaceType struct {
 	rCurly         *lex.Token
 }
 
+func (a *InterfaceType) Interface_() *lex.Token {
+	return a.interface_
+}
+
+func (a *InterfaceType) SetInterface_(interface_ *lex.Token) {
+	a.interface_ = interface_
+}
+
+func (a *InterfaceType) LCurly() *lex.Token {
+	return a.lCurly
+}
+
+func (a *InterfaceType) SetLCurly(lCurly *lex.Token) {
+	a.lCurly = lCurly
+}
+
+func (a *InterfaceType) MethodOrType_s() []IMethodspecOrTypename {
+	return a.methodOrType_s
+}
+
+func (a *InterfaceType) SetMethodOrType_s(methodOrType_s []IMethodspecOrTypename) {
+	a.methodOrType_s = methodOrType_s
+}
+
+func (a *InterfaceType) RCurly() *lex.Token {
+	return a.rCurly
+}
+
+func (a *InterfaceType) SetRCurly(rCurly *lex.Token) {
+	a.rCurly = rCurly
+}
+
 func (a *InterfaceType) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendToken(a.interface_).AppendToken(a.lCurly)

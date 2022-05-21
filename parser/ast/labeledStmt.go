@@ -11,6 +11,30 @@ type LabeledStmt struct {
 	statement  Statement
 }
 
+func (a *LabeledStmt) Identifier() *lex.Token {
+	return a.identifier
+}
+
+func (a *LabeledStmt) SetIdentifier(identifier *lex.Token) {
+	a.identifier = identifier
+}
+
+func (a *LabeledStmt) Colon() *lex.Token {
+	return a.colon
+}
+
+func (a *LabeledStmt) SetColon(colon *lex.Token) {
+	a.colon = colon
+}
+
+func (a *LabeledStmt) Statement() Statement {
+	return a.statement
+}
+
+func (a *LabeledStmt) SetStatement(statement Statement) {
+	a.statement = statement
+}
+
 func (a *LabeledStmt) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendToken(a.identifier).AppendToken(a.colon).AppendTreeNode(a.statement)
 }

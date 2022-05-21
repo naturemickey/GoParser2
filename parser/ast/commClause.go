@@ -12,6 +12,30 @@ type CommClause struct {
 	statementList *StatementList
 }
 
+func (a *CommClause) CommCase() *CommCase {
+	return a.commCase
+}
+
+func (a *CommClause) SetCommCase(commCase *CommCase) {
+	a.commCase = commCase
+}
+
+func (a *CommClause) Colon() *lex.Token {
+	return a.colon
+}
+
+func (a *CommClause) SetColon(colon *lex.Token) {
+	a.colon = colon
+}
+
+func (a *CommClause) StatementList() *StatementList {
+	return a.statementList
+}
+
+func (a *CommClause) SetStatementList(statementList *StatementList) {
+	a.statementList = statementList
+}
+
 func (a *CommClause) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendTreeNode(a.commCase)

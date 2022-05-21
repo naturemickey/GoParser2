@@ -13,6 +13,38 @@ type ConstDecl struct {
 	rParen     *lex.Token
 }
 
+func (a *ConstDecl) Const_() *lex.Token {
+	return a.const_
+}
+
+func (a *ConstDecl) SetConst_(const_ *lex.Token) {
+	a.const_ = const_
+}
+
+func (a *ConstDecl) LParen() *lex.Token {
+	return a.lParen
+}
+
+func (a *ConstDecl) SetLParen(lParen *lex.Token) {
+	a.lParen = lParen
+}
+
+func (a *ConstDecl) ConstSpecs() []*ConstSpec {
+	return a.constSpecs
+}
+
+func (a *ConstDecl) SetConstSpecs(constSpecs []*ConstSpec) {
+	a.constSpecs = constSpecs
+}
+
+func (a *ConstDecl) RParen() *lex.Token {
+	return a.rParen
+}
+
+func (a *ConstDecl) SetRParen(rParen *lex.Token) {
+	a.rParen = rParen
+}
+
 func (a *ConstDecl) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendToken(a.const_)

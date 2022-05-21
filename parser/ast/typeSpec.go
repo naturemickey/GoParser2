@@ -13,6 +13,34 @@ type TypeSpec struct {
 	type_          *Type_
 }
 
+func (this *TypeSpec) SetAnnotationList(annotationList *AnnotationList) {
+	this.annotationList = annotationList
+}
+
+func (this *TypeSpec) Identifier() *lex.Token {
+	return this.identifier
+}
+
+func (this *TypeSpec) SetIdentifier(identifier *lex.Token) {
+	this.identifier = identifier
+}
+
+func (this *TypeSpec) Assign() *lex.Token {
+	return this.assign
+}
+
+func (this *TypeSpec) SetAssign(assign *lex.Token) {
+	this.assign = assign
+}
+
+func (this *TypeSpec) Type_() *Type_ {
+	return this.type_
+}
+
+func (this *TypeSpec) SetType_(type_ *Type_) {
+	this.type_ = type_
+}
+
 func (this *TypeSpec) AnnotationList() *AnnotationList {
 	return this.annotationList
 }

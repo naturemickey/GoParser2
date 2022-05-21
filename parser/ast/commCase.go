@@ -13,6 +13,38 @@ type CommCase struct {
 	default_ *lex.Token
 }
 
+func (a *CommCase) Case_() *lex.Token {
+	return a.case_
+}
+
+func (a *CommCase) SetCase_(case_ *lex.Token) {
+	a.case_ = case_
+}
+
+func (a *CommCase) SendStmt() *SendStmt {
+	return a.sendStmt
+}
+
+func (a *CommCase) SetSendStmt(sendStmt *SendStmt) {
+	a.sendStmt = sendStmt
+}
+
+func (a *CommCase) RecvStmt() *RecvStmt {
+	return a.recvStmt
+}
+
+func (a *CommCase) SetRecvStmt(recvStmt *RecvStmt) {
+	a.recvStmt = recvStmt
+}
+
+func (a *CommCase) Default_() *lex.Token {
+	return a.default_
+}
+
+func (a *CommCase) SetDefault_(default_ *lex.Token) {
+	a.default_ = default_
+}
+
 func (a *CommCase) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendToken(a.case_)

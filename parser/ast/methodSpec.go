@@ -14,6 +14,34 @@ type MethodSpec struct {
 	result         Result
 }
 
+func (a *MethodSpec) Identifier() *lex.Token {
+	return a.identifier
+}
+
+func (a *MethodSpec) SetIdentifier(identifier *lex.Token) {
+	a.identifier = identifier
+}
+
+func (a *MethodSpec) SetAnnotationList(annotationList *AnnotationList) {
+	a.annotationList = annotationList
+}
+
+func (a *MethodSpec) Parameters() *Parameters {
+	return a.parameters
+}
+
+func (a *MethodSpec) SetParameters(parameters *Parameters) {
+	a.parameters = parameters
+}
+
+func (a *MethodSpec) Result() Result {
+	return a.result
+}
+
+func (a *MethodSpec) SetResult(result Result) {
+	a.result = result
+}
+
 func (a *MethodSpec) AnnotationList() *AnnotationList {
 	return a.annotationList
 }

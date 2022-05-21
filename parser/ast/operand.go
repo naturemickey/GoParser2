@@ -15,6 +15,46 @@ type Operand struct {
 	rParen      *lex.Token
 }
 
+func (a *Operand) Literal() Literal {
+	return a.literal
+}
+
+func (a *Operand) SetLiteral(literal Literal) {
+	a.literal = literal
+}
+
+func (a *Operand) OperandName() *lex.Token {
+	return a.operandName
+}
+
+func (a *Operand) SetOperandName(operandName *lex.Token) {
+	a.operandName = operandName
+}
+
+func (a *Operand) LParen() *lex.Token {
+	return a.lParen
+}
+
+func (a *Operand) SetLParen(lParen *lex.Token) {
+	a.lParen = lParen
+}
+
+func (a *Operand) Expression() *Expression {
+	return a.expression
+}
+
+func (a *Operand) SetExpression(expression *Expression) {
+	a.expression = expression
+}
+
+func (a *Operand) RParen() *lex.Token {
+	return a.rParen
+}
+
+func (a *Operand) SetRParen(rParen *lex.Token) {
+	a.rParen = rParen
+}
+
 func (a *Operand) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendTreeNode(a.literal).AppendToken(a.operandName).
 		AppendToken(a.lParen).AppendTreeNode(a.expression).AppendToken(a.rParen)

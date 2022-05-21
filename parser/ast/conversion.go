@@ -13,6 +13,46 @@ type Conversion struct {
 	rParen       *lex.Token
 }
 
+func (a *Conversion) NonNamedType() *NonNamedType {
+	return a.nonNamedType
+}
+
+func (a *Conversion) SetNonNamedType(nonNamedType *NonNamedType) {
+	a.nonNamedType = nonNamedType
+}
+
+func (a *Conversion) LParen() *lex.Token {
+	return a.lParen
+}
+
+func (a *Conversion) SetLParen(lParen *lex.Token) {
+	a.lParen = lParen
+}
+
+func (a *Conversion) Expression() *Expression {
+	return a.expression
+}
+
+func (a *Conversion) SetExpression(expression *Expression) {
+	a.expression = expression
+}
+
+func (a *Conversion) Comma() *lex.Token {
+	return a.comma
+}
+
+func (a *Conversion) SetComma(comma *lex.Token) {
+	a.comma = comma
+}
+
+func (a *Conversion) RParen() *lex.Token {
+	return a.rParen
+}
+
+func (a *Conversion) SetRParen(rParen *lex.Token) {
+	a.rParen = rParen
+}
+
 func (a *Conversion) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendTreeNode(a.nonNamedType)

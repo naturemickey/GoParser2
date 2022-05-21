@@ -21,6 +21,62 @@ type Slice struct {
 	colon2 *lex.Token
 }
 
+func (a *Slice) LBracket() *lex.Token {
+	return a.lBracket
+}
+
+func (a *Slice) SetLBracket(lBracket *lex.Token) {
+	a.lBracket = lBracket
+}
+
+func (a *Slice) RBracket() *lex.Token {
+	return a.rBracket
+}
+
+func (a *Slice) SetRBracket(rBracket *lex.Token) {
+	a.rBracket = rBracket
+}
+
+func (a *Slice) Expression1() *Expression {
+	return a.expression1
+}
+
+func (a *Slice) SetExpression1(expression1 *Expression) {
+	a.expression1 = expression1
+}
+
+func (a *Slice) Expression2() *Expression {
+	return a.expression2
+}
+
+func (a *Slice) SetExpression2(expression2 *Expression) {
+	a.expression2 = expression2
+}
+
+func (a *Slice) Expression3() *Expression {
+	return a.expression3
+}
+
+func (a *Slice) SetExpression3(expression3 *Expression) {
+	a.expression3 = expression3
+}
+
+func (a *Slice) Colon1() *lex.Token {
+	return a.colon1
+}
+
+func (a *Slice) SetColon1(colon1 *lex.Token) {
+	a.colon1 = colon1
+}
+
+func (a *Slice) Colon2() *lex.Token {
+	return a.colon2
+}
+
+func (a *Slice) SetColon2(colon2 *lex.Token) {
+	a.colon2 = colon2
+}
+
 func (a *Slice) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendToken(a.lBracket).AppendTreeNode(a.expression1).AppendToken(a.colon1).
 		AppendTreeNode(a.expression2).AppendToken(a.colon2).AppendTreeNode(a.expression3).AppendToken(a.rBracket)

@@ -14,6 +14,38 @@ type ChannelType struct {
 	elementType  *Type_
 }
 
+func (a *ChannelType) Chan_() *lex.Token {
+	return a.chan_
+}
+
+func (a *ChannelType) SetChan_(chan_ *lex.Token) {
+	a.chan_ = chan_
+}
+
+func (a *ChannelType) Chan_receive() *chanReceivePair {
+	return a.chan_receive
+}
+
+func (a *ChannelType) SetChan_receive(chan_receive *chanReceivePair) {
+	a.chan_receive = chan_receive
+}
+
+func (a *ChannelType) Receive_chan() *receiveChanPair {
+	return a.receive_chan
+}
+
+func (a *ChannelType) SetReceive_chan(receive_chan *receiveChanPair) {
+	a.receive_chan = receive_chan
+}
+
+func (a *ChannelType) ElementType() *Type_ {
+	return a.elementType
+}
+
+func (a *ChannelType) SetElementType(elementType *Type_) {
+	a.elementType = elementType
+}
+
 func (a *ChannelType) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	if a.chan_ != nil {

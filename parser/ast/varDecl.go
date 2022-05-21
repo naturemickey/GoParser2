@@ -13,6 +13,38 @@ type VarDecl struct {
 	rParen   *lex.Token
 }
 
+func (a *VarDecl) Var_() *lex.Token {
+	return a.var_
+}
+
+func (a *VarDecl) SetVar_(var_ *lex.Token) {
+	a.var_ = var_
+}
+
+func (a *VarDecl) LParen() *lex.Token {
+	return a.lParen
+}
+
+func (a *VarDecl) SetLParen(lParen *lex.Token) {
+	a.lParen = lParen
+}
+
+func (a *VarDecl) VarSpecs() []*VarSpec {
+	return a.varSpecs
+}
+
+func (a *VarDecl) SetVarSpecs(varSpecs []*VarSpec) {
+	a.varSpecs = varSpecs
+}
+
+func (a *VarDecl) RParen() *lex.Token {
+	return a.rParen
+}
+
+func (a *VarDecl) SetRParen(rParen *lex.Token) {
+	a.rParen = rParen
+}
+
 func (a *VarDecl) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendToken(a.var_)

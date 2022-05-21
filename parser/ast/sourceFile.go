@@ -17,6 +17,18 @@ type SourceFile struct {
 	fmds          []IFunctionMethodDeclaration
 }
 
+func (a *SourceFile) SetPackageClause(packageClause *PackageClause) {
+	a.packageClause = packageClause
+}
+
+func (a *SourceFile) SetImportDecls(importDecls []*ImportDecl) {
+	a.importDecls = importDecls
+}
+
+func (a *SourceFile) SetFmds(fmds []IFunctionMethodDeclaration) {
+	a.fmds = fmds
+}
+
 func (a *SourceFile) PackageClause() *PackageClause {
 	return a.packageClause
 }

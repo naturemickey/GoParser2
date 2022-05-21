@@ -25,6 +25,46 @@ type PrimaryExpr struct {
 	suffix      *PrimaryExprSuffix
 }
 
+func (a *PrimaryExpr) Operand() *Operand {
+	return a.operand
+}
+
+func (a *PrimaryExpr) SetOperand(operand *Operand) {
+	a.operand = operand
+}
+
+func (a *PrimaryExpr) Conversion() *Conversion {
+	return a.conversion
+}
+
+func (a *PrimaryExpr) SetConversion(conversion *Conversion) {
+	a.conversion = conversion
+}
+
+func (a *PrimaryExpr) MethodExpr() *MethodExpr {
+	return a.methodExpr
+}
+
+func (a *PrimaryExpr) SetMethodExpr(methodExpr *MethodExpr) {
+	a.methodExpr = methodExpr
+}
+
+func (a *PrimaryExpr) PrimaryExpr() *PrimaryExpr {
+	return a.primaryExpr
+}
+
+func (a *PrimaryExpr) SetPrimaryExpr(primaryExpr *PrimaryExpr) {
+	a.primaryExpr = primaryExpr
+}
+
+func (a *PrimaryExpr) Suffix() *PrimaryExprSuffix {
+	return a.suffix
+}
+
+func (a *PrimaryExpr) SetSuffix(suffix *PrimaryExprSuffix) {
+	a.suffix = suffix
+}
+
 func (a *PrimaryExpr) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendTreeNode(a.operand)

@@ -12,6 +12,38 @@ type TypeAssertion struct {
 	rParen *lex.Token
 }
 
+func (a *TypeAssertion) Dot() *lex.Token {
+	return a.dot
+}
+
+func (a *TypeAssertion) SetDot(dot *lex.Token) {
+	a.dot = dot
+}
+
+func (a *TypeAssertion) LParen() *lex.Token {
+	return a.lParen
+}
+
+func (a *TypeAssertion) SetLParen(lParen *lex.Token) {
+	a.lParen = lParen
+}
+
+func (a *TypeAssertion) Type_() *Type_ {
+	return a.type_
+}
+
+func (a *TypeAssertion) SetType_(type_ *Type_) {
+	a.type_ = type_
+}
+
+func (a *TypeAssertion) RParen() *lex.Token {
+	return a.rParen
+}
+
+func (a *TypeAssertion) SetRParen(rParen *lex.Token) {
+	a.rParen = rParen
+}
+
 func (a *TypeAssertion) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendToken(a.dot).AppendToken(a.lParen).AppendTreeNode(a.type_).AppendToken(a.rParen)
 }

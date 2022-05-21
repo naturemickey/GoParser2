@@ -12,6 +12,22 @@ type ImportSpec struct {
 	importPath *lex.Token
 }
 
+func (a *ImportSpec) Alias() *lex.Token {
+	return a.alias
+}
+
+func (a *ImportSpec) SetAlias(alias *lex.Token) {
+	a.alias = alias
+}
+
+func (a *ImportSpec) ImportPath() *lex.Token {
+	return a.importPath
+}
+
+func (a *ImportSpec) SetImportPath(importPath *lex.Token) {
+	a.importPath = importPath
+}
+
 func (a *ImportSpec) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendToken(a.alias).AppendToken(a.importPath)
 }

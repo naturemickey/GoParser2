@@ -28,6 +28,70 @@ type IfStmt struct {
 	elseBlock *Block
 }
 
+func (a *IfStmt) If_() *lex.Token {
+	return a.if_
+}
+
+func (a *IfStmt) SetIf_(if_ *lex.Token) {
+	a.if_ = if_
+}
+
+func (a *IfStmt) Semi() *lex.Token {
+	return a.semi
+}
+
+func (a *IfStmt) SetSemi(semi *lex.Token) {
+	a.semi = semi
+}
+
+func (a *IfStmt) Expression() *Expression {
+	return a.expression
+}
+
+func (a *IfStmt) SetExpression(expression *Expression) {
+	a.expression = expression
+}
+
+func (a *IfStmt) SimpleStmt() SimpleStmt {
+	return a.simpleStmt
+}
+
+func (a *IfStmt) SetSimpleStmt(simpleStmt SimpleStmt) {
+	a.simpleStmt = simpleStmt
+}
+
+func (a *IfStmt) Block() *Block {
+	return a.block
+}
+
+func (a *IfStmt) SetBlock(block *Block) {
+	a.block = block
+}
+
+func (a *IfStmt) Else_() *lex.Token {
+	return a.else_
+}
+
+func (a *IfStmt) SetElse_(else_ *lex.Token) {
+	a.else_ = else_
+}
+
+func (a *IfStmt) IfStmt() *IfStmt {
+	return a.ifStmt
+}
+
+func (a *IfStmt) SetIfStmt(ifStmt *IfStmt) {
+	a.ifStmt = ifStmt
+}
+
+func (a *IfStmt) ElseBlock() *Block {
+	return a.elseBlock
+}
+
+func (a *IfStmt) SetElseBlock(elseBlock *Block) {
+	a.elseBlock = elseBlock
+}
+
 func (a *IfStmt) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendToken(a.if_)

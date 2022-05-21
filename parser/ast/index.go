@@ -11,6 +11,30 @@ type Index struct {
 	rBracket   *lex.Token
 }
 
+func (a *Index) LBracket() *lex.Token {
+	return a.lBracket
+}
+
+func (a *Index) SetLBracket(lBracket *lex.Token) {
+	a.lBracket = lBracket
+}
+
+func (a *Index) Expression() *Expression {
+	return a.expression
+}
+
+func (a *Index) SetExpression(expression *Expression) {
+	a.expression = expression
+}
+
+func (a *Index) RBracket() *lex.Token {
+	return a.rBracket
+}
+
+func (a *Index) SetRBracket(rBracket *lex.Token) {
+	a.rBracket = rBracket
+}
+
 func (a *Index) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendToken(a.lBracket).AppendTreeNode(a.expression).AppendToken(a.rBracket)
 }

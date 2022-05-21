@@ -11,6 +11,30 @@ type Assignment struct {
 	rExpressionList *ExpressionList
 }
 
+func (a *Assignment) LExpressionList() *ExpressionList {
+	return a.lExpressionList
+}
+
+func (a *Assignment) SetLExpressionList(lExpressionList *ExpressionList) {
+	a.lExpressionList = lExpressionList
+}
+
+func (a *Assignment) Assign_op() *Assign_op {
+	return a.assign_op
+}
+
+func (a *Assignment) SetAssign_op(assign_op *Assign_op) {
+	a.assign_op = assign_op
+}
+
+func (a *Assignment) RExpressionList() *ExpressionList {
+	return a.rExpressionList
+}
+
+func (a *Assignment) SetRExpressionList(rExpressionList *ExpressionList) {
+	a.rExpressionList = rExpressionList
+}
+
 func (a *Assignment) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendTreeNode(a.lExpressionList)

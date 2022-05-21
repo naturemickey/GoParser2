@@ -17,6 +17,38 @@ type VarSpec struct {
 	expressionList *ExpressionList
 }
 
+func (a *VarSpec) IdentifierList() *IdentifierList {
+	return a.identifierList
+}
+
+func (a *VarSpec) SetIdentifierList(identifierList *IdentifierList) {
+	a.identifierList = identifierList
+}
+
+func (a *VarSpec) Type_() *Type_ {
+	return a.type_
+}
+
+func (a *VarSpec) SetType_(type_ *Type_) {
+	a.type_ = type_
+}
+
+func (a *VarSpec) Assign() *lex.Token {
+	return a.assign
+}
+
+func (a *VarSpec) SetAssign(assign *lex.Token) {
+	a.assign = assign
+}
+
+func (a *VarSpec) ExpressionList() *ExpressionList {
+	return a.expressionList
+}
+
+func (a *VarSpec) SetExpressionList(expressionList *ExpressionList) {
+	a.expressionList = expressionList
+}
+
 func (a *VarSpec) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendTreeNode(a.identifierList).AppendTreeNode(a.type_).AppendToken(a.assign).AppendTreeNode(a.expressionList)
 }

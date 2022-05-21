@@ -13,6 +13,38 @@ type SelectStmt struct {
 	rCurly      *lex.Token
 }
 
+func (a *SelectStmt) Select_() *lex.Token {
+	return a.select_
+}
+
+func (a *SelectStmt) SetSelect_(select_ *lex.Token) {
+	a.select_ = select_
+}
+
+func (a *SelectStmt) LCurly() *lex.Token {
+	return a.lCurly
+}
+
+func (a *SelectStmt) SetLCurly(lCurly *lex.Token) {
+	a.lCurly = lCurly
+}
+
+func (a *SelectStmt) CommClauses() []*CommClause {
+	return a.commClauses
+}
+
+func (a *SelectStmt) SetCommClauses(commClauses []*CommClause) {
+	a.commClauses = commClauses
+}
+
+func (a *SelectStmt) RCurly() *lex.Token {
+	return a.rCurly
+}
+
+func (a *SelectStmt) SetRCurly(rCurly *lex.Token) {
+	a.rCurly = rCurly
+}
+
 func (a *SelectStmt) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendToken(a.select_).AppendToken(a.lCurly)

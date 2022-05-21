@@ -11,6 +11,30 @@ type ParameterDecl struct {
 	type_          *Type_
 }
 
+func (a *ParameterDecl) IdentifierList() *IdentifierList {
+	return a.identifierList
+}
+
+func (a *ParameterDecl) SetIdentifierList(identifierList *IdentifierList) {
+	a.identifierList = identifierList
+}
+
+func (a *ParameterDecl) Ellipsis() *lex.Token {
+	return a.ellipsis
+}
+
+func (a *ParameterDecl) SetEllipsis(ellipsis *lex.Token) {
+	a.ellipsis = ellipsis
+}
+
+func (a *ParameterDecl) Type_() *Type_ {
+	return a.type_
+}
+
+func (a *ParameterDecl) SetType_(type_ *Type_) {
+	a.type_ = type_
+}
+
 func (a *ParameterDecl) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendTreeNode(a.identifierList).AppendToken(a.ellipsis).AppendTreeNode(a.type_)
 }

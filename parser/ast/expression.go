@@ -74,6 +74,38 @@ type Expression struct {
 	exp2s []*exp2
 }
 
+func (a *Expression) PrimaryExpr() *PrimaryExpr {
+	return a.primaryExpr
+}
+
+func (a *Expression) SetPrimaryExpr(primaryExpr *PrimaryExpr) {
+	a.primaryExpr = primaryExpr
+}
+
+func (a *Expression) Unary_op() *lex.Token {
+	return a.unary_op
+}
+
+func (a *Expression) SetUnary_op(unary_op *lex.Token) {
+	a.unary_op = unary_op
+}
+
+func (a *Expression) Expression() *Expression {
+	return a.expression
+}
+
+func (a *Expression) SetExpression(expression *Expression) {
+	a.expression = expression
+}
+
+func (a *Expression) Exp2s() []*exp2 {
+	return a.exp2s
+}
+
+func (a *Expression) SetExp2s(exp2s []*exp2) {
+	a.exp2s = exp2s
+}
+
 func (a *Expression) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendTreeNode(a.primaryExpr)

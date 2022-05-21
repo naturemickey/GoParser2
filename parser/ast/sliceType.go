@@ -13,6 +13,30 @@ type SliceType struct {
 	elementType *Type_
 }
 
+func (a *SliceType) LBracket() *lex.Token {
+	return a.lBracket
+}
+
+func (a *SliceType) SetLBracket(lBracket *lex.Token) {
+	a.lBracket = lBracket
+}
+
+func (a *SliceType) RBracket() *lex.Token {
+	return a.rBracket
+}
+
+func (a *SliceType) SetRBracket(rBracket *lex.Token) {
+	a.rBracket = rBracket
+}
+
+func (a *SliceType) ElementType() *Type_ {
+	return a.elementType
+}
+
+func (a *SliceType) SetElementType(elementType *Type_) {
+	a.elementType = elementType
+}
+
 func (a *SliceType) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendToken(a.lBracket).AppendToken(a.rBracket).AppendTreeNode(a.elementType)
 }

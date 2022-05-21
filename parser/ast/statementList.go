@@ -9,6 +9,14 @@ type StatementList struct {
 	statements []Statement
 }
 
+func (a *StatementList) Statements() []Statement {
+	return a.statements
+}
+
+func (a *StatementList) SetStatements(statements []Statement) {
+	a.statements = statements
+}
+
 func NewStatementList() *StatementList {
 	return &StatementList{}
 }

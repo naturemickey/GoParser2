@@ -10,6 +10,22 @@ type TypeName struct {
 	identifier     *lex.Token
 }
 
+func (a *TypeName) QualifiedIdent() *QualifiedIdent {
+	return a.qualifiedIdent
+}
+
+func (a *TypeName) SetQualifiedIdent(qualifiedIdent *QualifiedIdent) {
+	a.qualifiedIdent = qualifiedIdent
+}
+
+func (a *TypeName) Identifier() *lex.Token {
+	return a.identifier
+}
+
+func (a *TypeName) SetIdentifier(identifier *lex.Token) {
+	a.identifier = identifier
+}
+
 func (a *TypeName) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendTreeNode(a.qualifiedIdent).AppendToken(a.identifier)
 }

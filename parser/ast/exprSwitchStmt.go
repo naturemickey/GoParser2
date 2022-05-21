@@ -22,6 +22,62 @@ type ExprSwitchStmt struct {
 	rCurly          *lex.Token
 }
 
+func (a *ExprSwitchStmt) Switch_() *lex.Token {
+	return a.switch_
+}
+
+func (a *ExprSwitchStmt) SetSwitch_(switch_ *lex.Token) {
+	a.switch_ = switch_
+}
+
+func (a *ExprSwitchStmt) Expression() *Expression {
+	return a.expression
+}
+
+func (a *ExprSwitchStmt) SetExpression(expression *Expression) {
+	a.expression = expression
+}
+
+func (a *ExprSwitchStmt) SimpleStmt() SimpleStmt {
+	return a.simpleStmt
+}
+
+func (a *ExprSwitchStmt) SetSimpleStmt(simpleStmt SimpleStmt) {
+	a.simpleStmt = simpleStmt
+}
+
+func (a *ExprSwitchStmt) Eos() *Eos {
+	return a.eos
+}
+
+func (a *ExprSwitchStmt) SetEos(eos *Eos) {
+	a.eos = eos
+}
+
+func (a *ExprSwitchStmt) LCurly() *lex.Token {
+	return a.lCurly
+}
+
+func (a *ExprSwitchStmt) SetLCurly(lCurly *lex.Token) {
+	a.lCurly = lCurly
+}
+
+func (a *ExprSwitchStmt) ExprCaseClauses() []*ExprCaseClause {
+	return a.exprCaseClauses
+}
+
+func (a *ExprSwitchStmt) SetExprCaseClauses(exprCaseClauses []*ExprCaseClause) {
+	a.exprCaseClauses = exprCaseClauses
+}
+
+func (a *ExprSwitchStmt) RCurly() *lex.Token {
+	return a.rCurly
+}
+
+func (a *ExprSwitchStmt) SetRCurly(rCurly *lex.Token) {
+	a.rCurly = rCurly
+}
+
 func (a *ExprSwitchStmt) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendToken(a.switch_)

@@ -11,6 +11,22 @@ type PointerType struct {
 	type_ *Type_
 }
 
+func (a *PointerType) Star() *lex.Token {
+	return a.star
+}
+
+func (a *PointerType) SetStar(star *lex.Token) {
+	a.star = star
+}
+
+func (a *PointerType) Type_() *Type_ {
+	return a.type_
+}
+
+func (a *PointerType) SetType_(type_ *Type_) {
+	a.type_ = type_
+}
+
 func (a *PointerType) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendToken(a.star).AppendTreeNode(a.type_)
 }

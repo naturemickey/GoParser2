@@ -12,6 +12,30 @@ type ExprSwitchCase struct {
 	default_       *lex.Token
 }
 
+func (a *ExprSwitchCase) Case_() *lex.Token {
+	return a.case_
+}
+
+func (a *ExprSwitchCase) SetCase_(case_ *lex.Token) {
+	a.case_ = case_
+}
+
+func (a *ExprSwitchCase) ExpressionList() *ExpressionList {
+	return a.expressionList
+}
+
+func (a *ExprSwitchCase) SetExpressionList(expressionList *ExpressionList) {
+	a.expressionList = expressionList
+}
+
+func (a *ExprSwitchCase) Default_() *lex.Token {
+	return a.default_
+}
+
+func (a *ExprSwitchCase) SetDefault_(default_ *lex.Token) {
+	a.default_ = default_
+}
+
 func (a *ExprSwitchCase) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendToken(a.case_)

@@ -16,6 +16,38 @@ type ArrayType struct {
 	elementType *Type_
 }
 
+func (a *ArrayType) LBracket() *lex.Token {
+	return a.lBracket
+}
+
+func (a *ArrayType) SetLBracket(lBracket *lex.Token) {
+	a.lBracket = lBracket
+}
+
+func (a *ArrayType) ArrayLength() *Expression {
+	return a.arrayLength
+}
+
+func (a *ArrayType) SetArrayLength(arrayLength *Expression) {
+	a.arrayLength = arrayLength
+}
+
+func (a *ArrayType) RBracket() *lex.Token {
+	return a.rBracket
+}
+
+func (a *ArrayType) SetRBracket(rBracket *lex.Token) {
+	a.rBracket = rBracket
+}
+
+func (a *ArrayType) ElementType() *Type_ {
+	return a.elementType
+}
+
+func (a *ArrayType) SetElementType(elementType *Type_) {
+	a.elementType = elementType
+}
+
 func (a *ArrayType) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendToken(a.lBracket)

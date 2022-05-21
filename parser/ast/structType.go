@@ -12,6 +12,38 @@ type StructType struct {
 	rCurly     *lex.Token
 }
 
+func (a *StructType) Struct_() *lex.Token {
+	return a.struct_
+}
+
+func (a *StructType) SetStruct_(struct_ *lex.Token) {
+	a.struct_ = struct_
+}
+
+func (a *StructType) LCurly() *lex.Token {
+	return a.lCurly
+}
+
+func (a *StructType) SetLCurly(lCurly *lex.Token) {
+	a.lCurly = lCurly
+}
+
+func (a *StructType) FieldDecls() []*FieldDecl {
+	return a.fieldDecls
+}
+
+func (a *StructType) SetFieldDecls(fieldDecls []*FieldDecl) {
+	a.fieldDecls = fieldDecls
+}
+
+func (a *StructType) RCurly() *lex.Token {
+	return a.rCurly
+}
+
+func (a *StructType) SetRCurly(rCurly *lex.Token) {
+	a.rCurly = rCurly
+}
+
 func (a *StructType) CodeBuilder() *CodeBuilder {
 	cb := NewCB().AppendToken(a.struct_).AppendToken(a.lCurly)
 	if len(a.fieldDecls) > 0 {

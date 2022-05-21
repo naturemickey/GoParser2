@@ -13,6 +13,46 @@ type ForStmt struct {
 	block       *Block
 }
 
+func (a *ForStmt) For_() *lex.Token {
+	return a.for_
+}
+
+func (a *ForStmt) SetFor_(for_ *lex.Token) {
+	a.for_ = for_
+}
+
+func (a *ForStmt) Expression() *Expression {
+	return a.expression
+}
+
+func (a *ForStmt) SetExpression(expression *Expression) {
+	a.expression = expression
+}
+
+func (a *ForStmt) ForClause() *ForClause {
+	return a.forClause
+}
+
+func (a *ForStmt) SetForClause(forClause *ForClause) {
+	a.forClause = forClause
+}
+
+func (a *ForStmt) RangeClause() *RangeClause {
+	return a.rangeClause
+}
+
+func (a *ForStmt) SetRangeClause(rangeClause *RangeClause) {
+	a.rangeClause = rangeClause
+}
+
+func (a *ForStmt) Block() *Block {
+	return a.block
+}
+
+func (a *ForStmt) SetBlock(block *Block) {
+	a.block = block
+}
+
 func (a *ForStmt) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendToken(a.for_)

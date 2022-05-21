@@ -12,6 +12,22 @@ type Signature struct {
 	result     Result
 }
 
+func (a *Signature) Parameters() *Parameters {
+	return a.parameters
+}
+
+func (a *Signature) SetParameters(parameters *Parameters) {
+	a.parameters = parameters
+}
+
+func (a *Signature) Result() Result {
+	return a.result
+}
+
+func (a *Signature) SetResult(result Result) {
+	a.result = result
+}
+
 func (a *Signature) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendTreeNode(a.parameters).AppendTreeNode(a.result)
 }

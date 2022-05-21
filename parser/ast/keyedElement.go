@@ -11,6 +11,30 @@ type KeyedElement struct {
 	element Element
 }
 
+func (a *KeyedElement) Key() Key {
+	return a.key
+}
+
+func (a *KeyedElement) SetKey(key Key) {
+	a.key = key
+}
+
+func (a *KeyedElement) Colon() *lex.Token {
+	return a.colon
+}
+
+func (a *KeyedElement) SetColon(colon *lex.Token) {
+	a.colon = colon
+}
+
+func (a *KeyedElement) Element() Element {
+	return a.element
+}
+
+func (a *KeyedElement) SetElement(element Element) {
+	a.element = element
+}
+
 func (a *KeyedElement) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendTreeNode(a.key).AppendToken(a.colon).AppendTreeNode(a.element)
 }

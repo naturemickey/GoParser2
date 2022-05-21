@@ -10,6 +10,22 @@ type ContinueStmt struct {
 	identifier *lex.Token
 }
 
+func (a *ContinueStmt) Continue_() *lex.Token {
+	return a.continue_
+}
+
+func (a *ContinueStmt) SetContinue_(continue_ *lex.Token) {
+	a.continue_ = continue_
+}
+
+func (a *ContinueStmt) Identifier() *lex.Token {
+	return a.identifier
+}
+
+func (a *ContinueStmt) SetIdentifier(identifier *lex.Token) {
+	a.identifier = identifier
+}
+
 func (a *ContinueStmt) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendToken(a.continue_)

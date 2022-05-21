@@ -13,6 +13,46 @@ type RecvStmt struct {
 	recvExpr       *Expression
 }
 
+func (a *RecvStmt) ExpressionList() *ExpressionList {
+	return a.expressionList
+}
+
+func (a *RecvStmt) SetExpressionList(expressionList *ExpressionList) {
+	a.expressionList = expressionList
+}
+
+func (a *RecvStmt) Assign() *lex.Token {
+	return a.assign
+}
+
+func (a *RecvStmt) SetAssign(assign *lex.Token) {
+	a.assign = assign
+}
+
+func (a *RecvStmt) IdentifierList() *IdentifierList {
+	return a.identifierList
+}
+
+func (a *RecvStmt) SetIdentifierList(identifierList *IdentifierList) {
+	a.identifierList = identifierList
+}
+
+func (a *RecvStmt) Declare_assign() *lex.Token {
+	return a.declare_assign
+}
+
+func (a *RecvStmt) SetDeclare_assign(declare_assign *lex.Token) {
+	a.declare_assign = declare_assign
+}
+
+func (a *RecvStmt) RecvExpr() *Expression {
+	return a.recvExpr
+}
+
+func (a *RecvStmt) SetRecvExpr(recvExpr *Expression) {
+	a.recvExpr = recvExpr
+}
+
 func (a *RecvStmt) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendTreeNode(a.expressionList).AppendToken(a.assign).
 		AppendTreeNode(a.identifierList).AppendToken(a.declare_assign).AppendTreeNode(a.recvExpr)

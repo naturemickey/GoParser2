@@ -13,6 +13,46 @@ type ForClause struct {
 	postStmt   SimpleStmt
 }
 
+func (a *ForClause) InitStmt() SimpleStmt {
+	return a.initStmt
+}
+
+func (a *ForClause) SetInitStmt(initStmt SimpleStmt) {
+	a.initStmt = initStmt
+}
+
+func (a *ForClause) Eos1() *Eos {
+	return a.eos1
+}
+
+func (a *ForClause) SetEos1(eos1 *Eos) {
+	a.eos1 = eos1
+}
+
+func (a *ForClause) Expression() *Expression {
+	return a.expression
+}
+
+func (a *ForClause) SetExpression(expression *Expression) {
+	a.expression = expression
+}
+
+func (a *ForClause) Eos2() *Eos {
+	return a.eos2
+}
+
+func (a *ForClause) SetEos2(eos2 *Eos) {
+	a.eos2 = eos2
+}
+
+func (a *ForClause) PostStmt() SimpleStmt {
+	return a.postStmt
+}
+
+func (a *ForClause) SetPostStmt(postStmt SimpleStmt) {
+	a.postStmt = postStmt
+}
+
 func (a *ForClause) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendTreeNode(a.initStmt).AppendTreeNode(a.eos1)

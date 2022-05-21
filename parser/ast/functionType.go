@@ -11,6 +11,22 @@ type FunctionType struct {
 	signature *Signature
 }
 
+func (a *FunctionType) Func_() *lex.Token {
+	return a.func_
+}
+
+func (a *FunctionType) SetFunc_(func_ *lex.Token) {
+	a.func_ = func_
+}
+
+func (a *FunctionType) Signature() *Signature {
+	return a.signature
+}
+
+func (a *FunctionType) SetSignature(signature *Signature) {
+	a.signature = signature
+}
+
 func (a *FunctionType) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendToken(a.func_).AppendTreeNode(a.signature)
 }

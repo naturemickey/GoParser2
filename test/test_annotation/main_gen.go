@@ -1,9 +1,9 @@
 package main
 
 import (
-	"GoParser2/lex"
-	"GoParser2/parser"
-	"GoParser2/parser/ast"
+	"github.com/naturemickey/GoParser2/lex"
+	"github.com/naturemickey/GoParser2/parser"
+	"github.com/naturemickey/GoParser2/parser/ast"
 	"io/ioutil"
 	"strings"
 )
@@ -11,7 +11,7 @@ import (
 func main() {
 	caseFile := parser.Parse("test/test_annotation/test_case/case.go")
 
-	importDecl := ast.VisitImportDecl(lex.NewLexerWithCode("import (\n\"GoParser2/test/test_annotation/framework\"\n\"GoParser2/test/test_annotation/test_case\")"))
+	importDecl := ast.VisitImportDecl(lex.NewLexerWithCode("import (\n\"github.com/naturemickey/GoParser2/test/test_annotation/framework\"\n\"GoParser2/test/test_annotation/test_case\")"))
 	functionDecl := ast.VisitFunctionDecl(lex.NewLexerWithCode("func init(){}"))
 
 	packageName := caseFile.PackageClause().PackageName()

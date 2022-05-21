@@ -11,6 +11,30 @@ type ShortVarDecl struct {
 	expressionList *ExpressionList
 }
 
+func (a *ShortVarDecl) IdentifierList() *IdentifierList {
+	return a.identifierList
+}
+
+func (a *ShortVarDecl) SetIdentifierList(identifierList *IdentifierList) {
+	a.identifierList = identifierList
+}
+
+func (a *ShortVarDecl) Declare_assign() *lex.Token {
+	return a.declare_assign
+}
+
+func (a *ShortVarDecl) SetDeclare_assign(declare_assign *lex.Token) {
+	a.declare_assign = declare_assign
+}
+
+func (a *ShortVarDecl) ExpressionList() *ExpressionList {
+	return a.expressionList
+}
+
+func (a *ShortVarDecl) SetExpressionList(expressionList *ExpressionList) {
+	a.expressionList = expressionList
+}
+
 func (a *ShortVarDecl) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendTreeNode(a.identifierList).AppendToken(a.declare_assign).AppendTreeNode(a.expressionList)
 }

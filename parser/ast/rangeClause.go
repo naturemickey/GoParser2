@@ -19,6 +19,54 @@ type RangeClause struct {
 	expression *Expression
 }
 
+func (a *RangeClause) ExpressionList() *ExpressionList {
+	return a.expressionList
+}
+
+func (a *RangeClause) SetExpressionList(expressionList *ExpressionList) {
+	a.expressionList = expressionList
+}
+
+func (a *RangeClause) Assign() *lex.Token {
+	return a.assign
+}
+
+func (a *RangeClause) SetAssign(assign *lex.Token) {
+	a.assign = assign
+}
+
+func (a *RangeClause) IdentifierList() *IdentifierList {
+	return a.identifierList
+}
+
+func (a *RangeClause) SetIdentifierList(identifierList *IdentifierList) {
+	a.identifierList = identifierList
+}
+
+func (a *RangeClause) Declare_assign() *lex.Token {
+	return a.declare_assign
+}
+
+func (a *RangeClause) SetDeclare_assign(declare_assign *lex.Token) {
+	a.declare_assign = declare_assign
+}
+
+func (a *RangeClause) Range_() *lex.Token {
+	return a.range_
+}
+
+func (a *RangeClause) SetRange_(range_ *lex.Token) {
+	a.range_ = range_
+}
+
+func (a *RangeClause) Expression() *Expression {
+	return a.expression
+}
+
+func (a *RangeClause) SetExpression(expression *Expression) {
+	a.expression = expression
+}
+
 func (a *RangeClause) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendTreeNode(a.expressionList).AppendToken(a.assign).
 		AppendTreeNode(a.identifierList).AppendToken(a.declare_assign).AppendToken(a.range_).

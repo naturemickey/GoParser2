@@ -11,6 +11,30 @@ type ExprCaseClause struct {
 	statementList  *StatementList
 }
 
+func (a *ExprCaseClause) ExprSwitchCase() *ExprSwitchCase {
+	return a.exprSwitchCase
+}
+
+func (a *ExprCaseClause) SetExprSwitchCase(exprSwitchCase *ExprSwitchCase) {
+	a.exprSwitchCase = exprSwitchCase
+}
+
+func (a *ExprCaseClause) Colon() *lex.Token {
+	return a.colon
+}
+
+func (a *ExprCaseClause) SetColon(colon *lex.Token) {
+	a.colon = colon
+}
+
+func (a *ExprCaseClause) StatementList() *StatementList {
+	return a.statementList
+}
+
+func (a *ExprCaseClause) SetStatementList(statementList *StatementList) {
+	a.statementList = statementList
+}
+
 func (a *ExprCaseClause) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendTreeNode(a.exprSwitchCase).AppendToken(a.colon).AppendTreeNode(a.statementList)

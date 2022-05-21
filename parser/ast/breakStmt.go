@@ -10,6 +10,22 @@ type BreakStmt struct {
 	identifier *lex.Token
 }
 
+func (a *BreakStmt) Break_() *lex.Token {
+	return a.break_
+}
+
+func (a *BreakStmt) SetBreak_(break_ *lex.Token) {
+	a.break_ = break_
+}
+
+func (a *BreakStmt) Identifier() *lex.Token {
+	return a.identifier
+}
+
+func (a *BreakStmt) SetIdentifier(identifier *lex.Token) {
+	a.identifier = identifier
+}
+
 func (a *BreakStmt) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendToken(a.break_)

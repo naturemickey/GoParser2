@@ -9,6 +9,14 @@ type ExpressionList struct {
 	expressions []*Expression
 }
 
+func (a *ExpressionList) Expressions() []*Expression {
+	return a.expressions
+}
+
+func (a *ExpressionList) SetExpressions(expressions []*Expression) {
+	a.expressions = expressions
+}
+
 func (a *ExpressionList) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	for i, expression := range a.expressions {

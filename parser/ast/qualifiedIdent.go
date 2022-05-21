@@ -11,6 +11,30 @@ type QualifiedIdent struct {
 	identifier2 *lex.Token
 }
 
+func (a *QualifiedIdent) Identifier1() *lex.Token {
+	return a.identifier1
+}
+
+func (a *QualifiedIdent) SetIdentifier1(identifier1 *lex.Token) {
+	a.identifier1 = identifier1
+}
+
+func (a *QualifiedIdent) Dot() *lex.Token {
+	return a.dot
+}
+
+func (a *QualifiedIdent) SetDot(dot *lex.Token) {
+	a.dot = dot
+}
+
+func (a *QualifiedIdent) Identifier2() *lex.Token {
+	return a.identifier2
+}
+
+func (a *QualifiedIdent) SetIdentifier2(identifier2 *lex.Token) {
+	a.identifier2 = identifier2
+}
+
 func (a *QualifiedIdent) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendToken(a.identifier1).AppendToken(a.dot).AppendToken(a.identifier2)
 }

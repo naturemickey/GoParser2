@@ -15,6 +15,46 @@ type MethodDecl struct {
 	block          *Block
 }
 
+func (this *MethodDecl) Func_() *lex.Token {
+	return this.func_
+}
+
+func (this *MethodDecl) SetFunc_(func_ *lex.Token) {
+	this.func_ = func_
+}
+
+func (this *MethodDecl) SetAnnotationList(annotationList *AnnotationList) {
+	this.annotationList = annotationList
+}
+
+func (this *MethodDecl) SetReceiver(receiver *Receiver) {
+	this.receiver = receiver
+}
+
+func (this *MethodDecl) Identifier() *lex.Token {
+	return this.identifier
+}
+
+func (this *MethodDecl) SetIdentifier(identifier *lex.Token) {
+	this.identifier = identifier
+}
+
+func (this *MethodDecl) Signature() *Signature {
+	return this.signature
+}
+
+func (this *MethodDecl) SetSignature(signature *Signature) {
+	this.signature = signature
+}
+
+func (this *MethodDecl) Block() *Block {
+	return this.block
+}
+
+func (this *MethodDecl) SetBlock(block *Block) {
+	this.block = block
+}
+
 func (this *MethodDecl) AnnotationList() *AnnotationList {
 	return this.annotationList
 }

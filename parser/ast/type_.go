@@ -15,6 +15,46 @@ type Type_ struct {
 	rParen *lex.Token
 }
 
+func (a *Type_) TypeName() *TypeName {
+	return a.typeName
+}
+
+func (a *Type_) SetTypeName(typeName *TypeName) {
+	a.typeName = typeName
+}
+
+func (a *Type_) TypeLit() TypeLit {
+	return a.typeLit
+}
+
+func (a *Type_) SetTypeLit(typeLit TypeLit) {
+	a.typeLit = typeLit
+}
+
+func (a *Type_) LParen() *lex.Token {
+	return a.lParen
+}
+
+func (a *Type_) SetLParen(lParen *lex.Token) {
+	a.lParen = lParen
+}
+
+func (a *Type_) Type_() *Type_ {
+	return a.type_
+}
+
+func (a *Type_) SetType_(type_ *Type_) {
+	a.type_ = type_
+}
+
+func (a *Type_) RParen() *lex.Token {
+	return a.rParen
+}
+
+func (a *Type_) SetRParen(rParen *lex.Token) {
+	a.rParen = rParen
+}
+
 func (a *Type_) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendTreeNode(a.typeName).AppendTreeNode(a.typeLit).AppendToken(a.lParen).AppendTreeNode(a.type_).AppendToken(a.rParen)
 }

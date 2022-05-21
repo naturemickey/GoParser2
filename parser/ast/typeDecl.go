@@ -13,6 +13,34 @@ type TypeDecl struct {
 	rParen    *lex.Token
 }
 
+func (a *TypeDecl) Type_() *lex.Token {
+	return a.type_
+}
+
+func (a *TypeDecl) SetType_(type_ *lex.Token) {
+	a.type_ = type_
+}
+
+func (a *TypeDecl) LParen() *lex.Token {
+	return a.lParen
+}
+
+func (a *TypeDecl) SetLParen(lParen *lex.Token) {
+	a.lParen = lParen
+}
+
+func (a *TypeDecl) SetTypeSpecs(typeSpecs []*TypeSpec) {
+	a.typeSpecs = typeSpecs
+}
+
+func (a *TypeDecl) RParen() *lex.Token {
+	return a.rParen
+}
+
+func (a *TypeDecl) SetRParen(rParen *lex.Token) {
+	a.rParen = rParen
+}
+
 func (a *TypeDecl) TypeSpecs() []*TypeSpec {
 	return a.typeSpecs
 }

@@ -22,6 +22,62 @@ type TypeSwitchStmt struct {
 	rCurly          *lex.Token
 }
 
+func (a *TypeSwitchStmt) Switch_() *lex.Token {
+	return a.switch_
+}
+
+func (a *TypeSwitchStmt) SetSwitch_(switch_ *lex.Token) {
+	a.switch_ = switch_
+}
+
+func (a *TypeSwitchStmt) Eos() *Eos {
+	return a.eos
+}
+
+func (a *TypeSwitchStmt) SetEos(eos *Eos) {
+	a.eos = eos
+}
+
+func (a *TypeSwitchStmt) TypeSwitchGuard() *TypeSwitchGuard {
+	return a.typeSwitchGuard
+}
+
+func (a *TypeSwitchStmt) SetTypeSwitchGuard(typeSwitchGuard *TypeSwitchGuard) {
+	a.typeSwitchGuard = typeSwitchGuard
+}
+
+func (a *TypeSwitchStmt) SimpleStmt() SimpleStmt {
+	return a.simpleStmt
+}
+
+func (a *TypeSwitchStmt) SetSimpleStmt(simpleStmt SimpleStmt) {
+	a.simpleStmt = simpleStmt
+}
+
+func (a *TypeSwitchStmt) LCurly() *lex.Token {
+	return a.lCurly
+}
+
+func (a *TypeSwitchStmt) SetLCurly(lCurly *lex.Token) {
+	a.lCurly = lCurly
+}
+
+func (a *TypeSwitchStmt) TypeCaseClauses() []*TypeCaseClause {
+	return a.typeCaseClauses
+}
+
+func (a *TypeSwitchStmt) SetTypeCaseClauses(typeCaseClauses []*TypeCaseClause) {
+	a.typeCaseClauses = typeCaseClauses
+}
+
+func (a *TypeSwitchStmt) RCurly() *lex.Token {
+	return a.rCurly
+}
+
+func (a *TypeSwitchStmt) SetRCurly(rCurly *lex.Token) {
+	a.rCurly = rCurly
+}
+
 func (a *TypeSwitchStmt) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendToken(a.switch_)

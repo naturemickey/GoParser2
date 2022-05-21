@@ -12,6 +12,38 @@ type LiteralValue struct {
 	rCurly      *lex.Token
 }
 
+func (a *LiteralValue) LCurly() *lex.Token {
+	return a.lCurly
+}
+
+func (a *LiteralValue) SetLCurly(lCurly *lex.Token) {
+	a.lCurly = lCurly
+}
+
+func (a *LiteralValue) ElementList() *ElementList {
+	return a.elementList
+}
+
+func (a *LiteralValue) SetElementList(elementList *ElementList) {
+	a.elementList = elementList
+}
+
+func (a *LiteralValue) Comma() *lex.Token {
+	return a.comma
+}
+
+func (a *LiteralValue) SetComma(comma *lex.Token) {
+	a.comma = comma
+}
+
+func (a *LiteralValue) RCurly() *lex.Token {
+	return a.rCurly
+}
+
+func (a *LiteralValue) SetRCurly(rCurly *lex.Token) {
+	a.rCurly = rCurly
+}
+
 func (a *LiteralValue) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendToken(a.lCurly).AppendTreeNode(a.elementList).AppendToken(a.comma).AppendToken(a.rCurly)
 }

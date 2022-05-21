@@ -15,6 +15,62 @@ type TypeSwitchGuard struct {
 	rParen         *lex.Token
 }
 
+func (a *TypeSwitchGuard) Identifier() *lex.Token {
+	return a.identifier
+}
+
+func (a *TypeSwitchGuard) SetIdentifier(identifier *lex.Token) {
+	a.identifier = identifier
+}
+
+func (a *TypeSwitchGuard) Declare_assign() *lex.Token {
+	return a.declare_assign
+}
+
+func (a *TypeSwitchGuard) SetDeclare_assign(declare_assign *lex.Token) {
+	a.declare_assign = declare_assign
+}
+
+func (a *TypeSwitchGuard) PrimaryExpr() *PrimaryExpr {
+	return a.primaryExpr
+}
+
+func (a *TypeSwitchGuard) SetPrimaryExpr(primaryExpr *PrimaryExpr) {
+	a.primaryExpr = primaryExpr
+}
+
+func (a *TypeSwitchGuard) Dot() *lex.Token {
+	return a.dot
+}
+
+func (a *TypeSwitchGuard) SetDot(dot *lex.Token) {
+	a.dot = dot
+}
+
+func (a *TypeSwitchGuard) LParen() *lex.Token {
+	return a.lParen
+}
+
+func (a *TypeSwitchGuard) SetLParen(lParen *lex.Token) {
+	a.lParen = lParen
+}
+
+func (a *TypeSwitchGuard) Type_() *lex.Token {
+	return a.type_
+}
+
+func (a *TypeSwitchGuard) SetType_(type_ *lex.Token) {
+	a.type_ = type_
+}
+
+func (a *TypeSwitchGuard) RParen() *lex.Token {
+	return a.rParen
+}
+
+func (a *TypeSwitchGuard) SetRParen(rParen *lex.Token) {
+	a.rParen = rParen
+}
+
 func (a *TypeSwitchGuard) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendToken(a.identifier).AppendToken(a.declare_assign).AppendTreeNode(a.primaryExpr).
 		AppendToken(a.dot).AppendToken(a.lParen).AppendToken(a.type_).AppendToken(a.rParen)

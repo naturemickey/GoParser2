@@ -8,6 +8,14 @@ type Eos struct {
 	semi *lex.Token
 }
 
+func (a *Eos) Semi() *lex.Token {
+	return a.semi
+}
+
+func (a *Eos) SetSemi(semi *lex.Token) {
+	a.semi = semi
+}
+
 func (a *Eos) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendString(";")
 }

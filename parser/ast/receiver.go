@@ -10,6 +10,10 @@ type Receiver struct {
 	parameters *Parameters
 }
 
+func (this *Receiver) SetParameters(parameters *Parameters) {
+	this.parameters = parameters
+}
+
 func (this *Receiver) VarName() string {
 	return this.parameters.parameterDecls[0].identifierList.identifiers[0].Literal()
 }

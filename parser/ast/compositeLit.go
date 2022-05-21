@@ -10,6 +10,22 @@ type CompositeLit struct {
 	literalValue *LiteralValue
 }
 
+func (a *CompositeLit) LiteralValue() *LiteralValue {
+	return a.literalValue
+}
+
+func (a *CompositeLit) SetLiteralValue(literalValue *LiteralValue) {
+	a.literalValue = literalValue
+}
+
+func (a *CompositeLit) LiteralType() *LiteralType {
+	return a.literalType
+}
+
+func (a *CompositeLit) SetLiteralType(literalType *LiteralType) {
+	a.literalType = literalType
+}
+
 func (a *CompositeLit) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendTreeNode(a.literalType)

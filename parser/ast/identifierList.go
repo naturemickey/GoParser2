@@ -9,6 +9,14 @@ type IdentifierList struct {
 	identifiers []*lex.Token
 }
 
+func (a *IdentifierList) Identifiers() []*lex.Token {
+	return a.identifiers
+}
+
+func (a *IdentifierList) SetIdentifiers(identifiers []*lex.Token) {
+	a.identifiers = identifiers
+}
+
 func (a *IdentifierList) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	for i, identifier := range a.identifiers {

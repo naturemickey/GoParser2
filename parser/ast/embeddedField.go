@@ -10,6 +10,22 @@ type EmbeddedField struct {
 	typeName *TypeName
 }
 
+func (a *EmbeddedField) Star() *lex.Token {
+	return a.star
+}
+
+func (a *EmbeddedField) SetStar(star *lex.Token) {
+	a.star = star
+}
+
+func (a *EmbeddedField) TypeName() *TypeName {
+	return a.typeName
+}
+
+func (a *EmbeddedField) SetTypeName(typeName *TypeName) {
+	a.typeName = typeName
+}
+
 func (a *EmbeddedField) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendToken(a.star)

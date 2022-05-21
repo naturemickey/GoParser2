@@ -11,6 +11,22 @@ type GoStmt struct {
 	expression *Expression
 }
 
+func (a *GoStmt) Go_() *lex.Token {
+	return a.go_
+}
+
+func (a *GoStmt) SetGo_(go_ *lex.Token) {
+	a.go_ = go_
+}
+
+func (a *GoStmt) Expression() *Expression {
+	return a.expression
+}
+
+func (a *GoStmt) SetExpression(expression *Expression) {
+	a.expression = expression
+}
+
 func (a *GoStmt) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendToken(a.go_).AppendTreeNode(a.expression)
 }

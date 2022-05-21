@@ -11,6 +11,18 @@ type PackageClause struct {
 	packageName *lex.Token
 }
 
+func (this *PackageClause) Package_() *lex.Token {
+	return this.package_
+}
+
+func (this *PackageClause) SetPackage_(package_ *lex.Token) {
+	this.package_ = package_
+}
+
+func (this *PackageClause) SetPackageName(packageName *lex.Token) {
+	this.packageName = packageName
+}
+
 func (this *PackageClause) PackageName() string {
 	return this.packageName.Literal()
 }

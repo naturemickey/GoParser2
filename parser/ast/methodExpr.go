@@ -11,6 +11,30 @@ type MethodExpr struct {
 	identifier   *lex.Token
 }
 
+func (a *MethodExpr) NonNamedType() *NonNamedType {
+	return a.nonNamedType
+}
+
+func (a *MethodExpr) SetNonNamedType(nonNamedType *NonNamedType) {
+	a.nonNamedType = nonNamedType
+}
+
+func (a *MethodExpr) Dot() *lex.Token {
+	return a.dot
+}
+
+func (a *MethodExpr) SetDot(dot *lex.Token) {
+	a.dot = dot
+}
+
+func (a *MethodExpr) Identifier() *lex.Token {
+	return a.identifier
+}
+
+func (a *MethodExpr) SetIdentifier(identifier *lex.Token) {
+	a.identifier = identifier
+}
+
 func (a *MethodExpr) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendTreeNode(a.nonNamedType).AppendToken(a.dot).AppendToken(a.identifier)
 }

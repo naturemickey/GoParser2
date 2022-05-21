@@ -11,6 +11,22 @@ type DeferStmt struct {
 	expression *Expression
 }
 
+func (a *DeferStmt) Defer_() *lex.Token {
+	return a.defer_
+}
+
+func (a *DeferStmt) SetDefer_(defer_ *lex.Token) {
+	a.defer_ = defer_
+}
+
+func (a *DeferStmt) Expression() *Expression {
+	return a.expression
+}
+
+func (a *DeferStmt) SetExpression(expression *Expression) {
+	a.expression = expression
+}
+
 func (a *DeferStmt) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendToken(a.defer_)

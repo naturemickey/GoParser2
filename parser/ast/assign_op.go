@@ -23,6 +23,22 @@ type Assign_op struct {
 	assign *lex.Token
 }
 
+func (a *Assign_op) Prefix() *lex.Token {
+	return a.prefix
+}
+
+func (a *Assign_op) SetPrefix(prefix *lex.Token) {
+	a.prefix = prefix
+}
+
+func (a *Assign_op) Assign() *lex.Token {
+	return a.assign
+}
+
+func (a *Assign_op) SetAssign(assign *lex.Token) {
+	a.assign = assign
+}
+
 func (a *Assign_op) CodeBuilder() *CodeBuilder {
 	if a.prefix != nil {
 		return NewCB().AppendString(a.prefix.Literal() + a.assign.Literal())

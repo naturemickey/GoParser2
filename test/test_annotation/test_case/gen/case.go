@@ -1,8 +1,8 @@
 package test_case
 
 import (
-	"GoParser2/test/test_annotation/framework"
-	"GoParser2/test/test_annotation/test_case"
+	"github.com/naturemickey/GoParser2/test/test_annotation/framework"
+	"github.com/naturemickey/GoParser2/test/test_annotation/test_case"
 )
 
 func init() {

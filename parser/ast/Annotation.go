@@ -10,6 +10,14 @@ type Annotation struct {
 	value map[string]string
 }
 
+func (a *Annotation) SetName(name string) {
+	a.name = name
+}
+
+func (a *Annotation) SetValue(value map[string]string) {
+	a.value = value
+}
+
 func (a Annotation) Name() string {
 	return a.name
 }

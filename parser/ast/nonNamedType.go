@@ -14,6 +14,38 @@ type NonNamedType struct {
 	rParen       *lex.Token
 }
 
+func (a *NonNamedType) TypeLit() TypeLit {
+	return a.typeLit
+}
+
+func (a *NonNamedType) SetTypeLit(typeLit TypeLit) {
+	a.typeLit = typeLit
+}
+
+func (a *NonNamedType) LParen() *lex.Token {
+	return a.lParen
+}
+
+func (a *NonNamedType) SetLParen(lParen *lex.Token) {
+	a.lParen = lParen
+}
+
+func (a *NonNamedType) NonNamedType() *NonNamedType {
+	return a.nonNamedType
+}
+
+func (a *NonNamedType) SetNonNamedType(nonNamedType *NonNamedType) {
+	a.nonNamedType = nonNamedType
+}
+
+func (a *NonNamedType) RParen() *lex.Token {
+	return a.rParen
+}
+
+func (a *NonNamedType) SetRParen(rParen *lex.Token) {
+	a.rParen = rParen
+}
+
 func (a *NonNamedType) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendTreeNode(a.typeLit).AppendToken(a.lParen).AppendTreeNode(a.nonNamedType).AppendToken(a.rParen)
 }

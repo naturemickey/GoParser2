@@ -10,6 +10,14 @@ type TypeList struct {
 	type_s []*Type_ // 为nil就表示NIL_LIT
 }
 
+func (a *TypeList) Type_s() []*Type_ {
+	return a.type_s
+}
+
+func (a *TypeList) SetType_s(type_s []*Type_) {
+	a.type_s = type_s
+}
+
 func (a *TypeList) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	for i, type_ := range a.type_s {

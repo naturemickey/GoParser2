@@ -10,6 +10,22 @@ type ReturnStmt struct {
 	expressionList *ExpressionList
 }
 
+func (a *ReturnStmt) Return_() *lex.Token {
+	return a.return_
+}
+
+func (a *ReturnStmt) SetReturn_(return_ *lex.Token) {
+	a.return_ = return_
+}
+
+func (a *ReturnStmt) ExpressionList() *ExpressionList {
+	return a.expressionList
+}
+
+func (a *ReturnStmt) SetExpressionList(expressionList *ExpressionList) {
+	a.expressionList = expressionList
+}
+
 func (a *ReturnStmt) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendToken(a.return_).AppendTreeNode(a.expressionList)
 }

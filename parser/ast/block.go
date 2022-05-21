@@ -12,6 +12,26 @@ type Block struct {
 	rCurly        *lex.Token
 }
 
+func (this *Block) LCurly() *lex.Token {
+	return this.lCurly
+}
+
+func (this *Block) SetLCurly(lCurly *lex.Token) {
+	this.lCurly = lCurly
+}
+
+func (this *Block) SetStatementList(statementList *StatementList) {
+	this.statementList = statementList
+}
+
+func (this *Block) RCurly() *lex.Token {
+	return this.rCurly
+}
+
+func (this *Block) SetRCurly(rCurly *lex.Token) {
+	this.rCurly = rCurly
+}
+
 func (this *Block) AddStatement(statement Statement) {
 	if this.statementList == nil {
 		this.statementList = NewStatementList()

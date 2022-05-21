@@ -9,6 +9,14 @@ type FallthroughStmt struct {
 	fallthrough_ *lex.Token
 }
 
+func (a *FallthroughStmt) Fallthrough_() *lex.Token {
+	return a.fallthrough_
+}
+
+func (a *FallthroughStmt) SetFallthrough_(fallthrough_ *lex.Token) {
+	a.fallthrough_ = fallthrough_
+}
+
 func (a *FallthroughStmt) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendToken(a.fallthrough_)
 }

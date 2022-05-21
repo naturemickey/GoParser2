@@ -27,6 +27,38 @@ type BasicLit struct {
 	float_lit *lex.Token
 }
 
+func (a *BasicLit) Nil_lit() *lex.Token {
+	return a.nil_lit
+}
+
+func (a *BasicLit) SetNil_lit(nil_lit *lex.Token) {
+	a.nil_lit = nil_lit
+}
+
+func (a *BasicLit) Integer() *lex.Token {
+	return a.integer
+}
+
+func (a *BasicLit) SetInteger(integer *lex.Token) {
+	a.integer = integer
+}
+
+func (a *BasicLit) String_() *lex.Token {
+	return a.string_
+}
+
+func (a *BasicLit) SetString_(string_ *lex.Token) {
+	a.string_ = string_
+}
+
+func (a *BasicLit) Float_lit() *lex.Token {
+	return a.float_lit
+}
+
+func (a *BasicLit) SetFloat_lit(float_lit *lex.Token) {
+	a.float_lit = float_lit
+}
+
 func (a *BasicLit) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendToken(a.nil_lit)

@@ -14,6 +14,38 @@ type ConstSpec struct {
 	expressionList *ExpressionList
 }
 
+func (a *ConstSpec) IdentifierList() *IdentifierList {
+	return a.identifierList
+}
+
+func (a *ConstSpec) SetIdentifierList(identifierList *IdentifierList) {
+	a.identifierList = identifierList
+}
+
+func (a *ConstSpec) Type_() *Type_ {
+	return a.type_
+}
+
+func (a *ConstSpec) SetType_(type_ *Type_) {
+	a.type_ = type_
+}
+
+func (a *ConstSpec) Assign() *lex.Token {
+	return a.assign
+}
+
+func (a *ConstSpec) SetAssign(assign *lex.Token) {
+	a.assign = assign
+}
+
+func (a *ConstSpec) ExpressionList() *ExpressionList {
+	return a.expressionList
+}
+
+func (a *ConstSpec) SetExpressionList(expressionList *ExpressionList) {
+	a.expressionList = expressionList
+}
+
 func (a *ConstSpec) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendTreeNode(a.identifierList)

@@ -11,6 +11,30 @@ type TypeCaseClause struct {
 	statementList  *StatementList
 }
 
+func (a *TypeCaseClause) TypeSwitchCase() *TypeSwitchCase {
+	return a.typeSwitchCase
+}
+
+func (a *TypeCaseClause) SetTypeSwitchCase(typeSwitchCase *TypeSwitchCase) {
+	a.typeSwitchCase = typeSwitchCase
+}
+
+func (a *TypeCaseClause) Colon() *lex.Token {
+	return a.colon
+}
+
+func (a *TypeCaseClause) SetColon(colon *lex.Token) {
+	a.colon = colon
+}
+
+func (a *TypeCaseClause) StatementList() *StatementList {
+	return a.statementList
+}
+
+func (a *TypeCaseClause) SetStatementList(statementList *StatementList) {
+	a.statementList = statementList
+}
+
 func (a *TypeCaseClause) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendTreeNode(a.typeSwitchCase).AppendToken(a.colon).AppendTreeNode(a.statementList)
 }

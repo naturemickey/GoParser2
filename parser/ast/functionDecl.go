@@ -14,6 +14,34 @@ type FunctionDecl struct {
 	block          *Block
 }
 
+func (this *FunctionDecl) Func_() *lex.Token {
+	return this.func_
+}
+
+func (this *FunctionDecl) SetFunc_(func_ *lex.Token) {
+	this.func_ = func_
+}
+
+func (this *FunctionDecl) SetAnnotationList(annotationList *AnnotationList) {
+	this.annotationList = annotationList
+}
+
+func (this *FunctionDecl) Identifier() *lex.Token {
+	return this.identifier
+}
+
+func (this *FunctionDecl) SetIdentifier(identifier *lex.Token) {
+	this.identifier = identifier
+}
+
+func (this *FunctionDecl) SetSignature(signature *Signature) {
+	this.signature = signature
+}
+
+func (this *FunctionDecl) SetBlock(block *Block) {
+	this.block = block
+}
+
 func (this *FunctionDecl) AnnotationList() *AnnotationList {
 	return this.annotationList
 }

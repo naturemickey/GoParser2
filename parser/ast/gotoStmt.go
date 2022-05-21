@@ -10,6 +10,22 @@ type GotoStmt struct {
 	identifier *lex.Token
 }
 
+func (a *GotoStmt) Goto_() *lex.Token {
+	return a.goto_
+}
+
+func (a *GotoStmt) SetGoto_(goto_ *lex.Token) {
+	a.goto_ = goto_
+}
+
+func (a *GotoStmt) Identifier() *lex.Token {
+	return a.identifier
+}
+
+func (a *GotoStmt) SetIdentifier(identifier *lex.Token) {
+	a.identifier = identifier
+}
+
 func (a *GotoStmt) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendToken(a.goto_).AppendToken(a.identifier)
 }

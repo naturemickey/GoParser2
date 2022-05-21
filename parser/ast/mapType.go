@@ -15,6 +15,46 @@ type MapType struct {
 	elementType *Type_
 }
 
+func (a *MapType) Map_() *lex.Token {
+	return a.map_
+}
+
+func (a *MapType) SetMap_(map_ *lex.Token) {
+	a.map_ = map_
+}
+
+func (a *MapType) LBracket() *lex.Token {
+	return a.lBracket
+}
+
+func (a *MapType) SetLBracket(lBracket *lex.Token) {
+	a.lBracket = lBracket
+}
+
+func (a *MapType) Type_() *Type_ {
+	return a.type_
+}
+
+func (a *MapType) SetType_(type_ *Type_) {
+	a.type_ = type_
+}
+
+func (a *MapType) RBracket() *lex.Token {
+	return a.rBracket
+}
+
+func (a *MapType) SetRBracket(rBracket *lex.Token) {
+	a.rBracket = rBracket
+}
+
+func (a *MapType) ElementType() *Type_ {
+	return a.elementType
+}
+
+func (a *MapType) SetElementType(elementType *Type_) {
+	a.elementType = elementType
+}
+
 func (a *MapType) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendToken(a.map_).AppendToken(a.lBracket).AppendTreeNode(a.type_).AppendToken(a.rBracket).AppendTreeNode(a.elementType)
 }

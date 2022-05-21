@@ -1,9 +1,9 @@
 package main
 
 import (
-	"GoParser2/test/test_annotation/framework"
-	"GoParser2/test/test_annotation/test_case"
-	_ "GoParser2/test/test_annotation/test_case/gen"
+	"github.com/naturemickey/GoParser2/test/test_annotation/framework"
+	"github.com/naturemickey/GoParser2/test/test_annotation/test_case"
+	_ "github.com/naturemickey/GoParser2/test/test_annotation/test_case/gen"
 	"reflect"
 )
 

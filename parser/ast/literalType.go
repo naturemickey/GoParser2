@@ -28,6 +28,78 @@ type LiteralType struct {
 	typeName  *TypeName
 }
 
+func (a *LiteralType) StructType() *StructType {
+	return a.structType
+}
+
+func (a *LiteralType) SetStructType(structType *StructType) {
+	a.structType = structType
+}
+
+func (a *LiteralType) ArrayType() *ArrayType {
+	return a.arrayType
+}
+
+func (a *LiteralType) SetArrayType(arrayType *ArrayType) {
+	a.arrayType = arrayType
+}
+
+func (a *LiteralType) LBracket() *lex.Token {
+	return a.lBracket
+}
+
+func (a *LiteralType) SetLBracket(lBracket *lex.Token) {
+	a.lBracket = lBracket
+}
+
+func (a *LiteralType) Ellipsis() *lex.Token {
+	return a.ellipsis
+}
+
+func (a *LiteralType) SetEllipsis(ellipsis *lex.Token) {
+	a.ellipsis = ellipsis
+}
+
+func (a *LiteralType) RBracket() *lex.Token {
+	return a.rBracket
+}
+
+func (a *LiteralType) SetRBracket(rBracket *lex.Token) {
+	a.rBracket = rBracket
+}
+
+func (a *LiteralType) ElementType() *Type_ {
+	return a.elementType
+}
+
+func (a *LiteralType) SetElementType(elementType *Type_) {
+	a.elementType = elementType
+}
+
+func (a *LiteralType) SliceType() *SliceType {
+	return a.sliceType
+}
+
+func (a *LiteralType) SetSliceType(sliceType *SliceType) {
+	a.sliceType = sliceType
+}
+
+func (a *LiteralType) MapType() *MapType {
+	return a.mapType
+}
+
+func (a *LiteralType) SetMapType(mapType *MapType) {
+	a.mapType = mapType
+}
+
+func (a *LiteralType) TypeName() *TypeName {
+	return a.typeName
+}
+
+func (a *LiteralType) SetTypeName(typeName *TypeName) {
+	a.typeName = typeName
+}
+
 func (a *LiteralType) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendTreeNode(a.structType)

@@ -6,6 +6,14 @@ type AnnotationList struct {
 	annotations []*Annotation
 }
 
+func (this *AnnotationList) Annotations() []*Annotation {
+	return this.annotations
+}
+
+func (this *AnnotationList) SetAnnotations(annotations []*Annotation) {
+	this.annotations = annotations
+}
+
 func (this *AnnotationList) String() string {
 	return this.CodeBuilder().String()
 }

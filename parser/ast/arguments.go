@@ -22,6 +22,62 @@ type Arguments struct {
 	rParen *lex.Token
 }
 
+func (a *Arguments) LParen() *lex.Token {
+	return a.lParen
+}
+
+func (a *Arguments) SetLParen(lParen *lex.Token) {
+	a.lParen = lParen
+}
+
+func (a *Arguments) ExpressionList() *ExpressionList {
+	return a.expressionList
+}
+
+func (a *Arguments) SetExpressionList(expressionList *ExpressionList) {
+	a.expressionList = expressionList
+}
+
+func (a *Arguments) NonNamedType() *NonNamedType {
+	return a.nonNamedType
+}
+
+func (a *Arguments) SetNonNamedType(nonNamedType *NonNamedType) {
+	a.nonNamedType = nonNamedType
+}
+
+func (a *Arguments) Comma() *lex.Token {
+	return a.comma
+}
+
+func (a *Arguments) SetComma(comma *lex.Token) {
+	a.comma = comma
+}
+
+func (a *Arguments) Ellipsis() *lex.Token {
+	return a.ellipsis
+}
+
+func (a *Arguments) SetEllipsis(ellipsis *lex.Token) {
+	a.ellipsis = ellipsis
+}
+
+func (a *Arguments) Comma2() *lex.Token {
+	return a.comma2
+}
+
+func (a *Arguments) SetComma2(comma2 *lex.Token) {
+	a.comma2 = comma2
+}
+
+func (a *Arguments) RParen() *lex.Token {
+	return a.rParen
+}
+
+func (a *Arguments) SetRParen(rParen *lex.Token) {
+	a.rParen = rParen
+}
+
 func (a *Arguments) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	cb.AppendToken(a.lParen)

@@ -13,6 +13,30 @@ type Parameters struct {
 	rParen         *lex.Token
 }
 
+func (a *Parameters) LParen() *lex.Token {
+	return a.lParen
+}
+
+func (a *Parameters) SetLParen(lParen *lex.Token) {
+	a.lParen = lParen
+}
+
+func (a *Parameters) ParameterDecls() []*ParameterDecl {
+	return a.parameterDecls
+}
+
+func (a *Parameters) SetParameterDecls(parameterDecls []*ParameterDecl) {
+	a.parameterDecls = parameterDecls
+}
+
+func (a *Parameters) RParen() *lex.Token {
+	return a.rParen
+}
+
+func (a *Parameters) SetRParen(rParen *lex.Token) {
+	a.rParen = rParen
+}
+
 func (a *Parameters) CodeBuilder() *CodeBuilder {
 	cb := NewCB().AppendToken(a.lParen)
 	for i, decl := range a.parameterDecls {

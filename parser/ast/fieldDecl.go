@@ -18,6 +18,42 @@ type FieldDecl struct {
 	tag            *lex.Token
 }
 
+func (a *FieldDecl) SetAnnotationList(annotationList *AnnotationList) {
+	a.annotationList = annotationList
+}
+
+func (a *FieldDecl) IdentifierList() *IdentifierList {
+	return a.identifierList
+}
+
+func (a *FieldDecl) SetIdentifierList(identifierList *IdentifierList) {
+	a.identifierList = identifierList
+}
+
+func (a *FieldDecl) Type_() *Type_ {
+	return a.type_
+}
+
+func (a *FieldDecl) SetType_(type_ *Type_) {
+	a.type_ = type_
+}
+
+func (a *FieldDecl) EmbeddedField() *EmbeddedField {
+	return a.embeddedField
+}
+
+func (a *FieldDecl) SetEmbeddedField(embeddedField *EmbeddedField) {
+	a.embeddedField = embeddedField
+}
+
+func (a *FieldDecl) Tag() *lex.Token {
+	return a.tag
+}
+
+func (a *FieldDecl) SetTag(tag *lex.Token) {
+	a.tag = tag
+}
+
 func (a *FieldDecl) AnnotationList() *AnnotationList {
 	return a.annotationList
 }

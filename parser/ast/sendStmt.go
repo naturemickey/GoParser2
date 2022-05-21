@@ -11,6 +11,30 @@ type SendStmt struct {
 	expression *Expression
 }
 
+func (a *SendStmt) Channel() *Expression {
+	return a.channel
+}
+
+func (a *SendStmt) SetChannel(channel *Expression) {
+	a.channel = channel
+}
+
+func (a *SendStmt) Receive() *lex.Token {
+	return a.receive
+}
+
+func (a *SendStmt) SetReceive(receive *lex.Token) {
+	a.receive = receive
+}
+
+func (a *SendStmt) Expression() *Expression {
+	return a.expression
+}
+
+func (a *SendStmt) SetExpression(expression *Expression) {
+	a.expression = expression
+}
+
 func (a *SendStmt) CodeBuilder() *CodeBuilder {
 	return NewCB().AppendTreeNode(a.channel).AppendToken(a.receive).AppendTreeNode(a.expression)
 }

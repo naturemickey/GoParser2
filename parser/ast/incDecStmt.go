@@ -11,6 +11,30 @@ type IncDecStmt struct {
 	minusminus *lex.Token
 }
 
+func (a *IncDecStmt) Expression() *Expression {
+	return a.expression
+}
+
+func (a *IncDecStmt) SetExpression(expression *Expression) {
+	a.expression = expression
+}
+
+func (a *IncDecStmt) Plusplus() *lex.Token {
+	return a.plusplus
+}
+
+func (a *IncDecStmt) SetPlusplus(plusplus *lex.Token) {
+	a.plusplus = plusplus
+}
+
+func (a *IncDecStmt) Minusminus() *lex.Token {
+	return a.minusminus
+}
+
+func (a *IncDecStmt) SetMinusminus(minusminus *lex.Token) {
+	a.minusminus = minusminus
+}
+
 func (a *IncDecStmt) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	return cb.AppendTreeNode(a.expression).AppendToken(a.plusplus).AppendToken(a.minusminus)

@@ -9,6 +9,14 @@ type ElementList struct {
 	keyedElements []*KeyedElement
 }
 
+func (a *ElementList) KeyedElements() []*KeyedElement {
+	return a.keyedElements
+}
+
+func (a *ElementList) SetKeyedElements(keyedElements []*KeyedElement) {
+	a.keyedElements = keyedElements
+}
+
 func (a *ElementList) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
 	for i, element := range a.keyedElements {
