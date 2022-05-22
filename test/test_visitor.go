@@ -1,8 +1,8 @@
 package main
 
 import (
-	"GoParser2/lex"
-	"GoParser2/parser/ast"
+	"github.com/naturemickey/GoParser2/lex"
+	"github.com/naturemickey/GoParser2/parser/ast"
 )
 
 func main() {
@@ -13,8 +13,8 @@ func main() {
 	//}
 
 	{
-		lexer := lex.NewLexerWithCode("{\nif len(*partnerIdList) > 0 {\n\t\t\t\tfilter.AndEntityIdIn(*partnerIdList)\n\t\t\t\t*partnerIdList = []int64{}\n\t\t\t}\n}")
-		a := ast.VisitBlock(lexer)
+		lexer := lex.NewLexerWithCode("interface {\n\tMethodExample /*@MethodSpecAnnoName*/ ()\n}")
+		a := ast.VisitInterfaceType(lexer)
 		println(a.String())
 	}
 }

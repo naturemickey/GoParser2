@@ -84,7 +84,7 @@ func VisitMethodSpec(lexer *lex.Lexer) *MethodSpec {
 	la := lexer.LA()
 	if la != nil && la.Line() > paren.Line() {
 		// result如果和parameters换行了，那么result很可能是一个接口继承
-		return &MethodSpec{identifier: identifier, parameters: parameters}
+		return &MethodSpec{identifier: identifier, annotationList: annotationList, parameters: parameters}
 	} else {
 		result := VisitResult(lexer)
 		return &MethodSpec{identifier: identifier, annotationList: annotationList, parameters: parameters, result: result}
