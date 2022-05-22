@@ -38,5 +38,8 @@ func VisitAnnotationList(lexer *lex.Lexer) *AnnotationList {
 			break
 		}
 	}
+	if len(annotations) == 0 {
+		return nil
+	}
 	return &AnnotationList{annotations: annotations}
 }
