@@ -47,7 +47,7 @@ func (a *MethodSpec) AnnotationList() *AnnotationList {
 }
 
 func (a *MethodSpec) CodeBuilder() *CodeBuilder {
-	return NewCB().AppendToken(a.identifier).AppendTreeNode(a.parameters).AppendTreeNode(a.result)
+	return NewCB().AppendToken(a.identifier).AppendTreeNode(a.annotationList).AppendTreeNode(a.parameters).AppendTreeNode(a.result)
 }
 
 func (a *MethodSpec) String() string {

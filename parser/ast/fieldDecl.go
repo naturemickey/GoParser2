@@ -60,6 +60,7 @@ func (a *FieldDecl) AnnotationList() *AnnotationList {
 
 func (a *FieldDecl) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
+	cb.AppendTreeNode(a.annotationList)
 	cb.AppendTreeNode(a.identifierList).AppendTreeNode(a.type_)
 	cb.AppendTreeNode(a.embeddedField)
 	cb.AppendToken(a.tag)

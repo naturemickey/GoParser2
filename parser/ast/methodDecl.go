@@ -68,7 +68,7 @@ func (this *MethodDecl) Name() string {
 }
 
 func (a *MethodDecl) CodeBuilder() *CodeBuilder {
-	return NewCB().AppendToken(a.func_).AppendTreeNode(a.receiver).AppendToken(a.identifier).AppendTreeNode(a.signature).AppendTreeNode(a.block)
+	return NewCB().AppendToken(a.func_).AppendTreeNode(a.annotationList).AppendTreeNode(a.receiver).AppendToken(a.identifier).AppendTreeNode(a.signature).AppendTreeNode(a.block)
 }
 
 func (a *MethodDecl) String() string {

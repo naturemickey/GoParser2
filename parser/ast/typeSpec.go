@@ -50,7 +50,7 @@ func (this *TypeSpec) Name() string {
 }
 
 func (a *TypeSpec) CodeBuilder() *CodeBuilder {
-	return NewCB().AppendToken(a.identifier).AppendToken(a.assign).AppendTreeNode(a.type_)
+	return NewCB().AppendTreeNode(a.annotationList).AppendToken(a.identifier).AppendToken(a.assign).AppendTreeNode(a.type_)
 }
 
 func (a *TypeSpec) String() string {

@@ -60,7 +60,7 @@ func (this *FunctionDecl) Name() string {
 
 func (a *FunctionDecl) CodeBuilder() *CodeBuilder {
 	cb := NewCB()
-	cb.AppendToken(a.func_).AppendToken(a.identifier)
+	cb.AppendToken(a.func_).AppendTreeNode(a.annotationList).AppendToken(a.identifier)
 	cb.AppendTreeNode(a.signature).AppendTreeNode(a.block)
 	return cb
 }
