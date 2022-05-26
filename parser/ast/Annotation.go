@@ -43,6 +43,8 @@ func (a Annotation) CodeBuilder() *CodeBuilder {
 		cb.AppendString(")")
 	}
 	cb.AppendString("*/")
+
+	cb = (&CodeBuilder{}).AppendString(cb.StringCompact())
 	return cb
 }
 
