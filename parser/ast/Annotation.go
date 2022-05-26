@@ -27,7 +27,7 @@ func (a Annotation) Value() map[string]string {
 }
 
 func (a Annotation) String() string {
-	return a.CodeBuilder().String()
+	return a.CodeBuilder().StringCompact()
 }
 
 func (a Annotation) CodeBuilder() *CodeBuilder {
