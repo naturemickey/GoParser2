@@ -49,6 +49,10 @@ func (this *CodeBuilder) String() string {
 	return strings.Join(this.code, " ")
 }
 
+func (this *CodeBuilder) StringCompact() string {
+	return strings.Join(this.code, "")
+}
+
 func (this *CodeBuilder) popLast() *CodeBuilder {
 	len := len(this.code)
 	if len > 0 {

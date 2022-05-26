@@ -15,7 +15,7 @@ func (this *AnnotationList) SetAnnotations(annotations []*Annotation) {
 }
 
 func (this *AnnotationList) String() string {
-	return this.CodeBuilder().String()
+	return this.CodeBuilder().StringCompact()
 }
 
 func (this *AnnotationList) CodeBuilder() *CodeBuilder {
