@@ -3,7 +3,6 @@ package ast
 import (
 	"fmt"
 	"github.com/naturemickey/GoParser2/lex"
-	"github.com/naturemickey/GoParser2/parser/util"
 	"reflect"
 )
 
@@ -59,8 +58,8 @@ func (a *SourceFile) CodeBuilder() *CodeBuilder {
 
 func (a *SourceFile) String() string {
 	code := a.CodeBuilder().String()
-	return util.GoFmt(code)
-	//return code
+	//return util.GoFmt(code)
+	return code
 }
 
 var _ ITreeNode = (*SourceFile)(nil)
